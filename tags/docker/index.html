@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  docker &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div>
+
+  <h1>docker</h1>
+  
+
+  
+    
+    
+<div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-3">
+  <div class="Subhead mb-2">
+    <div class="Subhead-heading">
+      <a href="/post/2019-08-07-using-zeppelin-with-docker/">
+        <div class="h2 mt-1 mb-1">基于docker的zeppelin</div>
+      </a>
+    </div>
+    <div class="Subhead-description">
+      
+
+
+
+
+<a href='/tags/docker' class="muted-link">
+  <span class="Label Label--gray">docker</span>
+</a>
+
+<a href='/tags/zeppelin' class="muted-link">
+  <span class="Label Label--gray">zeppelin</span>
+</a>
+
+
+      <div class="float-md-right">
+        <span>2019-08-07</span>
+      </div>
+    </div>
+  </div>
+  <div class="text-gray">
+    
+    这两天老家有个亲戚要卖房子，问我现在买房怎么样？房子的问题实在是不懂，就想到抓取点网上公开的数据帮他简单分析下（历史成交套数，历史成交均价等
+    <a class="muted-link" href="/post/2019-08-07-using-zeppelin-with-docker/">…</a>
+  </div>
+</div>
+
+  
+
+  
+  
+
+
+
+
+</div>
+
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+
+  <div class="Box Box--blue p-2 mb-3 mt-5">
+    <a href="/tags/" class="link-gray-dark">
+      <h4>Tags</h4>
+    </a>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/ai" class="link-gray text-emphasized css-truncate-target"><span class="">Ai</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/brew" class="link-gray text-emphasized css-truncate-target"><span class="">Brew</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/cache-line" class="link-gray text-emphasized css-truncate-target"><span class="">Cache line</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/cache-system" class="link-gray text-emphasized css-truncate-target"><span class="">Cache system</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/cluster" class="link-gray text-emphasized css-truncate-target"><span class="">Cluster</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/cpu" class="link-gray text-emphasized css-truncate-target"><span class="">Cpu</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/crypto/x509" class="link-gray text-emphasized css-truncate-target"><span class="">Crypto/x509</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/disk" class="link-gray text-emphasized css-truncate-target"><span class="">Disk</span></a>
+      <span class="text-right Counter">2</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/docker" class="link-gray text-emphasized css-truncate-target"><span class="">Docker</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/false-sharing" class="link-gray text-emphasized css-truncate-target"><span class="">False sharing</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/go" class="link-gray text-emphasized css-truncate-target"><span class="">Go</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/golang" class="link-gray text-emphasized css-truncate-target"><span class="">Golang</span></a>
+      <span class="text-right Counter">9</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/google" class="link-gray text-emphasized css-truncate-target"><span class="">Google</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/hdd" class="link-gray text-emphasized css-truncate-target"><span class="">Hdd</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/ifuse" class="link-gray text-emphasized css-truncate-target"><span class="">Ifuse</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/iphone" class="link-gray text-emphasized css-truncate-target"><span class="">Iphone</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/k8s" class="link-gray text-emphasized css-truncate-target"><span class="">K8s</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/kubernetes" class="link-gray text-emphasized css-truncate-target"><span class="">Kubernetes</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/libimobiledevice" class="link-gray text-emphasized css-truncate-target"><span class="">Libimobiledevice</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/linux" class="link-gray text-emphasized css-truncate-target"><span class="">Linux</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/mac-os" class="link-gray text-emphasized css-truncate-target"><span class="">Mac os</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/macos" class="link-gray text-emphasized css-truncate-target"><span class="">Macos</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/nextcloud" class="link-gray text-emphasized css-truncate-target"><span class="">Nextcloud</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/openssl" class="link-gray text-emphasized css-truncate-target"><span class="">Openssl</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/php" class="link-gray text-emphasized css-truncate-target"><span class="">Php</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/proxmox" class="link-gray text-emphasized css-truncate-target"><span class="">Proxmox</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/rasbian" class="link-gray text-emphasized css-truncate-target"><span class="">Rasbian</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/raspberry-pi" class="link-gray text-emphasized css-truncate-target"><span class="">Raspberry pi</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/redis" class="link-gray text-emphasized css-truncate-target"><span class="">Redis</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/redis-go" class="link-gray text-emphasized css-truncate-target"><span class="">Redis go</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/serialize" class="link-gray text-emphasized css-truncate-target"><span class="">Serialize</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/vim" class="link-gray text-emphasized css-truncate-target"><span class="">Vim</span></a>
+      <span class="text-right Counter">2</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/zeppelin" class="link-gray text-emphasized css-truncate-target"><span class="">Zeppelin</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/zfs" class="link-gray text-emphasized css-truncate-target"><span class="">Zfs</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/zotero" class="link-gray text-emphasized css-truncate-target"><span class="">Zotero</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/zpool" class="link-gray text-emphasized css-truncate-target"><span class="">Zpool</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e4%b8%aa%e4%ba%ba%e6%88%90%e9%95%bf" class="link-gray text-emphasized css-truncate-target"><span class="">个人成长</span></a>
+      <span class="text-right Counter">2</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e5%87%bd%e6%95%b0%e5%8f%82%e6%95%b0" class="link-gray text-emphasized css-truncate-target"><span class="">函数参数</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e5%88%86%e5%b8%83%e5%bc%8f" class="link-gray text-emphasized css-truncate-target"><span class="">分布式</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e5%8a%a0%e8%a7%a3%e5%af%86" class="link-gray text-emphasized css-truncate-target"><span class="">加解密</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e5%9d%8f%e9%81%93" class="link-gray text-emphasized css-truncate-target"><span class="">坏道</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e5%b0%91%e6%9c%89%e4%ba%ba%e8%b5%b0%e7%9a%84%e8%b7%af" class="link-gray text-emphasized css-truncate-target"><span class="">少有人走的路</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e5%b7%a5%e5%85%b7" class="link-gray text-emphasized css-truncate-target"><span class="">工具</span></a>
+      <span class="text-right Counter">2</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e5%bf%83%e7%90%86%e5%ad%a6" class="link-gray text-emphasized css-truncate-target"><span class="">心理学</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e6%80%9d%e8%80%83" class="link-gray text-emphasized css-truncate-target"><span class="">思考</span></a>
+      <span class="text-right Counter">2</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e6%83%b3%e6%b3%95" class="link-gray text-emphasized css-truncate-target"><span class="">想法</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e6%8a%80%e6%9c%af" class="link-gray text-emphasized css-truncate-target"><span class="">技术</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5" class="link-gray text-emphasized css-truncate-target"><span class="">最佳实践</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e6%a0%91%e8%8e%93%e6%b4%be" class="link-gray text-emphasized css-truncate-target"><span class="">树莓派</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e7%89%9b%e4%ba%ba" class="link-gray text-emphasized css-truncate-target"><span class="">牛人</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e7%9f%a5%e8%af%86%e7%ae%a1%e7%90%86" class="link-gray text-emphasized css-truncate-target"><span class="">知识管理</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e7%a1%ac%e4%bb%b6" class="link-gray text-emphasized css-truncate-target"><span class="">硬件</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e7%a1%ac%e7%9b%98" class="link-gray text-emphasized css-truncate-target"><span class="">硬盘</span></a>
+      <span class="text-right Counter">2</span>
+    </span>
+    
+    <span class="css-truncate no-wrap m-1 pl-1">
+      <a href="/tags/%e8%af%97%e6%ad%8c" class="link-gray text-emphasized css-truncate-target"><span class="">诗歌</span></a>
+      <span class="text-right Counter">1</span>
+    </span>
+    
+  </div>
+
+
+
+
+  <div class="Box Box--blue p-2 mb-3">
+    <a href="/categories/" class="link-gray-dark">
+      <h4>Categories</h4>
+    </a>
+    
+  </div>
+
+
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

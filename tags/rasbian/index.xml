@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rasbian on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/rasbian/</link>
+    <description>Recent content in rasbian on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Sat, 15 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/rasbian/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>树莓派杂记</title>
+      <link>https://tomjamescn.github.io/post/2018-12-15-raspberry-pi-notes/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2018-12-15-raspberry-pi-notes/</guid>
+      <description>raspbian lite系统安装和配置 官方下载镜像zip文件 使用etcher将镜像写入sd卡 连接显示器和键盘，支持usb键盘 连接接电源启动系统 初始账号pi</description>
+    </item>
+    
+  </channel>
+</rss>

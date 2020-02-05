@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  golang最佳实践-functional options &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="golang中的函数/方法是不支持默认值和重载的，自己最近半年的工作封装了不少基础库，经常为此苦恼，但是由于工作量较大的原因，并未深入研究这|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">golang最佳实践-functional options</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/go' class="muted-link">
+  <span class="Label Label--gray">go</span>
+</a>
+
+<a href='/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5' class="muted-link">
+  <span class="Label Label--gray">最佳实践</span>
+</a>
+
+<a href='/tags/%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0' class="muted-link">
+  <span class="Label Label--gray">函数参数</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-08-15.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>golang中的函数/方法是不支持默认值和重载的，自己最近半年的工作封装了不少基础库，经常为此苦恼，但是由于工作量较大的原因，并未深入研究这个问题，最近google一下，其实dave cheney早在2014年就引入了详细的<a href="https://dave.cheney.net/2014/10/17/functional-options-for-friendly-apis">解决方案</a>了。原文比较冗长，这里是文章核心内容和自己的理解。</p>
+</blockquote>
+<blockquote>
+<p>个人将<code>functional options</code>翻译为<code>函数化选项</code></p>
+</blockquote>
+<h2 id="提出问题">提出问题</h2>
+<p>比如有以下函数:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewServer</span><span class="p">(</span><span class="nx">addr</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Server</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>Server可能有很多初始化参数/属性，比如支持tls，超时时间等等，怎么比较优雅的设置这些参数了？</p>
+<h2 id="解决方案1">解决方案1</h2>
+<p>通过将参数/属性抽象为一个Config，可以部分解决这个问题。
+比如:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">ServerConfig</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Timeout</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+    <span class="c1">//...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">NewServer</span><span class="p">(</span><span class="nx">addr</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">config</span> <span class="o">*</span><span class="nx">ServerConfig</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Server</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//默认初始化参数处理
+</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">config</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">config</span><span class="p">.</span><span class="nx">Timeout</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">config</span><span class="p">.</span><span class="nx">Timeout</span> <span class="p">=</span> <span class="nx">默认参数</span>
+    <span class="p">}</span>
+
+    <span class="c1">//...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="nx">config</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">ServerConfig</span><span class="p">{</span>
+    <span class="nx">Timeout</span><span class="p">:</span> <span class="mi">1</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nx">server</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nf">NewServer</span><span class="p">(</span><span class="s">&#34;:9001&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">config</span><span class="p">)</span>
+
+<span class="nx">config</span><span class="p">.</span><span class="nx">Timeout</span> <span class="p">=</span> <span class="mi">2</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span>
+</code></pre></div><p>自己主要使用的这个方案，但是这个方案还不够优雅，有两个问题：</p>
+<ul>
+<li>
+<ol>
+<li>初始化参数不太好处理，需要在NewServer中判断config是否为空且初始值是否有效，无效则设置默认值，这里的代码非常不友好，加重了心智负担。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>上面代码的最后一行，server初始化后，再修改config的属性，会引起什么了？除了把Server的所有相关代码读一遍，否则无法预知。这里可以通过将NewServer的第二个参数类型的指针去掉，改为<code>func NewServer(addr string, config ServerConfig) (*Server, error)</code></li>
+</ol>
+</li>
+</ul>
+<p>在公司内部快速迭代开发过程中，个人觉得这种做法暂时是可以的，但是，非常不优雅，甚至可以说是问题较大，与go语言的尽量少的心智负担的理念相悖。需要尽早按照下面的第二种方案重构。</p>
+<h2 id="解决方案2">解决方案2</h2>
+<p>最佳实践应该是dave引入的下面这种模式：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewServer</span><span class="p">(</span><span class="nx">addr</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">options</span> <span class="o">...</span><span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">Server</span><span class="p">)</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Server</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">srv</span> <span class="o">:=</span> <span class="nx">Server</span><span class="p">{</span><span class="nx">Timeout</span><span class="p">:</span> <span class="nx">默认值</span><span class="p">}</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">srv</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nf">NewServer</span><span class="p">(</span><span class="s">&#34;localhost&#34;</span><span class="p">)</span>  <span class="c1">//default
+</span><span class="c1"></span>
+    <span class="nx">timeout</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">srv</span> <span class="o">*</span><span class="nx">Server</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">srv</span><span class="p">.</span><span class="nx">timeout</span> <span class="p">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span>
+    <span class="p">}</span>
+
+    <span class="nx">srv2</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nf">NewServer</span><span class="p">(</span><span class="s">&#34;localhost&#34;</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>这里的最佳实践可以让函数签名有以下特性，下面的翻译都是按照自己理解来的，还是看英文比较容易理解：</p>
+<ul>
+<li>明确的默认值(sensible defaults)</li>
+<li>高可配置(is hightly configurable)</li>
+<li>今后易扩展(can grow over time)</li>
+<li>自我描述(self documenting)</li>
+<li>新手可控(safe for newcomers)</li>
+<li>不需要nil或者空值对编译器友好(and never requires nil or an empty value to keep the compiler happy)</li>
+</ul>
+<p>下面将dave自己重构的过程摘录一下，方便进一步理解：
+dave的老代码:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">pakcage</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;github.com/pkg/term&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">term</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/dev/ttyUSB0&#34;</span><span class="p">)</span>
+    <span class="c1">// handle error
+</span><span class="c1"></span>    <span class="nx">err</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">SetSpeed</span><span class="p">(</span><span class="mi">115200</span><span class="p">)</span>
+    <span class="c1">// handle error
+</span><span class="c1"></span>    <span class="nx">err</span> <span class="p">=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">SetRawMode</span><span class="p">(</span><span class="p">)</span>
+    <span class="c1">// handle error
+</span><span class="c1"></span>    <span class="c1">//...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>使用functional options模式重构后:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">pakcage</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;github.com/pkg/term&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// just open the terminal
+</span><span class="c1"></span>    <span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">term</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/dev/ttyUSB0&#34;</span><span class="p">)</span>
+
+
+    <span class="c1">// open at 115200 baud in raw mode
+</span><span class="c1"></span>    <span class="nx">t2</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">term</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/dev/ttyUSB0&#34;</span><span class="p">,</span> <span class="nx">term</span><span class="p">.</span><span class="nf">Speed</span><span class="p">(</span><span class="mi">115200</span><span class="p">)</span><span class="p">,</span> <span class="nx">term</span><span class="p">.</span><span class="nx">RawMode</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+</code></pre></div><p>在term包中，有如下代码:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">RawMode</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Term</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">setRawMode</span><span class="p">(</span><span class="p">)</span><span class="p">}</span>
+<span class="kd">func</span> <span class="nf">Speed</span><span class="p">(</span><span class="nx">baud</span> <span class="kt">int</span><span class="p">)</span> <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">Term</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Term</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">setSpeed</span><span class="p">(</span><span class="nx">baud</span><span class="p">)</span>    
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">Open</span><span class="p">(</span><span class="nx">dev</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">options</span> <span class="o">...</span><span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">Term</span><span class="p">)</span> <span class="kt">error</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Term</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">openTerm</span><span class="p">(</span><span class="nx">dev</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">option</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">options</span> <span class="p">{</span>
+        <span class="nx">err</span> <span class="o">:=</span> <span class="nf">option</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+        <span class="c1">//handle err, cleanup
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">t</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+</code></pre></div><p>openTerm中可以设定默认的参数.</p>
+<h2 id="引申">引申</h2>
+<p>掌握了这个模式，很多开源代码就可以看懂了，因为大部分写的比较好的开源库，基本都是用了这个模式，比如go-micro的NewService：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&#34;github.com/micro/go-micro&#34;</span> 
+        <span class="c1">// etcd v3 registry
+</span><span class="c1"></span>        <span class="s">&#34;github.com/micro/go-plugins/registry/etcdv3&#34;</span>
+        <span class="c1">// nats transport
+</span><span class="c1"></span>        <span class="s">&#34;github.com/micro/go-plugins/transport/nats&#34;</span>
+        <span class="c1">// kafka broker
+</span><span class="c1"></span>        <span class="s">&#34;github.com/micro/go-plugins/broker/kafka&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">registry</span> <span class="o">:=</span> <span class="nx">etcdv3</span><span class="p">.</span><span class="nf">NewRegistry</span><span class="p">(</span><span class="p">)</span>
+	<span class="nx">broker</span> <span class="o">:=</span> <span class="nx">kafka</span><span class="p">.</span><span class="nf">NewBroker</span><span class="p">(</span><span class="p">)</span>
+	<span class="nx">transport</span> <span class="o">:=</span> <span class="nx">nats</span><span class="p">.</span><span class="nf">NewTransport</span><span class="p">(</span><span class="p">)</span>
+
+        <span class="nx">service</span> <span class="o">:=</span> <span class="nx">micro</span><span class="p">.</span><span class="nf">NewService</span><span class="p">(</span>
+                <span class="nx">micro</span><span class="p">.</span><span class="nf">Name</span><span class="p">(</span><span class="s">&#34;greeter&#34;</span><span class="p">)</span><span class="p">,</span>
+                <span class="nx">micro</span><span class="p">.</span><span class="nf">Registry</span><span class="p">(</span><span class="nx">registry</span><span class="p">)</span><span class="p">,</span>
+                <span class="nx">micro</span><span class="p">.</span><span class="nf">Broker</span><span class="p">(</span><span class="nx">broker</span><span class="p">)</span><span class="p">,</span>
+                <span class="nx">micro</span><span class="p">.</span><span class="nf">Transport</span><span class="p">(</span><span class="nx">transport</span><span class="p">)</span><span class="p">,</span>
+        <span class="p">)</span>
+
+	<span class="nx">service</span><span class="p">.</span><span class="nf">Init</span><span class="p">(</span><span class="p">)</span>
+	<span class="nx">service</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><blockquote>
+<p>反过来看，go-micro的代码质量是不错的，值得学习。</p>
+</blockquote>
+<p>再比如自己经常使用的爬虫库gocolly，初始化爬虫也用了functional options:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewCollector</span><span class="p">(</span><span class="nx">options</span> <span class="o">...</span><span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">Collector</span><span class="p">)</span><span class="p">)</span> <span class="o">*</span><span class="nx">Collector</span> <span class="p">{</span>
+    <span class="nx">c</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Collector</span><span class="p">{</span><span class="p">}</span>
+    <span class="nx">c</span><span class="p">.</span><span class="nf">Init</span><span class="p">(</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">f</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">options</span> <span class="p">{</span>
+        <span class="nf">f</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nx">c</span><span class="p">.</span><span class="nf">parseSettingsFromEnv</span><span class="p">(</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nx">c</span>
+<span class="p">}</span>
+</code></pre></div>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>golang最佳实践-functional options</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#提出问题">提出问题</a></li>
+    <li><a href="#解决方案1">解决方案1</a></li>
+    <li><a href="#解决方案2">解决方案2</a></li>
+    <li><a href="#引申">引申</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

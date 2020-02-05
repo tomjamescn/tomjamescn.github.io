@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>openssl on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/openssl/</link>
+    <description>Recent content in openssl on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Fri, 26 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>golang官方包crypto/x509包对证书的容错性不好</title>
+      <link>https://tomjamescn.github.io/post/2019-07-26-memo-for-golang-crypto-x509/</link>
+      <pubDate>Fri, 26 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-07-26-memo-for-golang-crypto-x509/</guid>
+      <description>最近工作中涉及特别多的安全相关的工作，其中一点需要解析某个第三方的x509的证书。在这个过程中竟然发现官方包crypto/x509的坑，所以</description>
+    </item>
+    
+  </channel>
+</rss>

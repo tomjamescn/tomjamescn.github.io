@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>zeppelin on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/zeppelin/</link>
+    <description>Recent content in zeppelin on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/zeppelin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>基于docker的zeppelin</title>
+      <link>https://tomjamescn.github.io/post/2019-08-07-using-zeppelin-with-docker/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-08-07-using-zeppelin-with-docker/</guid>
+      <description>这两天老家有个亲戚要卖房子，问我现在买房怎么样？房子的问题实在是不懂，就想到抓取点网上公开的数据帮他简单分析下（历史成交套数，历史成交均价等</description>
+    </item>
+    
+  </channel>
+</rss>

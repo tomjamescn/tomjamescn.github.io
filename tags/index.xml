@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/</link>
+    <description>Recent content in Tags on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>brew</title>
+      <link>https://tomjamescn.github.io/tags/brew/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/brew/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ifuse</title>
+      <link>https://tomjamescn.github.io/tags/ifuse/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/ifuse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iphone</title>
+      <link>https://tomjamescn.github.io/tags/iphone/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/iphone/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>libimobiledevice</title>
+      <link>https://tomjamescn.github.io/tags/libimobiledevice/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/libimobiledevice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>macOS</title>
+      <link>https://tomjamescn.github.io/tags/macos/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/macos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cache line</title>
+      <link>https://tomjamescn.github.io/tags/cache-line/</link>
+      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/cache-line/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cache system</title>
+      <link>https://tomjamescn.github.io/tags/cache-system/</link>
+      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/cache-system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cpu</title>
+      <link>https://tomjamescn.github.io/tags/cpu/</link>
+      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/cpu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>false sharing</title>
+      <link>https://tomjamescn.github.io/tags/false-sharing/</link>
+      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/false-sharing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://tomjamescn.github.io/tags/golang/</link>
+      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://tomjamescn.github.io/tags/go/</link>
+      <pubDate>Thu, 15 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>函数参数</title>
+      <link>https://tomjamescn.github.io/tags/%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0/</link>
+      <pubDate>Thu, 15 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>最佳实践</title>
+      <link>https://tomjamescn.github.io/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Thu, 15 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>少有人走的路</title>
+      <link>https://tomjamescn.github.io/tags/%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF/</link>
+      <pubDate>Tue, 13 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>心理学</title>
+      <link>https://tomjamescn.github.io/tags/%E5%BF%83%E7%90%86%E5%AD%A6/</link>
+      <pubDate>Tue, 13 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E5%BF%83%E7%90%86%E5%AD%A6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>诗歌</title>
+      <link>https://tomjamescn.github.io/tags/%E8%AF%97%E6%AD%8C/</link>
+      <pubDate>Tue, 13 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E8%AF%97%E6%AD%8C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ai</title>
+      <link>https://tomjamescn.github.io/tags/ai/</link>
+      <pubDate>Sun, 11 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/ai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>google</title>
+      <link>https://tomjamescn.github.io/tags/google/</link>
+      <pubDate>Sun, 11 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/google/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>牛人</title>
+      <link>https://tomjamescn.github.io/tags/%E7%89%9B%E4%BA%BA/</link>
+      <pubDate>Sun, 11 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E7%89%9B%E4%BA%BA/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://tomjamescn.github.io/tags/docker/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zeppelin</title>
+      <link>https://tomjamescn.github.io/tags/zeppelin/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/zeppelin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vim</title>
+      <link>https://tomjamescn.github.io/tags/vim/</link>
+      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>工具</title>
+      <link>https://tomjamescn.github.io/tags/%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E5%B7%A5%E5%85%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>crypto/x509</title>
+      <link>https://tomjamescn.github.io/tags/crypto/x509/</link>
+      <pubDate>Fri, 26 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/crypto/x509/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>openssl</title>
+      <link>https://tomjamescn.github.io/tags/openssl/</link>
+      <pubDate>Fri, 26 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/openssl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>加解密</title>
+      <link>https://tomjamescn.github.io/tags/%E5%8A%A0%E8%A7%A3%E5%AF%86/</link>
+      <pubDate>Fri, 26 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E5%8A%A0%E8%A7%A3%E5%AF%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>想法</title>
+      <link>https://tomjamescn.github.io/tags/%E6%83%B3%E6%B3%95/</link>
+      <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E6%83%B3%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>技术</title>
+      <link>https://tomjamescn.github.io/tags/%E6%8A%80%E6%9C%AF/</link>
+      <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E6%8A%80%E6%9C%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis</title>
+      <link>https://tomjamescn.github.io/tags/redis/</link>
+      <pubDate>Tue, 25 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis-go</title>
+      <link>https://tomjamescn.github.io/tags/redis-go/</link>
+      <pubDate>Tue, 25 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/redis-go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>disk</title>
+      <link>https://tomjamescn.github.io/tags/disk/</link>
+      <pubDate>Sun, 16 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/disk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hdd</title>
+      <link>https://tomjamescn.github.io/tags/hdd/</link>
+      <pubDate>Sun, 16 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/hdd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>坏道</title>
+      <link>https://tomjamescn.github.io/tags/%E5%9D%8F%E9%81%93/</link>
+      <pubDate>Sun, 16 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E5%9D%8F%E9%81%93/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>硬盘</title>
+      <link>https://tomjamescn.github.io/tags/%E7%A1%AC%E7%9B%98/</link>
+      <pubDate>Sun, 16 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E7%A1%AC%E7%9B%98/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>proxmox</title>
+      <link>https://tomjamescn.github.io/tags/proxmox/</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/proxmox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zfs</title>
+      <link>https://tomjamescn.github.io/tags/zfs/</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/zfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zpool</title>
+      <link>https://tomjamescn.github.io/tags/zpool/</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/zpool/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>硬件</title>
+      <link>https://tomjamescn.github.io/tags/%E7%A1%AC%E4%BB%B6/</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E7%A1%AC%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>php</title>
+      <link>https://tomjamescn.github.io/tags/php/</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>serialize</title>
+      <link>https://tomjamescn.github.io/tags/serialize/</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/serialize/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nextcloud</title>
+      <link>https://tomjamescn.github.io/tags/nextcloud/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/nextcloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zotero</title>
+      <link>https://tomjamescn.github.io/tags/zotero/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/zotero/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>个人成长</title>
+      <link>https://tomjamescn.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>思考</title>
+      <link>https://tomjamescn.github.io/tags/%E6%80%9D%E8%80%83/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E6%80%9D%E8%80%83/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>知识管理</title>
+      <link>https://tomjamescn.github.io/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cluster</title>
+      <link>https://tomjamescn.github.io/tags/cluster/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/cluster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k8s</title>
+      <link>https://tomjamescn.github.io/tags/k8s/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://tomjamescn.github.io/tags/kubernetes/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>分布式</title>
+      <link>https://tomjamescn.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mac os</title>
+      <link>https://tomjamescn.github.io/tags/mac-os/</link>
+      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/mac-os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://tomjamescn.github.io/tags/linux/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rasbian</title>
+      <link>https://tomjamescn.github.io/tags/rasbian/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/rasbian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>raspberry pi</title>
+      <link>https://tomjamescn.github.io/tags/raspberry-pi/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/raspberry-pi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>树莓派</title>
+      <link>https://tomjamescn.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

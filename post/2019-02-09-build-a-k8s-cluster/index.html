@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  搭建k8s集群 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="本文基于截止目前最新的稳定的CoreOS Container Linux和k8s搭建一个master节点和3个工作节点的k8s集群 版本 CoreOS Container Linux: Stable 1967.4.0 K8s: v1.13.3 集群拓扑 |&amp;mdash;&amp;mdash;&amp;mdash;&#43;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&#43;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;| ||Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">搭建k8s集群</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/k8s' class="muted-link">
+  <span class="Label Label--gray">k8s</span>
+</a>
+
+<a href='/tags/kubernetes' class="muted-link">
+  <span class="Label Label--gray">kubernetes</span>
+</a>
+
+<a href='/tags/%E5%88%86%E5%B8%83%E5%BC%8F' class="muted-link">
+  <span class="Label Label--gray">分布式</span>
+</a>
+
+<a href='/tags/cluster' class="muted-link">
+  <span class="Label Label--gray">cluster</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-02-09.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>本文基于截止目前最新的稳定的<a href="https://coreos.com/releases/">CoreOS Container Linux</a>和k8s搭建一个master节点和3个工作节点的k8s集群</p>
+</blockquote>
+<h2 id="版本">版本</h2>
+<pre><code>CoreOS Container Linux: Stable 1967.4.0
+
+K8s: v1.13.3
+</code></pre><h2 id="集群拓扑">集群拓扑</h2>
+<p>|&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;|
+| 节点    |hostname    | ip              |
+|&mdash;&mdash;&mdash;|:&mdash;&mdash;&mdash;&ndash;|:&mdash;&mdash;&mdash;&mdash;&mdash;:|
+| master  | k8s-master | 192.168.123.210 |
+| node 1  | k8s-node-1 | 192.168.123.211 |
+| node 2  | k8s-node-2 | 192.168.123.212 |
+| node 3  | k8s-node-3 | 192.168.123.213 |
+|=========+============+=================|
+|&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;|</p>
+<h2 id="安装coreos-container-linux">安装CoreOS Container Linux</h2>
+<h3 id="生成密码">生成密码</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> ~
+openssl passwd -1 &gt; cloud-config.yml
+</code></pre></div><p>然后输入两遍密码</p>
+<h3 id="安装配置">安装配置</h3>
+<p>修改cloud-config.yml内容如下:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#cloud-config</span><span class="w">
+</span><span class="w"></span><span class="k">users</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>这里是用户名<span class="w">
+</span><span class="w">    </span><span class="k">passwd</span><span class="p">:</span><span class="w"> </span>这里是上一步生成的内容<span class="w">
+</span><span class="w">    </span><span class="k">groups</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="w">      </span>- sudo<span class="w">
+</span><span class="w">      </span>- docker<span class="w">
+</span></code></pre></div><blockquote>
+<p>yml格式，需要注意空格，复制的时候需要注意一下</p>
+</blockquote>
+<h3 id="验证安装配置">验证安装配置</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">coreos-cloudinit -validate --from-file cloud-config.yml
+</code></pre></div><h3 id="将coreos-container-linux安装到磁盘上">将CoreOS Container Linux安装到磁盘上</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo coreos-install -d /dev/sda -C stable -c cloud-config.yml
+</code></pre></div><h3 id="重启">重启</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo reboot
+</code></pre></div><h3 id="重复以上步骤3遍或者使用模板技术">重复以上步骤3遍，或者使用模板技术</h3>
+<blockquote>
+<p>本文使用的是proxmox虚拟平台，所以，将上述的结果做成了模板。</p>
+</blockquote>
+<h3 id="登录">登录</h3>
+<p>登录名就是cloud-config.yml中的name和passwd的值</p>
+<h3 id="配置时区">配置时区</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo timedatectl set-timezone Asia/Shanghai
+</code></pre></div><h3 id="配置hostname和etchosts文件">配置hostname和/etc/hosts文件</h3>
+<p>在4个机器上使用以下命令设置hostname</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo hostnamectl set-hostname xxx
+</code></pre></div><p>在4个机器上编辑/etc/hosts文件</p>
+<pre><code>127.0.0.1   localhost k8s-xxx
+
+192.168.123.210 k8s-master
+192.168.123.211 k8s-node-1
+192.168.123.212 k8s-node-2
+192.168.123.213 k8s-node-3
+</code></pre><h2 id="安装k8s集群">安装k8s集群</h2>
+<h3 id="master和worker-node都需要的步骤">master和worker node都需要的步骤</h3>
+<h4 id="登录--切换为root">登录 &amp;&amp; 切换为root</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo su
+</code></pre></div><h4 id="安装docker">安装Docker</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl <span class="nb">enable</span> docker <span class="o">&amp;&amp;</span> systemctl start docker
+</code></pre></div><h4 id="安装cni-plugin">安装CNI Plugin</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">CNI_VERSION</span><span class="o">=</span><span class="s2">&#34;v0.6.0&#34;</span>
+mkdir -p /opt/cni/bin
+curl -L <span class="s2">&#34;</span><span class="s2">https://github.com/containernetworking/plugins/releases/download/</span><span class="si">${</span><span class="nv">CNI_VERSION</span><span class="si">}</span><span class="s2">/cni-plugins-amd64-</span><span class="si">${</span><span class="nv">CNI_VERSION</span><span class="si">}</span><span class="s2">.tgz</span><span class="s2">&#34;</span> <span class="p">|</span> tar -C /opt/cni/bin -xz
+</code></pre></div><h4 id="安装crictl">安装crictl</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">CRICTL_VERSION</span><span class="o">=</span><span class="s2">&#34;v1.11.1&#34;</span>
+mkdir -p /opt/bin
+curl -L <span class="s2">&#34;</span><span class="s2">https://github.com/kubernetes-incubator/cri-tools/releases/download/</span><span class="si">${</span><span class="nv">CRICTL_VERSION</span><span class="si">}</span><span class="s2">/crictl-</span><span class="si">${</span><span class="nv">CRICTL_VERSION</span><span class="si">}</span><span class="s2">-linux-amd64.tar.gz</span><span class="s2">&#34;</span> <span class="p">|</span> tar -C /opt/bin -xz
+</code></pre></div><h4 id="安装kubeadm-kubelet-kubectl">安装kubeadm, kubelet, kubectl</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">RELEASE</span><span class="o">=</span>v1.13.3
+mkdir -p /opt/bin
+<span class="nb">cd</span> /opt/bin
+curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/<span class="si">${</span><span class="nv">RELEASE</span><span class="si">}</span>/bin/linux/amd64/<span class="o">{</span>kubeadm,kubelet,kubectl<span class="o">}</span>
+chmod +x <span class="o">{</span>kubeadm,kubelet,kubectl<span class="o">}</span>
+</code></pre></div><h4 id="创建k8s服务">创建k8s服务</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">curl -sSL <span class="s2">&#34;</span><span class="s2">https://raw.githubusercontent.com/kubernetes/kubernetes/</span><span class="si">${</span><span class="nv">RELEASE</span><span class="si">}</span><span class="s2">/build/debs/kubelet.service</span><span class="s2">&#34;</span> <span class="p">|</span> sed <span class="s2">&#34;s:/usr/bin:/opt/bin:g&#34;</span> &gt; /etc/systemd/system/kubelet.service
+mkdir -p /etc/systemd/system/kubelet.service.d
+curl -sSL <span class="s2">&#34;</span><span class="s2">https://raw.githubusercontent.com/kubernetes/kubernetes/</span><span class="si">${</span><span class="nv">RELEASE</span><span class="si">}</span><span class="s2">/build/debs/10-kubeadm.conf</span><span class="s2">&#34;</span> <span class="p">|</span> sed <span class="s2">&#34;s:/usr/bin:/opt/bin:g&#34;</span> &gt; /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+</code></pre></div><h4 id="安装kubelet守护进程服务">安装kubelet守护进程服务</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl <span class="nb">enable</span> kubelet <span class="o">&amp;&amp;</span> systemctl start kubelet
+</code></pre></div><h3 id="安装master">安装master</h3>
+<h4 id="初始化">初始化</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubeadm init --image-repository registry.aliyuncs.com/google_containers --kubernetes-version<span class="o">=</span>v1.13.3 --pod-network-cidr<span class="o">=</span>10.244.0.0/16 --service-cidr<span class="o">=</span>10.96.0.0/12
+</code></pre></div><p>&ndash;image-respoitory选项可以解决国内访问google_containers被屏蔽的问题
+&ndash;pod-network-cidr选项的值10.244.0.0/16不能变化，因为我们使用的是flannel网络插件</p>
+<h4 id="退出root用户以普通用户执行">退出root用户，以普通用户执行：</h4>
+<p>上面的命令会输出一些剩下的在master节点需要执行的命令，<strong>一定要以普通用户执行</strong>！！</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">mkdir -p <span class="nv">$HOME</span>/.kube
+sudo cp -i /etc/kubernetes/admin.conf <span class="nv">$HOME</span>/.kube/config
+sudo chown <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k">$(</span>id -g<span class="k">)</span> <span class="nv">$HOME</span>/.kube/config
+</code></pre></div><p>上面的命令还会输出，这个命令是需要在工作节点以sudo执行的，用于加入集群</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubeadm join ....
+</code></pre></div><h4 id="安装flannel网络插件">安装flannel网络插件</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+</code></pre></div><h3 id="验证master安装">验证master安装</h3>
+<p>在master节点上普通用户权限执行</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubectl get nodes
+</code></pre></div><p>输出为：</p>
+<pre><code>NAME         STATUS   ROLES    AGE   VERSION
+k8s-master   Ready    master   15h   v1.13.3
+</code></pre><p>STATUS为Ready表明安装成功</p>
+<h3 id="加入工作节点">加入工作节点</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo kubeadm join ...
+</code></pre></div><h3 id="验证工作节点安装">验证工作节点安装</h3>
+<p>在master节点上以普通用户权限执行：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubectl get nodes
+</code></pre></div><p>输出为：</p>
+<pre><code>NAME         STATUS   ROLES    AGE   VERSION
+k8s-master   Ready    master   15h   v1.13.3
+k8s-node-1   Ready    &lt;none&gt;   14h   v1.13.3
+k8s-node-2   Ready    &lt;none&gt;   14h   v1.13.3
+k8s-node-3   Ready    &lt;none&gt;   14h   v1.13.3
+</code></pre><p>STATUS为Ready表明安装成功</p>
+<h2 id="一些背景知识">一些背景知识</h2>
+<ul>
+<li>kubectl命令只能在master上执行，不过可以将master上的/etc/kubernetes/admin.conf拷贝到任意的机器上，比如工作节点或者集群外的电脑，如自己的笔记本电脑上。这样也可以使用kubectl命令了。其实kubectl只是一个master上api server的客户端而已。admin.conf主要是鉴权信息。</li>
+</ul>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>搭建k8s集群</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#版本">版本</a></li>
+    <li><a href="#集群拓扑">集群拓扑</a></li>
+    <li><a href="#安装coreos-container-linux">安装CoreOS Container Linux</a>
+      <ul>
+        <li><a href="#生成密码">生成密码</a></li>
+        <li><a href="#安装配置">安装配置</a></li>
+        <li><a href="#验证安装配置">验证安装配置</a></li>
+        <li><a href="#将coreos-container-linux安装到磁盘上">将CoreOS Container Linux安装到磁盘上</a></li>
+        <li><a href="#重启">重启</a></li>
+        <li><a href="#重复以上步骤3遍或者使用模板技术">重复以上步骤3遍，或者使用模板技术</a></li>
+        <li><a href="#登录">登录</a></li>
+        <li><a href="#配置时区">配置时区</a></li>
+        <li><a href="#配置hostname和etchosts文件">配置hostname和/etc/hosts文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装k8s集群">安装k8s集群</a>
+      <ul>
+        <li><a href="#master和worker-node都需要的步骤">master和worker node都需要的步骤</a></li>
+        <li><a href="#安装master">安装master</a></li>
+        <li><a href="#验证master安装">验证master安装</a></li>
+        <li><a href="#加入工作节点">加入工作节点</a></li>
+        <li><a href="#验证工作节点安装">验证工作节点安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#一些背景知识">一些背景知识</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

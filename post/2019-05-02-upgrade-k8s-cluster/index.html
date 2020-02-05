@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  升级k8s集群到v1.14.1 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="k8s v1.14.1都已经发布了，为了学习搭建的k8s集群(v1.13.3)需要升级到最新版。虽然有官方升级文档，但是自己原来是手动搭建的是基于|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">升级k8s集群到v1.14.1</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-05-02.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>k8s v1.14.1都已经发布了，为了学习搭建的k8s集群(v1.13.3)需要升级到最新版。虽然有<a href="https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/">官方升级文档</a>，但是自己原来是手动搭建的是基于CoreOS的k8s集群[搭建访问见以前的<a href="https://tomjamescn.github.io/2019-02-09-build-a-k8s-cluster/">文章</a>]，虽然步骤大概相同，但是个别细节不太一样。</p>
+<h2 id="备份">备份</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">cp -r /opt/bin /opt/bin_v1.13.3
+</code></pre></div><h2 id="准备新版命令行文件">准备新版命令行文件</h2>
+<blockquote>
+<p>下面的命令在国内不能访问，请使用梯子</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">RELEASE</span><span class="o">=</span>v1.14.1
+mkdir -p /opt/bin_v1.14.1
+<span class="nb">cd</span> /opt/bin_v1.14.1
+curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/<span class="si">${</span><span class="nv">RELEASE</span><span class="si">}</span>/bin/linux/amd64/<span class="o">{</span>kubeadm,kubelet,kubectl<span class="o">}</span>
+chmod +x <span class="o">{</span>kubeadm,kubelet,kubectl<span class="o">}</span>
+</code></pre></div><p>可以通过查看版本判断下载是否正确</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">/opt/bin_v1.14.1/kubeadm version
+/opt/bin_v1.14.1/kubectl version
+/opt/bin_v1.14.1/kubelet --version
+</code></pre></div><h2 id="升级master节点">升级master节点</h2>
+<h3 id="更新kubeadm">更新kubeadm</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">cp /opt/bin_v1.14.1/kubeadm /opt/bin/
+kubeadm version
+</code></pre></div><h3 id="升级前的check">升级前的check</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo kubeadm upgrade plan
+</code></pre></div><p>输出类似:</p>
+<blockquote>
+<p>因为本人操作的时候没有保存，所以下面的信息可能和真实的不太一样，真实的会因为网络问题，报一些warn，但是实际没有什么问题</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>preflight<span class="o">]</span> Running pre-flight checks.
+<span class="o">[</span>upgrade<span class="o">]</span> Making sure the cluster is healthy:
+<span class="o">[</span>upgrade/config<span class="o">]</span> Making sure the configuration is correct:
+<span class="o">[</span>upgrade/config<span class="o">]</span> Reading configuration from the cluster...
+<span class="o">[</span>upgrade/config<span class="o">]</span> FYI: You can look at this config file with <span class="s1">&#39;kubectl -n kube-system get cm kubeadm-config -oyaml&#39;</span>
+<span class="o">[</span>upgrade<span class="o">]</span> Fetching available versions to upgrade to
+<span class="o">[</span>upgrade/versions<span class="o">]</span> Cluster version: v1.13.3
+<span class="o">[</span>upgrade/versions<span class="o">]</span> kubeadm version: v1.14.0
+
+Components that must be upgraded manually after you have upgraded the control plane with <span class="s1">&#39;kubeadm upgrade apply&#39;</span>:
+COMPONENT   CURRENT       AVAILABLE
+Kubelet     <span class="m">2</span> x v1.13.3   v1.14.0
+
+Upgrade to the latest version in the v1.13 series:
+
+COMPONENT            CURRENT   AVAILABLE
+API Server           v1.13.3   v1.14.0
+Controller Manager   v1.13.3   v1.14.0
+Scheduler            v1.13.3   v1.14.0
+Kube Proxy           v1.13.3   v1.14.0
+CoreDNS              1.2.6     1.3.1
+Etcd                 3.2.24    3.3.10
+
+You can now apply the upgrade by executing the following command:
+
+        kubeadm upgrade apply v1.14.0
+
+_____________________________________________________________________
+</code></pre></div><h3 id="开始升级">开始升级</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo kubeadm upgrade apply v1.14.x
+</code></pre></div><h3 id="更新kubectl">更新kubectl</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">cp /opt/bin_v1.14.1/kubectl /opt/bin/
+</code></pre></div><h3 id="更新kubelet">更新kubelet</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo systemctl stop kubelet
+cp /opt/bin_v1.14.1/kubelet /opt/bin/
+sudo systemctl start kubelet
+</code></pre></div><h2 id="升级worker节点">升级worker节点</h2>
+<blockquote>
+<p>为了保证在升级时k8s集群上已经在跑的服务依然正常提供服务，<strong>最好是一次升级一个worker节点</strong>。这点在官方文档做了说明，但是我的k8s集群上暂时没有跑什么服务，所以这块还没有验证，准备在下次升级的到更新的版本是做一个验证。</p>
+</blockquote>
+<h3 id="更新kubeadm-1">更新kubeadm</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">cp /opt/bin_v1.14.1/kubeadm /opt/bin/
+kubeadm version
+</code></pre></div><h3 id="下掉某个worker节点">下掉某个worker节点</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubectl drain <span class="nv">$NODE</span> --ignore-daemonsets
+</code></pre></div><p>$NODE是节点名称，和kubectl get nodes中NAME对应</p>
+<h3 id="升级配置">升级配置</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo kubeadm upgrade node config --kubelet-version v1.14.1
+</code></pre></div><h3 id="更新kubectl-1">更新kubectl</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">cp /opt/bin_v1.14.1/kubectl /opt/bin/
+</code></pre></div><h3 id="更新kubelet-1">更新kubelet</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo systemctl stop kubelet
+cp /opt/bin_v1.14.1/kubelet /opt/bin/
+sudo systemctl start kubelet
+</code></pre></div><h3 id="查看升级是否成功">查看升级是否成功</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubectl get nodes
+</code></pre></div><p>如果VERSION已经变为1.14.1，说明升级成功</p>
+<h3 id="某个worker节点上线">某个worker节点上线</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubectl uncordon <span class="nv">$NODE</span>
+</code></pre></div><p>$NODE是节点名称，和kubectl get nodes中NAME对应</p>
+<p>按照以上步骤，将所有的worker节点都升级完成即可。</p>
+<h2 id="最终验证">最终验证</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">kubectl get nodes
+</code></pre></div><p>我的集群的输出变为了</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">NAME         STATUS   ROLES    AGE   VERSION
+k8s-master   Ready    master   82d   v1.14.1
+k8s-node-1   Ready    &lt;none&gt;   82d   v1.14.1
+k8s-node-2   Ready    &lt;none&gt;   82d   v1.14.1
+k8s-node-3   Ready    &lt;none&gt;   82d   v1.14.1
+</code></pre></div><p>DONE!</p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>升级k8s集群到v1.14.1</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#备份">备份</a></li>
+    <li><a href="#准备新版命令行文件">准备新版命令行文件</a></li>
+    <li><a href="#升级master节点">升级master节点</a>
+      <ul>
+        <li><a href="#更新kubeadm">更新kubeadm</a></li>
+        <li><a href="#升级前的check">升级前的check</a></li>
+        <li><a href="#开始升级">开始升级</a></li>
+        <li><a href="#更新kubectl">更新kubectl</a></li>
+        <li><a href="#更新kubelet">更新kubelet</a></li>
+      </ul>
+    </li>
+    <li><a href="#升级worker节点">升级worker节点</a>
+      <ul>
+        <li><a href="#更新kubeadm-1">更新kubeadm</a></li>
+        <li><a href="#下掉某个worker节点">下掉某个worker节点</a></li>
+        <li><a href="#升级配置">升级配置</a></li>
+        <li><a href="#更新kubectl-1">更新kubectl</a></li>
+        <li><a href="#更新kubelet-1">更新kubelet</a></li>
+        <li><a href="#查看升级是否成功">查看升级是否成功</a></li>
+        <li><a href="#某个worker节点上线">某个worker节点上线</a></li>
+      </ul>
+    </li>
+    <li><a href="#最终验证">最终验证</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

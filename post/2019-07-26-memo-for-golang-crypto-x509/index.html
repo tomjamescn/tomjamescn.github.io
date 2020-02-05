@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  golang官方包crypto/x509包对证书的容错性不好 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="最近工作中涉及特别多的安全相关的工作，其中一点需要解析某个第三方的x509的证书。在这个过程中竟然发现官方包crypto/x509的坑，所以|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">golang官方包crypto/x509包对证书的容错性不好</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+<a href='/tags/%E5%8A%A0%E8%A7%A3%E5%AF%86' class="muted-link">
+  <span class="Label Label--gray">加解密</span>
+</a>
+
+<a href='/tags/openssl' class="muted-link">
+  <span class="Label Label--gray">openssl</span>
+</a>
+
+<a href='/tags/crypto/x509' class="muted-link">
+  <span class="Label Label--gray">crypto/x509</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-07-26.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>最近工作中涉及特别多的安全相关的工作，其中一点需要解析某个第三方的x509的证书。在这个过程中竟然发现官方包crypto/x509的坑，所以特别记录在此。</p>
+<p>废话不说，先上代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;crypto/x509&#34;</span>
+	<span class="s">&#34;encoding/pem&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">certPEM</span> <span class="o">:=</span> <span class="s">`</span><span class="s">-----BEGIN CERTIFICATE-----
+</span><span class="s">MIID7jCCAtigAwIBAgIBATALBgkqhkiG9w0BAQswHTEbMBkGA1UEAxMSSHVhd2Vp
+</span><span class="s">IEtleVN0b3JlICAgMB4XDTE5MDcyNDA4NTQ0NFoXDTI5MDcyNDA4NTQ0NFowGjEY
+</span><span class="s">MBYGA1UEAxMPQSBLZXltYXN0ZXIgS2V5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+</span><span class="s">MIIBCgKCAQEA8WS+DnC9JzGytDPpe3/GVY4xQx0bsPVP1Drf0n3eD+wq6U91QnjX
+</span><span class="s">vhyRXtguDBu8OM5Qc5h8wFIOAUTD4+U/QGLQ3pZN+DXVmwlSJjbx8yMjuiUwInhG
+</span><span class="s">uJ+xzhuEsNFCdxdyaNPmGhUycu09olL2/mcgDQFxusfr5jnnhU9VFv3/x1Y+7mVh
+</span><span class="s">kICFnCE3YQ4ufHOHroQIE0kxnfJF+DkgK1tkdIMHEvX5rJvaqtd0M7RY/PRrE0dE
+</span><span class="s">bYSlAlSAVqdjfLb0LF8tRTcjnIh4lg5NhqCWeAkGw8egUaNW1vFX6SeXrW6uJv2N
+</span><span class="s">OeHxi9VFG7ymaOqB4URS0wGQ6dzoYsx/iwIDAQABo4IBPjCCATowCwYDVR0PBAQD
+</span><span class="s">AgAAMAgGA1UdHwQBADCB9QYKKwYBBAHWeQIBEQSB5jCB4wIBAgoBAQIBAwoBAQR3
+</span><span class="s">eyJjcHVfaWQiOiJIVUFXRUlfSFdITUFfNmYwNzk3ZTQtMWFjNS00YjM3LWEyZTgt
+</span><span class="s">YzY2ZjQ2MTM0YjhlLTIyMzE5ZjcxIiwiY291bnRlciI6MTMsInVpZCI6IjEwNDE3
+</span><span class="s">IiwicnNhX3Bzc19zYWx0bGVuIjozMn0EADASv4N3AgUAv4U9CAIGAWwjMJ1KMEah
+</span><span class="s">CTEHAgUA/wEAAaIDAgEBowQCAggApQUxAwIBBKYFMQMCAQO/gUgFAgMBAAG/hT4D
+</span><span class="s">AgEAv4VBBQIDAV+Qv4VCBQIDAxSxMCkGCSsGAQQBj1seAgEBAAQZMBcCAQCiAwEB
+</span><span class="s">Ab+BSAswCaEHAwUABoAAgDALBgkqhkiG9w0BAQsDggEBAFZRjVpDqujJrwaZqycw
+</span><span class="s">VgrM/J1b2VcVKUPJ39eJXs2S/ur7yUlgSxRcpOufa3IF0XekOUyHTNIroWUz/xLb
+</span><span class="s">X6pv32PCMeavI/6ldl/zEJyy11PKX8ZrVfE05WiWUIJ6BwmDX+RtNjJSJ/xmwfDu
+</span><span class="s">dn0CAx5apWsCMYpcGXQ2g8DRGQpYVdJS/aOTlDHGdSdSesx0TbGL39gjfdDb851L
+</span><span class="s">spVFtcdoxw5nb0obwRItPBF+gHIh3xsYGGDN/EKSNN9YMja4MzgjTeLjNXjs1pXO
+</span><span class="s">f4Fm3OiOfSFnTJuJk/rKQ0TiW+p3EvuZ+tRT+iffJvhdvDAIp7I3pJjaoZw4xwHH
+</span><span class="s">Tr8=
+</span><span class="s">-----END CERTIFICATE-----</span><span class="s">`</span>
+	<span class="nx">block</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">pem</span><span class="p">.</span><span class="nf">Decode</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">certPEM</span><span class="p">)</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">block</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;failed to parse certificate PEM&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">cert</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">x509</span><span class="p">.</span><span class="nf">ParseCertificate</span><span class="p">(</span><span class="nx">block</span><span class="p">.</span><span class="nx">Bytes</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;failed to parse certificate: &#34;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">cert</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>上面的代码执行到<code>x509.ParseCertificate</code>会失败，输出：</p>
+<pre><code>panic: failed to parse certificate: asn1: syntax error: truncated tag or length
+</code></pre><p>因为第三方是一个大厂，所以按理说应该没有问题，所以使用java代码验证一下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.mytest</span><span class="o">;</span>
+
+
+<span class="kn">import</span> <span class="nn">java.io.ByteArrayInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.cert.CertificateFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.cert.X509Certificate</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[</span><span class="o">]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+
+
+            <span class="n">String</span> <span class="n">pem</span> <span class="o">=</span> <span class="s">&#34;-----BEGIN CERTIFICATE-----\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;MIID7jCCAtigAwIBAgIBATALBgkqhkiG9w0BAQswHTEbMBkGA1UEAxMSSHVhd2Vp\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;IEtleVN0b3JlICAgMB4XDTE5MDcyNDA4NTQ0NFoXDTI5MDcyNDA4NTQ0NFowGjEY\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;MBYGA1UEAxMPQSBLZXltYXN0ZXIgS2V5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;MIIBCgKCAQEA8WS+DnC9JzGytDPpe3/GVY4xQx0bsPVP1Drf0n3eD+wq6U91QnjX\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;vhyRXtguDBu8OM5Qc5h8wFIOAUTD4+U/QGLQ3pZN+DXVmwlSJjbx8yMjuiUwInhG\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;uJ+xzhuEsNFCdxdyaNPmGhUycu09olL2/mcgDQFxusfr5jnnhU9VFv3/x1Y+7mVh\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;kICFnCE3YQ4ufHOHroQIE0kxnfJF+DkgK1tkdIMHEvX5rJvaqtd0M7RY/PRrE0dE\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;bYSlAlSAVqdjfLb0LF8tRTcjnIh4lg5NhqCWeAkGw8egUaNW1vFX6SeXrW6uJv2N\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;OeHxi9VFG7ymaOqB4URS0wGQ6dzoYsx/iwIDAQABo4IBPjCCATowCwYDVR0PBAQD\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;AgAAMAgGA1UdHwQBADCB9QYKKwYBBAHWeQIBEQSB5jCB4wIBAgoBAQIBAwoBAQR3\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;eyJjcHVfaWQiOiJIVUFXRUlfSFdITUFfNmYwNzk3ZTQtMWFjNS00YjM3LWEyZTgt\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;YzY2ZjQ2MTM0YjhlLTIyMzE5ZjcxIiwiY291bnRlciI6MTMsInVpZCI6IjEwNDE3\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;IiwicnNhX3Bzc19zYWx0bGVuIjozMn0EADASv4N3AgUAv4U9CAIGAWwjMJ1KMEah\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;CTEHAgUA/wEAAaIDAgEBowQCAggApQUxAwIBBKYFMQMCAQO/gUgFAgMBAAG/hT4D\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;AgEAv4VBBQIDAV+Qv4VCBQIDAxSxMCkGCSsGAQQBj1seAgEBAAQZMBcCAQCiAwEB\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;Ab+BSAswCaEHAwUABoAAgDALBgkqhkiG9w0BAQsDggEBAFZRjVpDqujJrwaZqycw\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;VgrM/J1b2VcVKUPJ39eJXs2S/ur7yUlgSxRcpOufa3IF0XekOUyHTNIroWUz/xLb\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;X6pv32PCMeavI/6ldl/zEJyy11PKX8ZrVfE05WiWUIJ6BwmDX+RtNjJSJ/xmwfDu\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;dn0CAx5apWsCMYpcGXQ2g8DRGQpYVdJS/aOTlDHGdSdSesx0TbGL39gjfdDb851L\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;spVFtcdoxw5nb0obwRItPBF+gHIh3xsYGGDN/EKSNN9YMja4MzgjTeLjNXjs1pXO\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;f4Fm3OiOfSFnTJuJk/rKQ0TiW+p3EvuZ+tRT+iffJvhdvDAIp7I3pJjaoZw4xwHH\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;Tr8=\n&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;-----END CERTIFICATE-----&#34;</span><span class="o">;</span>
+
+            <span class="n">CertificateFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">CertificateFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">&#34;X.509&#34;</span><span class="o">)</span><span class="o">;</span>
+            <span class="n">X509Certificate</span> <span class="n">askCertificate</span> <span class="o">=</span> <span class="o">(</span><span class="n">X509Certificate</span><span class="o">)</span> <span class="n">factory</span><span class="o">.</span><span class="na">generateCertificate</span><span class="o">(</span><span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">pem</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>意外发生了，java没有异常！</p>
+<p>这样问题就来了，难道golang实现和java实现不一致? 然后找一个更权威的工具<code>openssl</code>来验证一下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">openssl x509 -pubkey -noout -in cert.pem
+</code></pre></div><p>输出也没有问题！</p>
+<p>因为自己对x509真心不太懂，就提了一个<a href="https://groups.google.com/forum/#!topic/golang-nuts/SCzlQPNfURk">问题</a>，本来基本就没有报希望的，没想到，竟然有真心懂安全和golang的外国友人帮忙check了一下证书细节。下面是他的回复：</p>
+<pre><code>I think the extensions in your certificate might be invalid. Namely CRL Distribution Points: 2.5.29.31
+
+X509v3 CRL Distribution Points: 
+SEQUENCE {
+ 437    3:           OBJECT IDENTIFIER cRLDistributionPoints (2 5 29 31)
+ 442    1:           OCTET STRING 00 
+         :           }                .
+
+Per the RFC https://www.ietf.org/rfc/rfc5280.txt, the cRLDistributionPoints has to respect a certain definition and is sequence of distributionPoint(s). In your case it seems to be empty.
+I could parse this certificate with Python's x509 library and openssl command as well, but I think these implementations might be lenient in parsing non-critical extensions.
+
+An example of valid cRLDistributionPoints extension would be:
+
+X509v3 CRL Distribution Points: 
+ 
+                Full Name:
+                  URI:ldap://www.example.com/ldap?DN=TEST
+ 
+                Full Name:
+                  URI:http://www.example.com/crl/test.crl
+</code></pre><p>大概意思就是说golang的x509实现是按照rfc5280来的，但是这个第三方证书不是完全标准的格式，但是java、python和openssl都可以正确解析。golang的crypto/x509包对不满足标准的可能容错性不足。</p>
+<blockquote>
+<p>太感谢这位网友了，解决了我的疑惑！</p>
+</blockquote>
+<p>本着负责的态度，我给golang官方提了一个<a href="https://github.com/golang/go/issues/33259">issue</a>。哈哈，第一次给官方提了issue，感觉离柴大又近了那么一毫米。。。：）</p>
+<blockquote>
+<p>虽然此次使用golang官方包采坑了，但是依然没有减少我对golang的热情，人都没有完美的，更何况人做出来的东西了？希望golang越来越好！</p>
+</blockquote>
+<blockquote>
+<p>PS:如果有朋友也要用golang做安全相关的工作，可以尽量使用openssl这个命令行来做，一般情况下性能也够了吧，实在不行，可以考虑将openssl的lib作为cgo引入golang？这点只是一个思路，没有做过。</p>
+</blockquote>
+<blockquote>
+<p><strong>UPDATE</strong> 已经有人做了openssl lib在golang的binding， <a href="https://github.com/spacemonkeygo/openssl">spacemonkeygo/openssl</a>。可以考虑使用。</p>
+</blockquote>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>golang官方包crypto/x509包对证书的容错性不好</b><nav id="TableOfContents"></nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

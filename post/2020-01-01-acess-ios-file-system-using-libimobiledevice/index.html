@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  使用libimobiledevice库访问iphone上的文件 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="前几天将mac os升级到10.15.2后，发现新版照片.app和图像捕捉.app有bug，当照片库或者导出的目的文件夹在nfs或者samba|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">使用libimobiledevice库访问iphone上的文件</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/libimobiledevice' class="muted-link">
+  <span class="Label Label--gray">libimobiledevice</span>
+</a>
+
+<a href='/tags/iphone' class="muted-link">
+  <span class="Label Label--gray">iphone</span>
+</a>
+
+<a href='/tags/macos' class="muted-link">
+  <span class="Label Label--gray">macOS</span>
+</a>
+
+<a href='/tags/brew' class="muted-link">
+  <span class="Label Label--gray">brew</span>
+</a>
+
+<a href='/tags/ifuse' class="muted-link">
+  <span class="Label Label--gray">ifuse</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2020-01-01.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>前几天将mac os升级到10.15.2后，发现新版<strong>照片.app</strong>和<strong>图像捕捉.app</strong>有bug，当照片库或者导出的目的文件夹在nfs或者samba网络存储上时，<strong>照片.app</strong>从iphone导入图片的界面操作看着一切正常，但是照片并没有导入成功，<strong>图像捕捉.app</strong>直接的报错信息为：&ldquo;未能完成该操作。（com.apple.ImageCaptureCore错误-9956。） (-9956)。&quot;。</p>
+<p>网上搜索一圈，无果；打电话给苹果售后，无果。</p>
+<p>最后的解决方案如下：</p>
+<h2 id="安装libimobiledevice和ifuse">安装libimobiledevice和ifuse</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">brew uninstall --ignore-dependencies libimobiledevice
+brew uninstall --ignore-dependencies usbmuxd
+brew install --HEAD usbmuxd
+brew unlink usbmuxd
+brew link usbmuxd
+brew install --HEAD libimobiledevice
+brew install ideviceinstaller
+
+brew install --HEAD ifuse
+</code></pre></div><h2 id="允许访问">允许访问</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ideviceinfo
+</code></pre></div><p>需要在手机上允许访问</p>
+<h2 id="挂载ios目录">挂载iOS目录</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ifuse ~/some-path-on-your-mac-os
+</code></pre></div><blockquote>
+<p>这一步可能失败，因为macOS自带的osxfuse版本太低，需要从<a href="https://osxfuse.github.io/">osxfuse</a>安装最新版的FUSE for macOS。然后重新使用上面的命令挂载iOS文件即可。</p>
+</blockquote>
+<blockquote>
+<p>ifuse默认挂载的不是根目录，挂载根目录需要越狱。但是DCIM等照片/视频文件是可以访问的。</p>
+</blockquote>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>使用libimobiledevice库访问iphone上的文件</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装libimobiledevice和ifuse">安装libimobiledevice和ifuse</a></li>
+    <li><a href="#允许访问">允许访问</a></li>
+    <li><a href="#挂载ios目录">挂载iOS目录</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

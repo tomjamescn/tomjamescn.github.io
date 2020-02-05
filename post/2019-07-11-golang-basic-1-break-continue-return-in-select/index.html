@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  golang基础(1) - select中的break、continue和return &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="最近工作中有个地方要优化，涉及到较多的channel操作，发现gopl和effective-go中基本没有讲解select中break、co|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">golang基础(1) - select中的break、continue和return</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-07-11.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>最近工作中有个地方要优化，涉及到较多的channel操作，发现gopl和effective-go中基本没有讲解select中break、continue和return的知识(可能觉得太简单？)，导致他们的语义不太明确，本文通过代码示例来对起语义做出说明。</p>
+</blockquote>
+<blockquote>
+<p>break、continue和return三个关键字在select中区别非常大，如果不彻底理解，写代码很容易翻车，导致写出不健壮或者危险的代码。</p>
+</blockquote>
+<h2 id="return">return</h2>
+<h3 id="语义">语义</h3>
+<p>和函数中的renturn语义一样</p>
+<h3 id="示例">示例</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tick</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Tick</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">t</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">tick</span><span class="p">:</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+            <span class="k">return</span>
+		<span class="p">}</span>
+
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;for&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main exit&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>输出:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">2019-07-11 13:04:22.874804802 +0800 CST <span class="nv">m</span><span class="o">=</span>+1.000547150
+<span class="c1"># main函数返回，即整个程序停止</span>
+</code></pre></div><h2 id="break">break</h2>
+<h3 id="语义-1">语义</h3>
+<p>类似于switch中的break，break后的语句不会被执行到</p>
+<h3 id="示例-1">示例</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tick</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Tick</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+	<span class="k">select</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">t</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">tick</span><span class="p">:</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;t&#34;</span><span class="p">)</span>
+		<span class="k">break</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main exit&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>输出:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">t
+main <span class="nb">exit</span>
+</code></pre></div><p>在for-select中，break只会影响到select，不会影响到for</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tick</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Tick</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">t</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">tick</span><span class="p">:</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;t&#34;</span><span class="p">)</span>
+			<span class="k">break</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;for&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main exit&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>输出:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">t
+<span class="k">for</span>
+t
+<span class="k">for</span>
+t
+<span class="k">for</span>
+<span class="c1">#...</span>
+</code></pre></div><h2 id="continue">continue</h2>
+<h3 id="语义-2">语义</h3>
+<p>单独在select中是不能使用continue，会编译错误，只能用在for-select中。continue的语义就类似for中的语义，select后的代码不会被执行到。</p>
+<h3 id="示例1">示例1</h3>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tick</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Tick</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">t</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">tick</span><span class="p">:</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;t&#34;</span><span class="p">)</span>
+			<span class="k">continue</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;for&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;main exit&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>输出:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">t
+t
+t
+<span class="c1">#...</span>
+</code></pre></div>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>golang基础(1) - select中的break、continue和return</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#return">return</a>
+      <ul>
+        <li><a href="#语义">语义</a></li>
+        <li><a href="#示例">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#break">break</a>
+      <ul>
+        <li><a href="#语义-1">语义</a></li>
+        <li><a href="#示例-1">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#continue">continue</a>
+      <ul>
+        <li><a href="#语义-2">语义</a></li>
+        <li><a href="#示例1">示例1</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  《Mastering Vim》读书笔记 - 第一部分 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="大爱vim，虽然用的很多，但是没有系统总结过，属于初中级阶段，而且最近因为vim-go的原因，很想学习下vim的脚本和插件开发。刚好最近发现|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">《Mastering Vim》读书笔记 - 第一部分</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/%E5%B7%A5%E5%85%B7' class="muted-link">
+  <span class="Label Label--gray">工具</span>
+</a>
+
+<a href='/tags/vim' class="muted-link">
+  <span class="Label Label--gray">vim</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-06-30.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>大爱vim，虽然用的很多，但是没有系统总结过，属于初中级阶段，而且最近因为<a href="https://github.com/fatih/vim-go">vim-go</a>的原因，很想学习下vim的脚本和插件开发。刚好最近发现一本好书，《<a href="https://www.packtpub.com/application-development/mastering-vim">Mastering Vim</a>》，这本书有Bram Moolenaar（vim creator和maintainer）背书，应该不错的！</p>
+</blockquote>
+<blockquote>
+<p>顺便扯一下蛋，个人觉得今后editor和IDE的发展应该是朝着轻量级和插件化发展，从vim的长盛不衰和最近很火的vs code就能看出这个趋势。jet brains虽然很重，但是用起来感觉比较轻量级，也没有跳出这个范畴。但是从本源来说，个人倾向于vim，有了这个神器，对几乎所有源码的编辑任务都能以不变应万变，而且能享受到命令行本身的乐趣。<strong>Keep It Simple and Stupid!</strong></p>
+</blockquote>
+<blockquote>
+<p>读的是《Mastering Vim》第一版，好像有第二版了</p>
+</blockquote>
+<blockquote>
+<p>此篇笔记的组织方式是按照原书的目录结构组织的，这样方便去找原书的对应章节内容。但是与常用插件相关的部分因为实用性太强，自己就按照自己的方式组织了：）</p>
+</blockquote>
+<blockquote>
+<p>此篇笔记是使用<a href="https://tamlok.github.io/vnote/zh_cn/">Vnote-一个更懂程序员和Markdown的笔记</a>的vim模式编辑的。</p>
+</blockquote>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="常用配置">常用配置</h3>
+<div class="highlight"><pre class="chroma"><code class="language-vim" data-lang="vim"><span class="nx">syntax</span> <span class="nx">on</span>                      <span class="c">&#34; Enable syntax highlighting.</span><span class="err">
+</span><span class="err"></span><span class="nx">filetype</span> <span class="nx">plugin</span> <span class="nx">indent</span> <span class="nx">on</span>      <span class="c">&#34; Enable file type based indentation.</span><span class="err">
+</span><span class="err"></span><span class="nx">set</span> <span class="nx">autoindent</span>                 <span class="c">&#34; Respect indentation when starting a new line.</span><span class="err">
+</span><span class="err"></span><span class="nx">set</span> <span class="nx">expandtab</span>                  <span class="c">&#34; Expand tabs to spaces. Essential in Python.</span><span class="err">
+</span><span class="err"></span><span class="nx">set</span> <span class="nx">tabstop</span><span class="p">=</span><span class="m">4</span>                  <span class="c">&#34; Number of spaces tab is counted for.</span><span class="err">
+</span><span class="err"></span><span class="nx">set</span> <span class="nx">shiftwidth</span><span class="p">=</span><span class="m">4</span>               <span class="c">&#34; Number of spaces to use for autoindent.</span><span class="err">
+</span><span class="err"></span><span class="nx">set</span> <span class="nx">backspace</span><span class="p">=</span><span class="m">2</span>                <span class="c">&#34; Fix backspace behavior on most terminals.</span><span class="err">
+</span><span class="err"></span><span class="nx">colorscheme</span> <span class="nx">murphy</span>             <span class="c">&#34; Change a colorscheme.</span><span class="err">
+</span></code></pre></div><h3 id="命令模式下查看当前某个选项的值">命令模式下查看当前某个选项的值</h3>
+<div class="highlight"><pre class="chroma"><code class="language-vim" data-lang="vim">#<span class="nx">注意问号</span><span class="err">
+</span><span class="err"></span><span class="p">:</span><span class="nx">set</span> <span class="nx">xxx</span>?<span class="err">
+</span></code></pre></div><h3 id="vim8自带的colorscheme">vim8自带的colorscheme</h3>
+<blockquote>
+<p>心情不好的时候可以换个主题，哈哈</p>
+</blockquote>
+<ul>
+<li>blue</li>
+<li>darkblue</li>
+<li>default</li>
+<li>delek</li>
+<li>desert</li>
+<li>elflord</li>
+<li>evening</li>
+<li>industry</li>
+<li>koehler</li>
+<li>moring</li>
+<li>merhpy</li>
+<li>pablo</li>
+<li>peachpuff</li>
+<li>ron</li>
+<li>shine</li>
+<li>slate</li>
+<li>torte</li>
+<li>zellner</li>
+</ul>
+<h3 id="各种移动导航操作">各种移动/导航操作</h3>
+<blockquote>
+<p>vim中，word表示字母，数字和下划线的组合，WORD表示非空格字符序列。一般主要使用word。比如<code>that's a person! ok?</code>, word就是<code>that</code>-<code>'</code>-<code>s</code>-<code>a</code>-<code>person</code>-<code>!</code>-<code>ok</code>-<code>?</code>，WORD就是<code>that's</code>-<code>a</code>-<code>person!</code>-<code>ok?</code>.</p>
+</blockquote>
+<blockquote>
+<p>vim中，paragraph(段落)的含义是至少两个新行组成的块，段落之间是有换行的。</p>
+</blockquote>
+<blockquote>
+<p>**向前(forward)**指从左到右，或者，从上到下。 **向后(backward)**指从右到左，或者，从下到上</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w</td>
+<td>向前移动一个word</td>
+</tr>
+<tr>
+<td>e</td>
+<td>向前移动到word的末尾(end)</td>
+</tr>
+<tr>
+<td>W</td>
+<td>向前移动一个WORD</td>
+</tr>
+<tr>
+<td>E</td>
+<td>向前移动到WORD的末尾(end)</td>
+</tr>
+<tr>
+<td>b</td>
+<td>向后移动一个word</td>
+</tr>
+<tr>
+<td>B</td>
+<td>向后移动一个WORD</td>
+</tr>
+<tr>
+<td>{</td>
+<td>向后移动一个段落</td>
+</tr>
+<tr>
+<td>}</td>
+<td>向前移动一个段落</td>
+</tr>
+<tr>
+<td>ctrl+b</td>
+<td>向后移动一页</td>
+</tr>
+<tr>
+<td>ctrl+f</td>
+<td>向前移动一页</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>vim中，除了i进入insert模式，c也常用</p>
+</blockquote>
+<blockquote>
+<p>操作一般组合起来使用，vim中的组合模式为<!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted -->。比如 4w，就是向前移动4个word，dd4就是删除4行。</p>
+</blockquote>
+<p><img src="/v_images/20190610133418477_1011314140.png" alt=""></p>
+<h3 id="一些编辑指令">一些编辑指令</h3>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>进入编辑模式, 一般使用cw</td>
+</tr>
+<tr>
+<td>cc</td>
+<td>清除整行并进入编辑模式</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除整行</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/v_images/20190610134948576_41362471.png" alt=""></p>
+<p><img src="/v_images/20190610135606511_2034688910.png" alt=""></p>
+<h3 id="undo和redo">undo和redo</h3>
+<p>u是undo，ctrol+r是redo</p>
+<h3 id="帮助">帮助</h3>
+<blockquote>
+<p>vim帮助文档中的<!-- raw HTML omitted -->表示换行符的意思</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:help</td>
+<td>进入帮助</td>
+</tr>
+<tr>
+<td>:h cc</td>
+<td>查看cc指令的帮助</td>
+</tr>
+<tr>
+<td>:h search-command</td>
+<td>命令行下搜索的帮助</td>
+</tr>
+<tr>
+<td>:h search&lt;Ctrl+D&gt;</td>
+<td>包含search字符串的tag</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="advanced-editing-and-navigation">Advanced Editing and Navigation</h2>
+<p>vim中，打开的一个文件就是一个window，多个window构成一个tag， <code>+--</code>开始的行表明是折叠
+文件在vim中，称之为buffer。每一个打开的文件都有一个关联的buffer。</p>
+<p>命令模式下使用<code>:ls</code>可以看到目前已存在的buffer。<code>:files</code>和<code>:buffers</code>有同样的效果。</p>
+<blockquote>
+<p>buffer的操作可以通过<code>:bX</code>来操作。</p>
+</blockquote>
+<ul>
+<li><code>:b 1</code> 切换到id为1的buffer上</li>
+<li><code>:b cat</code> 切换到文件名有cat的buffer上，同名会报错</li>
+<li><code>:bd</code> 删除当前buffer，即关闭文件。如果文件没有保存，会报错。</li>
+</ul>
+<h3 id="navigating-text">Navigating Text</h3>
+<ul>
+<li><code>tX</code> 当前行下搜索字符X，并将光标移动到X之前的字符</li>
+<li><code>fX</code> 与<code>tX</code>类似，不过光标移动到目标字符上</li>
+<li><code>$</code> 将光标移动到行的末尾，<code>^</code>将光标移动到行的开头 （原书说的是<code>_</code>到行的开头，但是不行，我的使用的iterm2）</li>
+<li><code>ge</code> 将光标移动到上一个word的末尾，<code>GE</code> for WORD</li>
+<li><code>gg</code> 文件开头</li>
+<li><code>G</code> 文件结尾</li>
+</ul>
+<p>书中的这张图有个很不错的总结：
+<img src="/v_images/20190703100118027_598140552.png" alt="cheat sheet"></p>
+<ul>
+<li><code>:set nu</code>与<code>:set nonu</code>是打开和关闭行号显示</li>
+<li><code>:N</code> N为行号，跳转到某行</li>
+<li><code>:+N</code> 和 <code>:-N</code>为向下和向上N行</li>
+</ul>
+<h4 id="进入插入模式">进入插入模式</h4>
+<ul>
+<li><code>a</code> 当前光标之后插入</li>
+<li><code>A</code> 当前行最后插入，等价于<code>$a</code></li>
+<li><code>i</code> 当前光标之前插入</li>
+<li><code>I</code> 当前行最前（不包括最前的连续空白符）插入，等价于<code>^i</code></li>
+<li><code>o</code> 当前行之后新增一行</li>
+<li><code>O</code> 当前行之前新增一行</li>
+<li><code>gi</code> 上一次插入模式的位置</li>
+<li><code>C</code> 删除当前光标以及之后的所有行内字符并进入插入模式</li>
+<li><code>cc</code> <code>S</code> 同<code>C</code>但是是向前</li>
+<li><code>s</code> 删除一个字符并进入插入模式</li>
+</ul>
+<h4 id="使用和搜索">使用<code>/</code>和<code>?</code>搜索</h4>
+<h4 id="utilizing-text-objects">Utilizing text objects</h4>
+<ul>
+<li><code>text object</code>是vim中的一种对象类型。很有用！这块我也没怎么用过，学习！</li>
+<li><code>di)</code> <code>di(</code> 删除括号中的数据</li>
+<li><code>di&quot;</code> 删除双引号中的数据</li>
+<li><code>di{'</code> <code>di}</code> 删除大括号中的数据</li>
+<li><code>di&lt;'</code> <code>di&gt;</code> 删除大括号中的数据</li>
+<li>`字符也可以的 - markdown编辑器无法转义。。。</li>
+</ul>
+<h4 id="拷贝与拷贝">拷贝与拷贝</h4>
+<ul>
+<li><code>yy</code> 复制一行</li>
+<li><code>ye</code> 复制到word结尾</li>
+<li><code>yX</code> x是一些导航字符，比如w, b, e等等</li>
+<li><code>p</code> 拷贝</li>
+</ul>
+<h5 id="register模式">register模式</h5>
+<ul>
+<li><code>:reg</code> 列出当前register</li>
+<li><code>:reg &lt;名字&gt;</code></li>
+<li><code>&quot;ayw</code> 注册一个叫做a的register，并且复制到word结尾</li>
+<li><code>&quot;ap</code> 拷贝叫做a的register中的内容</li>
+</ul>
+<h2 id="follow-the-leader---plugin-management">Follow the Leader - Plugin Management</h2>
+<p><a href="https://github.com/junegunn/vim-plug">vim-plug</a>是一个易用的插件管理器，当然还有其他的。</p>
+<h3 id="profiling-slow-plugins">Profiling slow plugins</h3>
+<p><code>vim --startuptime startuptime.log</code></p>
+<h3 id="profiling-specific-actions">Profiling specific actions</h3>
+<p>这里原书讲了CtrlP的例子，也是我遇到到的问题。</p>
+<div class="highlight"><pre class="chroma"><code class="language-vim" data-lang="vim"><span class="p">:</span><span class="nx">profile</span> <span class="nx">start</span> <span class="nx">profile</span>.<span class="nx">log</span><span class="err">
+</span><span class="err"></span><span class="p">:</span><span class="nx">profile</span> <span class="nx">func</span> *<span class="err">
+</span><span class="err"></span><span class="p">:</span><span class="nx">profile</span> <span class="nx">file</span> *<span class="err">
+</span></code></pre></div><h3 id="deeper-dive-into-modes">Deeper dive into modes</h3>
+<h4 id="visual-and-select-mode">Visual and select mode</h4>
+<ul>
+<li><code>v</code> 进入visual mode</li>
+<li><code>V</code> 进入visual mode，按行</li>
+<li><code>Ctrl + v</code>  进入visual mode，按列</li>
+</ul>
+<h4 id="replace-mode">Replace mode</h4>
+<ul>
+<li><code>R</code>进入替换模式，替换模式与insert模式的区别就是insert下是插入，replace下是覆盖</li>
+</ul>
+<h4 id="terminal-mode---vim81新增">Terminal mode - vim8.1新增</h4>
+<ul>
+<li><code>:terminal</code> 或者 <code>:term</code>进入终端模式，会开一个新窗口。</li>
+</ul>
+<blockquote>
+<p>说实话，这个模式有点鸡肋，使用iterm2拆分窗口，或者使用tmux就可以达到同样的效果了。</p>
+</blockquote>
+<h4 id="remapping-commands---自定义热键映射">Remapping commands - 自定义热键/映射</h4>
+<p>vim中可以设置自定义热键</p>
+<ul>
+<li><code>:map</code> <code>:noremap</code> 可以查看当前映射的map和noremap</li>
+<li><code>noremap ; :</code> 将;映射为:</li>
+<li><code>noremap &lt;c-u&gt; :w&lt;cr&gt;</code> 将ctrl+s定义为保存文件</li>
+</ul>
+<p>map是递归的映射的意思，noremap是不会递归映射的意思。</p>
+<blockquote>
+<p>递归映射的含义是，如果映射了a为b指令，c为a指令，那么执行c指令的时候，实际上执行b指令，有一种传递/递归关系。详见<a href="https://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping">这里</a></p>
+</blockquote>
+<blockquote>
+<p>请不要尝试映射<code>&lt;c-s&gt;</code>，即ctrl+s，这样会锁住vim，让人以为是vim死机了，其实不是，ctrl-q会恢复。</p>
+</blockquote>
+<p>vim各个模式下的映射命令如下，请注意，都是在map和remap前加前缀：</p>
+<div class="highlight"><pre class="chroma"><code class="language-vim" data-lang="vim"><span class="p">:</span><span class="nx">nmap</span> <span class="nx">and</span> :<span class="nx">nnoremap</span>: <span class="nx">Normal</span> <span class="nx">mode</span><span class="err">
+</span><span class="err"></span><span class="p">:</span><span class="nx">vmap</span> <span class="nx">and</span> :<span class="nx">vnoremap</span>: <span class="nx">Visual</span> <span class="nx">and</span> <span class="nx">select</span> <span class="nx">modes</span> :<span class="nx">xmap</span> <span class="nx">and</span> :<span class="nx">xnoremap</span>: <span class="nx">Visual</span> <span class="nx">mode</span><span class="err">
+</span><span class="err"></span><span class="p">:</span><span class="nx">smap</span> <span class="nx">and</span> :<span class="nx">snoremap</span>: <span class="nx">Select</span> <span class="nx">mode</span><span class="err">
+</span><span class="err"></span><span class="p">:</span><span class="nx">omap</span> <span class="nx">and</span> :<span class="nx">onoremap</span>: <span class="nx">Operator</span><span class="p">-</span><span class="nx">pending</span> <span class="nx">mode</span><span class="err">
+</span><span class="err"></span><span class="p">:</span><span class="nx">map</span><span class="p">!</span> <span class="nx">and</span> :<span class="nx">noremap</span><span class="p">!</span>: <span class="nx">Insert</span> <span class="nx">and</span> <span class="nx">command</span><span class="p">-</span><span class="nx">line</span> <span class="nx">modes</span> :<span class="nx">imap</span> <span class="nx">and</span> :<span class="nx">inoremap</span>: <span class="nx">Insert</span> <span class="nx">mode</span><span class="err">
+</span><span class="err"></span><span class="p">:</span><span class="nx">cmap</span> <span class="nx">and</span> :<span class="nx">cnoremap</span>: <span class="nx">Command</span><span class="p">-</span><span class="nx">line</span> <span class="nx">mode</span><span class="err">
+</span></code></pre></div><p>自定义热键/映射非常有用，请看下面的配置，这个配置已经收录在<a href="https://github.com/tomjamescn/vimrc">自己的vimrc项目</a>中了</p>
+<div class="highlight"><pre class="chroma"><code class="language-vim" data-lang="vim"><span class="c">&#34;   输入&#39;&#34;&lt;{[`自动补全另外一半，并将光标移动到合适的位置，提升输入效率杠杠的！</span><span class="err">
+</span><span class="err"></span><span class="nx">inoremap</span> <span class="s1">&#39; &#39;</span>&#39;<span class="p">&lt;</span><span class="nx">esc</span><span class="p">&gt;</span><span class="nx">i</span><span class="err">
+</span><span class="err"></span><span class="nx">inoremap</span> <span class="s2">&#34; &#34;</span>&#34;<span class="p">&lt;</span><span class="nx">esc</span><span class="p">&gt;</span><span class="nx">i</span><span class="err">
+</span><span class="err"></span><span class="nx">inoremap</span> <span class="p">(</span> <span class="p">(</span><span class="p">)</span><span class="p">&lt;</span><span class="nx">esc</span><span class="p">&gt;</span><span class="nx">i</span><span class="err">
+</span><span class="err"></span><span class="nx">inoremap</span> { {}<span class="p">&lt;</span><span class="nx">esc</span><span class="p">&gt;</span><span class="nx">i</span><span class="err">
+</span><span class="err"></span><span class="nx">inoremap</span> [ []<span class="p">&lt;</span><span class="nx">esc</span><span class="p">&gt;</span><span class="nx">i</span><span class="err">
+</span><span class="err"></span><span class="nx">inoremap</span> ` ``<span class="p">&lt;</span><span class="nx">esc</span><span class="p">&gt;</span><span class="nx">i</span><span class="err">
+</span></code></pre></div><p>有一个leader key的概念，和tmux的leader key概念一致。可以简单理解为一个按键前缀。
+在自定义热键和映射时，可以使用<code>noremap &lt;leader&gt;s :w&lt;cr&gt;</code>
+vim的默认Leader key是<code>/</code>，按照上面的定义，在非insert模式下，先按下/再按下s就等价于</p>
+<p>可以通过 <code>let mapleader = &quot;\&lt;c-b&gt;&quot;</code>来修改默认的leader key，这里修改为ctrl+b就和tmux的leader key一样了。注意如果leader key中含有特殊字符，比如<!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted -->等等，需要加入<code>\</code></p>
+<blockquote>
+<p>因为使用vim-go习惯了，所以自己设置的逗号作为leader key。很好用。</p>
+</blockquote>
+<h2 id="understanding-the-text">Understanding the Text</h2>
+<h3 id="navigating-the-code-base-with-tags">Navigating the code base with tags</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">//建立tags文件
+ctags -R .
+</code></pre></div><ul>
+<li>
+<p><code>set tags=tags</code> 向当前目录找tags文件，如果没有找到，递归的向父目录寻找。</p>
+</li>
+<li>
+<p><code>ctrl+]</code> 跳转到定义，下面定义的命令/快捷键需要在此命令调用后再调用</p>
+</li>
+<li>
+<p><code>ctrl+t</code> 调回来</p>
+</li>
+<li>
+<p><code>:tn</code> 如果有同名的tag，这个调到找到的下一个tag</p>
+</li>
+<li>
+<p><code>:tp</code> 调到上一个tag</p>
+</li>
+<li>
+<p><code>:ts</code> (助记：tag select)如果有同名的tag，这个命令会将所有的tag列出来，这个功能我竟然没有用过！！！</p>
+</li>
+<li>
+<p><code>g]</code> 打开tag的文件列表，这个不需要调用<code>ctrl+]</code></p>
+</li>
+<li>
+<p><code>vim -t some_tag</code> 打开vim的时候，直接调到某个tag上</p>
+</li>
+</ul>
+<p>可以在.vimrc中配置以下指令来自动更新tags，会每次保存一个py文件后，执行ctags -R</p>
+<div class="highlight"><pre class="chroma"><code class="language-vim" data-lang="vim"><span class="nx">autocmd</span> <span class="nx">BufWritePost</span> *.<span class="nx">py</span> <span class="nx">silent</span><span class="p">!</span> <span class="p">!</span><span class="nx">ctags</span> <span class="p">-</span><span class="nx">R</span> &amp;<span class="err">
+</span></code></pre></div><p>对于c++可以设置为:</p>
+<div class="highlight"><pre class="chroma"><code class="language-vim" data-lang="vim"><span class="nx">autocmd</span> <span class="nx">BufWritePost</span> *.<span class="nx">cpp</span> *.<span class="nx">h</span> <span class="nx">silent</span><span class="p">!</span> <span class="p">!</span><span class="nx">ctags</span> <span class="p">-</span><span class="nx">R</span> &amp;<span class="err">
+</span></code></pre></div><blockquote>
+<p>TODO:这个功能挺好，因为现在vim-go扩展的自动提示功能缺乏自动编译功能，看能否加入。</p>
+</blockquote>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>《Mastering Vim》读书笔记 - 第一部分</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#常用配置">常用配置</a></li>
+        <li><a href="#命令模式下查看当前某个选项的值">命令模式下查看当前某个选项的值</a></li>
+        <li><a href="#vim8自带的colorscheme">vim8自带的colorscheme</a></li>
+        <li><a href="#各种移动导航操作">各种移动/导航操作</a></li>
+        <li><a href="#一些编辑指令">一些编辑指令</a></li>
+        <li><a href="#undo和redo">undo和redo</a></li>
+        <li><a href="#帮助">帮助</a></li>
+      </ul>
+    </li>
+    <li><a href="#advanced-editing-and-navigation">Advanced Editing and Navigation</a>
+      <ul>
+        <li><a href="#navigating-text">Navigating Text</a></li>
+      </ul>
+    </li>
+    <li><a href="#follow-the-leader---plugin-management">Follow the Leader - Plugin Management</a>
+      <ul>
+        <li><a href="#profiling-slow-plugins">Profiling slow plugins</a></li>
+        <li><a href="#profiling-specific-actions">Profiling specific actions</a></li>
+        <li><a href="#deeper-dive-into-modes">Deeper dive into modes</a></li>
+      </ul>
+    </li>
+    <li><a href="#understanding-the-text">Understanding the Text</a>
+      <ul>
+        <li><a href="#navigating-the-code-base-with-tags">Navigating the code base with tags</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

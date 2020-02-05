@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  深入golang系列(1) - 工具 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="虽然已经用golang在公司写了一套业务开发框架，而且在应用层面取得了一些收益。但是，自己对go的底层了解的还不够。最近看了一些大拿的文章，|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">深入golang系列(1) - 工具</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-07-04.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>虽然已经用golang在公司写了一套业务开发框架，而且在应用层面取得了一些收益。但是，自己对go的底层了解的还不够。最近看了一些大拿的文章，也加入了一些golang讨论微信群，深感自己对golang的底层了解的不够深入，需要花时间深入了。</p>
+</blockquote>
+<blockquote>
+<p>这个会是一系列文章，后面怎么写还没想好。本篇文章的主题是确定的，就是<code>工欲善其事必先利其器</code>！先将工具准备齐全了，后续就是静下心来学习、分析和实践了。</p>
+</blockquote>
+<h2 id="go-tool-objdump">go tool objdump</h2>
+<blockquote>
+<p>此命令可以将go build后的二进制程序dump为汇编</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">usage: go tool objdump <span class="o">[</span>-S<span class="o">]</span> <span class="o">[</span>-s symregexp<span class="o">]</span> binary <span class="o">[</span>start end<span class="o">]</span>
+
+  -S	print go code alongside assembly
+  -s string
+    	only dump symbols matching this regexp
+</code></pre></div><p><code>-S</code>选项可以将go源码和汇编代码对应起来，这是一个killer feature！</p>
+<p><code>-s string</code>选项可以让我们在浩瀚的汇编代码中找到自己关心的部分</p>
+<h3 id="实例分析1---go关键字的背后发生了什么">实例分析1 - go关键字的背后发生了什么</h3>
+<p>go关键字背后到底发生了什么，这应该是深入了解go底层的一个入口了。
+我们可以写一个最简单的代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go">
+<span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">testGoroutine</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;1111111&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">go</span> <span class="nf">testGoroutine</span><span class="p">(</span><span class="p">)</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;2222&#34;</span><span class="p">)</span>
+	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Hour</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>然后<code>go build -o main</code></p>
+<p>最后执行<code>go tool objdump -S -s main.main ./main</code></p>
+<p>可以得到以下输出:</p>
+<pre><code>TEXT main.main(SB) /Users/...路径.../main.go
+func main() {
+  0x1093760		65488b0c2530000000	MOVQ GS:0x30, CX
+  0x1093769		483b6110		CMPQ 0x10(CX), SP
+  0x109376d		0f869c000000		JBE 0x109380f
+  0x1093773		4883ec58		SUBQ $0x58, SP
+  0x1093777		48896c2450		MOVQ BP, 0x50(SP)
+  0x109377c		488d6c2450		LEAQ 0x50(SP), BP
+	go testGoroutine()
+  0x1093781		c7042400000000		MOVL $0x0, 0(SP)
+  0x1093788		488d05b19d0300		LEAQ go.func.*+127(SB), AX
+  0x109378f		4889442408		MOVQ AX, 0x8(SP)
+  0x1093794		e867d7f9ff		CALL runtime.newproc(SB)
+	fmt.Println(&quot;2222&quot;)
+  0x1093799		0f57c0			XORPS X0, X0
+  0x109379c		0f11442440		MOVUPS X0, 0x40(SP)
+  0x10937a1		488d05780b0100		LEAQ runtime.types+68224(SB), AX
+  0x10937a8		4889442440		MOVQ AX, 0x40(SP)
+  0x10937ad		488d05dcb00400		LEAQ main.statictmp_1(SB), AX
+  0x10937b4		4889442448		MOVQ AX, 0x48(SP)
+  0x10937b9		90			NOPL
+	return Fprintln(os.Stdout, a...)
+  0x10937ba		488b0597de0d00		MOVQ os.Stdout(SB), AX
+  0x10937c1		488d0d38c90400		LEAQ go.itab.*os.File,io.Writer(SB), CX
+  0x10937c8		48890c24		MOVQ CX, 0(SP)
+  0x10937cc		4889442408		MOVQ AX, 0x8(SP)
+  0x10937d1		488d442440		LEAQ 0x40(SP), AX
+  0x10937d6		4889442410		MOVQ AX, 0x10(SP)
+  0x10937db		48c744241801000000	MOVQ $0x1, 0x18(SP)
+  0x10937e4		48c744242001000000	MOVQ $0x1, 0x20(SP)
+  0x10937ed		e88e98ffff		CALL fmt.Fprintln(SB)
+	time.Sleep(1 * time.Hour)
+  0x10937f2		48b800a0b83046030000	MOVQ $0x34630b8a000, AX
+  0x10937fc		48890424		MOVQ AX, 0(SP)
+  0x1093800		e85b00fbff		CALL time.Sleep(SB)
+}
+  0x1093805		488b6c2450		MOVQ 0x50(SP), BP
+  0x109380a		4883c458		ADDQ $0x58, SP
+  0x109380e		c3			RET
+func main() {
+  0x109380f		e88cc1fbff		CALL runtime.morestack_noctxt(SB)
+  0x1093814		e947ffffff		JMP main.main(SB)
+
+  0x1093819		cc			INT $0x3
+  0x109381a		cc			INT $0x3
+  0x109381b		cc			INT $0x3
+  0x109381c		cc			INT $0x3
+  0x109381d		cc			INT $0x3
+  0x109381e		cc			INT $0x3
+  0x109381f		cc			INT $0x3
+</code></pre><blockquote>
+<p><code>main.main</code>是main.go中main函数的名称。如果想查看某个函数的dump后的内容，比如<code>testGoroutine</code>，可以设置<code>-s</code>参数为<code>main.testGoroutine</code>。<code>main.XXX</code>就是一种golang内部的命名规则。</p>
+</blockquote>
+<p>可以很清晰的看到，<code>0x1093794     e867d7f9ff      CALL runtime.newproc(SB)</code>就是go关键字的关键。当然，如果有疑问，可以采用对比的方法，将go关键字去掉，再dump对比看看。</p>
+<p><code>runtime.newproc</code>对应的就是go源代码的runtime包的newproc函数了，在<code>$GO_SRC_ROOT/runtime/proc.go</code>文件中。</p>
+<blockquote>
+<p>入口找到了，就应该开始分析了，下一篇文章应该从这个入库开始写，逐渐向下分析。</p>
+</blockquote>
+<h2 id="参考">参考</h2>
+<p><a href="https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html">Scheduling In Go : Part I - OS Scheduler</a></p>
+<p><a href="https://jingwei.link/2018/07/01/runtime-of-goroutine-creation.html">Golang的runtime之从汇编说goroutine</a></p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>深入golang系列(1) - 工具</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#go-tool-objdump">go tool objdump</a>
+      <ul>
+        <li><a href="#实例分析1---go关键字的背后发生了什么">实例分析1 - go关键字的背后发生了什么</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

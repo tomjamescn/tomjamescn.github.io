@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cluster on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/cluster/</link>
+    <description>Recent content in cluster on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Sat, 09 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/cluster/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>搭建k8s集群</title>
+      <link>https://tomjamescn.github.io/post/2019-02-09-build-a-k8s-cluster/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-02-09-build-a-k8s-cluster/</guid>
+      <description>本文基于截止目前最新的稳定的CoreOS Container Linux和k8s搭建一个master节点和3个工作节点的k8s集群 版本 CoreOS Container Linux: Stable 1967.4.0 K8s: v1.13.3 集群拓扑 |&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;| |</description>
+    </item>
+    
+  </channel>
+</rss>

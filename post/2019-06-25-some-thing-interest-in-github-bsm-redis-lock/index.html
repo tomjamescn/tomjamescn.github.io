@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  github.com/bsm/redis-lock代码库的一件趣事 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="记录一件有意思的事情，从这件事情能得到一些启示。 前几天，给公司的redis库加入了分布式锁，底层封装了github.com/go-redis|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">github.com/bsm/redis-lock代码库的一件趣事</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+<a href='/tags/redis' class="muted-link">
+  <span class="Label Label--gray">redis</span>
+</a>
+
+<a href='/tags/redis-go' class="muted-link">
+  <span class="Label Label--gray">redis-go</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-06-25.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>记录一件有意思的事情，从这件事情能得到一些启示。</p>
+<p>前几天，给公司的redis库加入了分布式锁，底层封装了<a href="https://github.com/go-redis/redis">github.com/go-redis/redis</a>官方推荐的<a href="https://github.com/bsm/redis-lock">github.com/bsm/redis-lock</a>，这个库有个api的语义是有点问题的，然后就准备提一个issue，没想到已经有人提了类似的<a href="https://github.com/bsm/redis-lock/issues/12">issue</a>，我也追加了评论：</p>
+<pre><code>I have met this problem too!
+
+I think this api is ambiguous.
+</code></pre><p>这件事情有趣就有趣在库的维护者是一个非常认真的人，为了api向后兼容，就将原来的库archived了，然后新开了一个库<a href="https://github.com/bsm/redislock">github.com/bsm/redislock</a>，注意，一个字符之差。</p>
+<p>从这件事情至少能看到以下事实：</p>
+<ul>
+<li>做开源是很不容易的</li>
+<li>国外的开发者真的很负责</li>
+<li>参与开源，哪怕不是贡献代码，只是贡献问题，也是一种贡献，能帮助项目的进步</li>
+<li>可以接着给redis官方提issue，更新redis-lock的地址了：）</li>
+</ul>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>github.com/bsm/redis-lock代码库的一件趣事</b><nav id="TableOfContents"></nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

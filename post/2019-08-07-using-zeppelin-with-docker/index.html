@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  基于docker的zeppelin &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="这两天老家有个亲戚要卖房子，问我现在买房怎么样？房子的问题实在是不懂，就想到抓取点网上公开的数据帮他简单分析下（历史成交套数，历史成交均价等|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">基于docker的zeppelin</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/docker' class="muted-link">
+  <span class="Label Label--gray">docker</span>
+</a>
+
+<a href='/tags/zeppelin' class="muted-link">
+  <span class="Label Label--gray">zeppelin</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-08-07.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>这两天老家有个亲戚要卖房子，问我现在买房怎么样？房子的问题实在是不懂，就想到抓取点网上公开的数据帮他简单分析下（历史成交套数，历史成交均价等等简单交叉分析）。</p>
+</blockquote>
+<p>抓数据和导入数据都比较顺利，抓数据，使用<a href="https://github.com/gocolly/colly">colly</a>还是比较方便的，开发效率比较高。最后决定将数据导入mysql数据源做分析，这时，问题出现了，应该使用什么图形化工具了？简单尝试了一些plot库，工作量有点大，放弃；也尝试了很好用的监控图形工具grafana，貌似grafana从设计上就将自己定位在了时间序列数据的图形展示工具上，而且自己平时都是用它来查询时序数据库（influxdb和prometheus），用sql感觉不好用，放弃；最后，想到了前几年玩过的zeppelin，当时体验还不错，就是它了。</p>
+<p>自己大概是2016年底用过zeppelin，没想到几年过去了，它的版本还在0.8.1（实际上有0.8.3了，只是官网没有挂出来）。感觉zeppelin应该用的人比较多吧，没想到竟然没有官方镜像。。。</p>
+<h2 id="dockerfile">Dockerfile</h2>
+<p>下面是自己撸的一个，亲测用好：</p>
+<div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">FROM</span><span class="s"> ubuntu:16.04</span><span class="err">
+</span><span class="err"></span><span class="err">
+</span><span class="err"></span><span class="k">ENV</span> ZEPPELIN_PORT <span class="m">8080</span><span class="err">
+</span><span class="err"></span><span class="k">ENV</span> ZEPPELIN_HOME /usr/local/zeppelin<span class="err">
+</span><span class="err"></span><span class="err">
+</span><span class="err"></span><span class="k">EXPOSE</span><span class="s"> $ZEPPELIN_PORT</span><span class="err">
+</span><span class="err"></span><span class="err">
+</span><span class="err"></span><span class="c">#install java</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>  apt-get install -y software-properties-common <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>  add-apt-repository ppa:openjdk-r/ppa <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>  apt-get update <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>  apt-get install -y openjdk-8-jdk<span class="err">
+</span><span class="err"></span><span class="err">
+</span><span class="err"></span><span class="c">#install other</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> apt-get install -y <span class="se">\
+</span><span class="se"></span>  npm <span class="se">\
+</span><span class="se"></span>  vim <span class="se">\
+</span><span class="se"></span>  wget<span class="err">
+</span><span class="err"></span><span class="err">
+</span><span class="err"></span><span class="c">#install Zeppelin</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> wget http://apache.cs.utah.edu/zeppelin/zeppelin-0.8.1/zeppelin-0.8.1-bin-all.tgz <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>  tar -zxf zeppelin-0.8.1-bin-all.tgz -C /usr/local/ <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>  mv /usr/local/zeppelin* <span class="nv">$ZEPPELIN_HOME</span><span class="err">
+</span><span class="err"></span><span class="err">
+</span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> $ZEPPELIN_HOME</span><span class="err">
+</span><span class="err"></span><span class="k">CMD</span> bin/zeppelin.sh<span class="err">
+</span></code></pre></div><h2 id="build">build</h2>
+<p>build命令如下:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">docker build -t zeppelin:0.8.1 .
+</code></pre></div><h2 id="startsh">start.sh</h2>
+<p>启动脚本如下:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+docker run -p 8080:8080 -v /poolA/docker/apps/zeppelin/conf:/usr/local/zeppelin/conf -v /poolA/docker/apps/zeppelin/notebook:/usr/local/zeppelin/notebook  -d zeppelin:0.8.1
+</code></pre></div><p>需要说明下，启动脚本中挂在的卷，需要第一次启动docker后，将对应的文件拷贝到host上后，再使用-v，重新启动docker才有效。否则，辛苦添加的interpretor和notebook在docker重启后就会丢失了。。。拷贝时，可以使用<code>docker cp</code>命令。</p>
+<h2 id="mysql-jdbc-interpretor">mysql jdbc interpretor</h2>
+<p>加入mysql的interpretor, 这一步可以参考下<a href="https://zeppelin.apache.org/docs/latest/interpreter/jdbc.html">官方文档</a>:
+default.driver	com.mysql.jdbc.Driver
+default.password	xxx
+default.url	jdbc:mysql://192.168.123.80:3306/spider
+default.user	xxx</p>
+<p>依赖:
+artifact: mysql:mysql-connector-java:5.1.38</p>
+<p>感觉zeppelin在sql场景下比grafana好用&hellip;</p>
+<blockquote>
+<p>grafana在监控场景下很好用，但是为什么写复杂sql这么别扭了，需要再学习下。。。</p>
+</blockquote>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>基于docker的zeppelin</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#dockerfile">Dockerfile</a></li>
+    <li><a href="#build">build</a></li>
+    <li><a href="#startsh">start.sh</a></li>
+    <li><a href="#mysql-jdbc-interpretor">mysql jdbc interpretor</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

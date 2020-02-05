@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  CPU缓存体系-Cache Line假共享 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="做了多年业务开发和网络开发，对框架、网络访问、业务功能等有了一定认识，但是在分层开发体系下，工作都是在上层工作，离计算机核心（CPU/缓存等|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">CPU缓存体系-Cache Line假共享</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/cpu' class="muted-link">
+  <span class="Label Label--gray">cpu</span>
+</a>
+
+<a href='/tags/cache-system' class="muted-link">
+  <span class="Label Label--gray">cache system</span>
+</a>
+
+<a href='/tags/false-sharing' class="muted-link">
+  <span class="Label Label--gray">false sharing</span>
+</a>
+
+<a href='/tags/cache-line' class="muted-link">
+  <span class="Label Label--gray">cache line</span>
+</a>
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-08-31.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>做了多年业务开发和网络开发，对框架、网络访问、业务功能等有了一定认识，但是在分层开发体系下，工作都是在上层工作，离计算机核心（CPU/缓存等）却越拉越远，后续需要加强这方面的知识。本文尝试说明白CPU缓存体系中的假共享问题。</p>
+</blockquote>
+<blockquote>
+<p>本文对CPU和Cache Line的知识主要参考了<a href="http://biz.51cto.com/art/201901/590602.htm">此文</a>，感谢！</p>
+</blockquote>
+<h2 id="背景知识">背景知识</h2>
+<p>随着多核架构的普及，对称多处理器 (SMP) 系统成为主流。例如，一个物理 CPU 可以存在多个物理 Core，而每个 Core 又可以存在多个硬件线程。以x86为例，1个x86CPU有4个物理Core，每个Core有两个 HT (Hyper Thread)：
+<img src="/img/x86-cache-arch.png" alt=""></p>
+<p>从硬件的角度，上图的 L1 和 L2 Cache 都被两个 HT 共享，且在同一个物理 Core。而 L3 Cache 则在物理 CPU 里，被多个 Core 来共享。</p>
+<p>而从 OS 内核角度，每个 HT 都是一个逻辑 CPU，因此，这个处理器在 OS 来看，就是一个 8 个 CPU 的 SMP 系统。</p>
+<p>Cache Line 是 CPU 和主存之间数据传输的最小单位。当一行 Cache Line 被从内存拷贝到 Cache 里，Cache 里会为这个 Cache Line 创建一个条目。</p>
+<p>这个 Cache 条目里既包含了拷贝的内存数据，即 Cache Line，又包含了这行数据在内存里的位置等元数据信息。</p>
+<p>由于 Cache 容量远远小于主存，因此，存在多个主存地址可以被映射到同一个 Cache 条目的情况，下图是一个 Cache 和主存映射的概念图：
+<img src="/img/x86-cache-line.png" alt=""></p>
+<p>linux的getconf命令可以得到cache line的相关数据：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ getconf -a <span class="p">|</span> grep CACHE
+LEVEL1_ICACHE_SIZE                 <span class="m">32768</span>
+LEVEL1_ICACHE_ASSOC                <span class="m">8</span>
+LEVEL1_ICACHE_LINESIZE             <span class="m">64</span>
+LEVEL1_DCACHE_SIZE                 <span class="m">32768</span>
+LEVEL1_DCACHE_ASSOC                <span class="m">8</span>
+LEVEL1_DCACHE_LINESIZE             <span class="m">64</span>
+LEVEL2_CACHE_SIZE                  <span class="m">262144</span>
+LEVEL2_CACHE_ASSOC                 <span class="m">8</span>
+LEVEL2_CACHE_LINESIZE              <span class="m">64</span>
+LEVEL3_CACHE_SIZE                  <span class="m">26214400</span>
+LEVEL3_CACHE_ASSOC                 <span class="m">20</span>
+LEVEL3_CACHE_LINESIZE              <span class="m">64</span>
+LEVEL4_CACHE_SIZE                  <span class="m">0</span>
+LEVEL4_CACHE_ASSOC                 <span class="m">0</span>
+LEVEL4_CACHE_LINESIZE              <span class="m">0</span>
+</code></pre></div><p>可以看到LINESIZE大小为64字节（大部分机器都是这么大）
+ASSOC表明Cache 是几路关联 (Way Associative) 的</p>
+<h2 id="问题提出">问题提出</h2>
+<p>在 SMP 系统里，每个 CPU 都有自己本地的 Cache。因此，同一个变量，或者同一行 Cache Line，有在多个处理器的本地 Cache 里存在多份拷贝的可能性，因此就存在数据一致性问题。</p>
+<p>通常，处理器都实现了 Cache 一致性 (Cache Coherence)协议。如历史上 x86 曾实现了 MESI 协议以及 MESIF 协议。</p>
+<p>假设两个处理器 A 和 B, 都在各自本地 Cache Line 里有同一个变量的拷贝时，此时该 Cache Line 处于 Shared 状态。当处理器 A 在本地修改了变量，除去把本地变量所属的 Cache Line 置为 Modified 状态以外，</p>
+<p>还必须在另一个处理器 B 读同一个变量前，对该变量所在的 B 处理器本地 Cache Line 发起 Invaidate 操作，标记 B 处理器的那条 Cache Line 为 Invalidate 状态。</p>
+<p>随后，若处理器 B 在对变量做读写操作时，如果遇到这个标记为 Invalidate 的状态的 Cache Line，即会引发 Cache Miss，从而将内存中的数据拷贝到 Cache Line 里，然后处理器 B 再对此 Cache Line 对变量做读写操作。</p>
+<p>Cache Line 伪共享问题，就是由多个 CPU 上的多个线程同时修改自己的变量引发的。这些变量表面上是不同的变量，但是实际上却存储在同一条 Cache Line 里。</p>
+<p>在这种情况下，由于 Cache 一致性协议，两个处理器都存储有相同的 Cache Line 拷贝的前提下，本地 CPU 变量的修改会导致本地 Cache Line 变成 Modified 状态，然后在其它共享此 Cache Line 的 CPU 上，</p>
+<p>引发 Cache Line 的 Invaidate 操作，导致 Cache Line 变为 Invalidate 状态，从而使 Cache Line 再次被访问时，发生本地 Cache Miss，从而伤害到应用的性能。</p>
+<p>上面的描述在intel<a href="https://software.intel.com/en-us/articles/avoiding-and-identifying-false-sharing-among-threads">官方文档</a>的中有更详细的说明：</p>
+<p><img src="/img/x86-cache-line-false-sharing.gif" alt=""></p>
+<blockquote>
+<p>False sharing occurs when threads on different processors modify variables that reside on the same cache line. This invalidates the cache line and forces a memory update to maintain cache coherency. Threads 0 and 1 require variables that are adjacent in memory and reside on the same cache line. The cache line is loaded into the caches of CPU 0 and CPU 1 (gray arrows). Even though the threads modify different variables (red and blue arrows), the cache line is invalidated, forcing a memory update to maintain cache coherency.</p>
+</blockquote>
+<h2 id="使用golang进行测试">使用golang进行测试</h2>
+<blockquote>
+<p>本节示例来自于<a href="https://github.com/changkun/go-under-the-hood/blob/master/book/zh-cn/part1basic/ch02parallel/cache.md">go under the hood</a>，感谢！</p>
+</blockquote>
+<p>false_sharing/main_test.go:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;sync/atomic&#34;</span>
+	<span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">// pad 结构的 x y z 会被并发的执行原子操作
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">pad</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">x</span> <span class="kt">uint64</span> <span class="c1">// 8byte
+</span><span class="c1"></span>	<span class="nx">y</span> <span class="kt">uint64</span> <span class="c1">// 8byte
+</span><span class="c1"></span>	<span class="nx">z</span> <span class="kt">uint64</span> <span class="c1">// 8byte
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">pad</span><span class="p">)</span> <span class="nf">increase</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">.</span><span class="nx">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkPad</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">pad</span><span class="p">{</span><span class="p">}</span>
+	<span class="nx">b</span><span class="p">.</span><span class="nf">RunParallel</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">pb</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">PB</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">Next</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">s</span><span class="p">.</span><span class="nf">increase</span><span class="p">(</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>true_sharing/main_test.go</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;sync/atomic&#34;</span>
+	<span class="s">&#34;testing&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">// pad 结构的 x y z 会被并发的执行原子操作
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">pad</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">x</span> <span class="kt">uint64</span> <span class="c1">// 8byte
+</span><span class="c1"></span>	<span class="nx">_</span> <span class="p">[</span><span class="mi">56</span><span class="p">]</span><span class="kt">byte</span>
+	<span class="nx">y</span> <span class="kt">uint64</span> <span class="c1">// 8byte
+</span><span class="c1"></span>	<span class="nx">_</span> <span class="p">[</span><span class="mi">56</span><span class="p">]</span><span class="kt">byte</span>
+	<span class="nx">z</span> <span class="kt">uint64</span> <span class="c1">// 8byte
+</span><span class="c1"></span>	<span class="nx">_</span> <span class="p">[</span><span class="mi">56</span><span class="p">]</span><span class="kt">byte</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">pad</span><span class="p">)</span> <span class="nf">increase</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">.</span><span class="nx">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkPad</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">pad</span><span class="p">{</span><span class="p">}</span>
+	<span class="nx">b</span><span class="p">.</span><span class="nf">RunParallel</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">pb</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">PB</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">pb</span><span class="p">.</span><span class="nf">Next</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">s</span><span class="p">.</span><span class="nf">increase</span><span class="p">(</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">go <span class="nb">test</span> -bench<span class="o">=</span>.
+</code></pre></div><p>两者的benchmark结果分别为：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># false sharing</span>
+BenchmarkPad-8   	30000000	        48.6 ns/op
+
+<span class="c1"># true sharing</span>
+BenchmarkPad-8   	50000000	        27.0 ns/op
+</code></pre></div><p>有近1倍的差距！</p>
+<h2 id="结论">结论</h2>
+<p>写关键性能代码，一定要注意cache line的false sharing的影响！</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="http://biz.51cto.com/art/201901/590602.htm">http://biz.51cto.com/art/201901/590602.htm</a></li>
+<li><a href="https://software.intel.com/en-us/articles/avoiding-and-identifying-false-sharing-among-threads">https://software.intel.com/en-us/articles/avoiding-and-identifying-false-sharing-among-threads</a></li>
+<li><a href="https://github.com/changkun/go-under-the-hood/blob/master/book/zh-cn/part1basic/ch02parallel/cache.md">https://github.com/changkun/go-under-the-hood/blob/master/book/zh-cn/part1basic/ch02parallel/cache.md</a></li>
+</ul>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>CPU缓存体系-Cache Line假共享</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景知识">背景知识</a></li>
+    <li><a href="#问题提出">问题提出</a></li>
+    <li><a href="#使用golang进行测试">使用golang进行测试</a></li>
+    <li><a href="#结论">结论</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

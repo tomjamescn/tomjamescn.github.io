@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  golang语言资源 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="大爱golang，这是最近一段时间的学习和资源的收集汇总。温故而知新! Keep It Simple and Stupid! 语言基础 为什么应该学习go语言 为什么应该学习go语言 从很多层|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">golang语言资源</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-01-26.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>大爱golang，这是最近一段时间的学习和资源的收集汇总。温故而知新!</p>
+</blockquote>
+<blockquote>
+<p>Keep It Simple and Stupid!</p>
+</blockquote>
+<h2 id="语言基础">语言基础</h2>
+<h3 id="为什么应该学习go语言">为什么应该学习go语言</h3>
+<p><a href="https://medium.com/@kevalpatel2106/why-should-you-learn-go-f607681fad65">为什么应该学习go语言</a>
+从很多层面分析了为什么应该学习go语言</p>
+<h3 id="老外总结的为什么最喜欢go语言">老外总结的为什么最喜欢go语言</h3>
+<p><a href="https://michael.stapelberg.de/posts/2017-08-19-golang_favorite/">为什么Go是我最喜欢的语言</a></p>
+<p><a href="http://blog.jobbole.com/112706/?utm_source=blog.jobbole.com&amp;utm_medium=relatedPosts">中文译文</a></p>
+<p>这个老外的编程经验非常丰富，包括Python, Ruby, C++, CHICKEN Scheme, Emacs Lisp, Rust, Java ,Lua, PHP, Erlang and Haskell。真心牛掰，估计年龄也不小了。从2009年就开始使用Go语言了。</p>
+<h3 id="资料">资料</h3>
+<p><a href="https://talks.golang.org/2012/splash.article">Go at Google: Language Design in the Service of Software Engineering</a></p>
+<p><a href="https://golangbot.com/learn-golang-series/">学习golang系列</a></p>
+<p><a href="https://golang.org/doc/effective_go.html">Effective Go</a></p>
+<p><a href="https://github.com/golang/go/wiki/CodeReviewComments#comment-sentences">Google的go语言代码review规范</a></p>
+<p><a href="https://golang.org/doc/devel/release.html">release</a> - go各个版本的release信息</p>
+<p><a href="https://dev.golang.org/owners">golang官方包维护人员信息</a></p>
+<h3 id="书籍">书籍</h3>
+<p><a href="https://www.amazon.com/Programming-Language-Addison-Wesley-Professional-Computing/dp/0134190440">&laquo;The Go Programming Language&raquo;</a> - go语言圣经</p>
+<p><a href="https://book.douban.com/subject/27044219/">&laquo;Go程序设计语言&raquo;</a> - 中文版</p>
+<h2 id="go-1x兼容性">Go 1.x兼容性</h2>
+<p><a href="https://golang.org/doc/go1compat">go 1.x兼容性说明</a>
+go 1.x的兼容性是源代码级别的，不是二进制级别的。正确的理解是，代码在 go 1.x的不同版本中是兼容的。但是二进制包不一定。
+当升级了go1.x的版本，最好将所有包重新编译一遍。</p>
+<p>原文：</p>
+<blockquote>
+<p>Compatibility is at the source level. Binary compatibility for compiled packages is not guaranteed between releases. After a point release, Go source will need to be recompiled to link against the new release.</p>
+</blockquote>
+<h2 id="生产环境实践">生产环境实践</h2>
+<p><a href="https://peter.bourgon.org/go-in-production/">Go: Best Practices for Production Environments</a> - SoundCloud的Go生产环境实践</p>
+<p><a href="https://juejin.im/entry/5ae98b98f265da0ba60f9c97">基于Go构建滴滴核心业务平台的实践</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/48039838">知乎社区核心业务 Golang 化实践</a></p>
+<p><a href="https://36kr.com/p/5073181.html">今日头条Go建千亿级微服务的实践</a></p>
+<h2 id="gc">GC</h2>
+<p><a href="https://making.pusher.com/golangs-real-time-gc-in-theory-and-practice/">Golang’s Real-time GC in Theory and Practice</a>
+浙大有个学生翻译了中文版：<a href="https://www.chenquan.me/archives/228">Go实时GC——三色算法理论与实践</a></p>
+<p><a href="https://engineering.linecorp.com/en/blog/go-gc/">go gc</a> - LINE团队的一篇文章, 比较肤浅</p>
+<h2 id="go模块化">Go模块化</h2>
+<p><a href="https://stackoverflow.com/questions/37237036/how-should-i-use-vendor-in-go-1-6">go vendor目录说明</a> - vendor目录是在1.6正式引入的</p>
+<p><a href="https://blog.gopheracademy.com/advent-2015/vendor-folder/">理解和使用vendor目录</a> -</p>
+<p><a href="https://github.com/golang/go/wiki/Modules">Go模块化官方文档</a> - Go模块化的官方文档</p>
+<p><a href="https://roberto.selbach.ca/intro-to-go-modules/">Go模块化介绍</a> - 非常好的入门教程，非常有实操性</p>
+<p><a href="https://roberto.selbach.ca/go-proxies/">Go模块代理</a> - 模块代理可以类比于java的maven，PHP的toran proxy。
+Go的开源模块代理：</p>
+<ul>
+<li><a href="https://github.com/gomods/athens">Athens</a></li>
+<li><a href="https://thumbai.app">thumbai</a> -</li>
+</ul>
+<h2 id="go的动态链接库">Go的动态链接库</h2>
+<p><a href="https://stackoverflow.com/questions/1757090/shared-library-in-go">Shared library in Go?</a> - 讨论go的动态链接库</p>
+<p><a href="https://docs.google.com/document/d/1nr-TQHw_er6GOQRsF6T43GGhFDelrAP0NqSS_00RgZQ/edit?pli=1#heading=h.fwmrrio0df0i">Go Execution Modes</a> - go的执行模式 - 还未研究过</p>
+<p><a href="https://medium.com/learning-the-go-programming-language/writing-modular-go-programs-with-plugins-ec46381ee1a9">Writing Modular Go Programs with Plugins</a> - 讲解Go动态链接库的非常好的文章</p>
+<h2 id="go错误处理">Go错误处理</h2>
+<p><a href="https://commandcenter.blogspot.com/2017/12/error-handling-in-upspin.html">Error handling in Upspin
+</a> - Go语言作者之一Rob Pike自己的一个go的开源软件Upspin的错误处理方式</p>
+<p><a href="https://liudanking.com/network/go-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%87%86%E7%A1%AE%E5%9C%B0%E5%88%A4%E6%96%AD%E5%92%8C%E8%AF%86%E5%88%AB%E5%90%84%E7%A7%8D%E7%BD%91%E7%BB%9C%E9%94%99%E8%AF%AF/">Go 中如何准确地判断和识别各种网络错误</a></p>
+<h2 id="go的context包">Go的context包</h2>
+<p><a href="https://blog.golang.org/context">golang官方博客讲解</a>
+文章中的例子：</p>
+<ul>
+<li><a href="https://blog.golang.org/context/server/server.go">server</a></li>
+<li><a href="https://blog.golang.org/context/userip/userip.go">userip</a></li>
+<li><a href="https://blog.golang.org/context/google/google.go">google.go</a>
+注意例子中对context的使用，google.go中还有闭包的使用，也注意一下</li>
+</ul>
+<p><a href="https://medium.com/@rakyll/context-propagation-over-http-in-go-d4540996e9b0">Context propagation over HTTP in Go</a> - 怎么通过http传递context</p>
+<h2 id="微服务">微服务</h2>
+<p><a href="https://github.com/go-kit/kit">go-kit</a></p>
+<h2 id="演讲ppt">演讲/ppt</h2>
+<p><a href="https://www.dotconferences.com/2015/11/rob-pike-simplicity-is-complicated">简单即复杂</a> - go语言的一个创始人的演讲</p>
+<h2 id="开源库">开源库</h2>
+<p><a href="https://github.com/pkg">pkg</a> - 很多有用的库，包括很有名的错误处理库</p>
+<p><a href="https://github.com/chzyer/readline">readline</a> - 类似GNU-Readline，用于开发交互式命令行</p>
+<p><a href="https://github.com/spf13/cobra">cobra</a> - 命令行开发模式</p>
+<h2 id="基准测试">基准测试</h2>
+<p><a href="http://www.flysnow.org/2017/05/21/go-in-action-go-benchmark-test.html">Go 基准测试</a></p>
+<h2 id="性能">性能</h2>
+<p><a href="https://cizixs.com/2017/09/11/profiling-golang-program/">使用 pprof 和火焰图调试 golang 应用</a></p>
+<p><a href="https://colobu.com/2017/03/02/a-short-survey-of-golang-pprof/">Go可视化性能分析工具</a></p>
+<h2 id="持续集成">持续集成</h2>
+<p><a href="https://medium.com/artisans-of-tech/building-a-ci-system-for-go-with-jenkins-4ab04d4bacd0">building a ci system for go with jenkins</a></p>
+<h2 id="不错的blog">不错的blog</h2>
+<p><a href="http://bradfitz.com/">bradfitz.com</a> - 大牛啊，memcached的作者，现在一直在google写go，是net/http的维护者，膜拜!</p>
+<p><a href="https://www.flysnow.org/">飞雪无情的博客</a> - 中文，不错</p>
+<p><a href="https://liudanking.com/category/golang/">行思錄 | Travel Coder</a> - 架构师</p>
+<p><a href="https://www.cnblogs.com/apocelipes/">apocelipes</a> - 中文, 有一些golang抓取数据和使用golang开发qt gui程序的东西</p>
+<p><a href="https://dave.cheney.net/category/golang">dave.cheney.net</a> - 专注golang和k8s，也是github.com/pkg的一个贡献者</p>
+<p><a href="https://roberto.selbach.ca/blog/">roberto.selbach.ca</a> - 里面详细介绍了怎么使用GOPROXY，搭建一个自己的代码仓库</p>
+<p><a href="https://making.pusher.com/">pusher的技术博客，很多golang的实践</a> - pusher应该是一个做app push的服务？</p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>golang语言资源</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#语言基础">语言基础</a>
+      <ul>
+        <li><a href="#为什么应该学习go语言">为什么应该学习go语言</a></li>
+        <li><a href="#老外总结的为什么最喜欢go语言">老外总结的为什么最喜欢go语言</a></li>
+        <li><a href="#资料">资料</a></li>
+        <li><a href="#书籍">书籍</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-1x兼容性">Go 1.x兼容性</a></li>
+    <li><a href="#生产环境实践">生产环境实践</a></li>
+    <li><a href="#gc">GC</a></li>
+    <li><a href="#go模块化">Go模块化</a></li>
+    <li><a href="#go的动态链接库">Go的动态链接库</a></li>
+    <li><a href="#go错误处理">Go错误处理</a></li>
+    <li><a href="#go的context包">Go的context包</a></li>
+    <li><a href="#微服务">微服务</a></li>
+    <li><a href="#演讲ppt">演讲/ppt</a></li>
+    <li><a href="#开源库">开源库</a></li>
+    <li><a href="#基准测试">基准测试</a></li>
+    <li><a href="#性能">性能</a></li>
+    <li><a href="#持续集成">持续集成</a></li>
+    <li><a href="#不错的blog">不错的blog</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

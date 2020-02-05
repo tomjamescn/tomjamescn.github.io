@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://tomjamescn.github.io/about/</loc>
+    <lastmod>2020-02-05T18:51:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/brew/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/ifuse/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/iphone/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/libimobiledevice/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/macos/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/</loc>
+    <lastmod>2020-02-05T18:54:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/</loc>
+    <lastmod>2020-02-05T18:54:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/</loc>
+    <lastmod>2020-02-05T18:54:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2020-01-01-acess-ios-file-system-using-libimobiledevice/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/cache-line/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/cache-system/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/cpu/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-08-31-cache-line-false-sharing/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/false-sharing/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/golang/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/go/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-08-15-golang-best-practise-functional-options/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-08-13-a-poem-about-love-and-independent-for-children/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E5%BF%83%E7%90%86%E5%AD%A6/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E8%AF%97%E6%AD%8C/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/ai/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/google/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-08-11-learning-from-great-person-matt-welsh/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E7%89%9B%E4%BA%BA/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/docker/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/zeppelin/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-08-07-using-zeppelin-with-docker/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-07-29-golang-basic-2-how-to-use-godoc/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/vim/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-07-28-mastering-vim-part-2/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/crypto/x509/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-07-26-memo-for-golang-crypto-x509/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/openssl/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E5%8A%A0%E8%A7%A3%E5%AF%86/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-07-23-thoughtworks-technology-radar/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E6%83%B3%E6%B3%95/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-07-11-golang-basic-1-break-continue-return-in-select/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-07-04-deeper-dive-into-go-internal-1-tools/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-06-30-mastering-vim-part-1/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-06-25-some-thing-interest-in-github-bsm-redis-lock/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/redis/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/redis-go/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/disk/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/hdd/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-06-16-repair-hard-disk-with-bad-sectors/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E5%9D%8F%E9%81%93/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E7%A1%AC%E7%9B%98/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/proxmox/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/zfs/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-06-13-zfs-replace-bad-disk/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/zpool/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E7%A1%AC%E4%BB%B6/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/php/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/serialize/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-06-03-my-first-pr-accepted/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/nextcloud/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/zotero/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-05-24-best-practice-for-knowledge-management/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E6%80%9D%E8%80%83/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-05-02-upgrade-k8s-cluster/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/cluster/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/k8s/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/kubernetes/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-02-09-build-a-k8s-cluster/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-01-26-golang-resource/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/mac-os/</loc>
+    <lastmod>2020-02-05T18:54:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2019-01-10-how-to-use-mac-os-effectively/</loc>
+    <lastmod>2020-02-05T18:54:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/linux/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/rasbian/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/raspberry-pi/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2018-12-15-raspberry-pi-notes/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2018-12-03-which-is-most-important-in-ones-life/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2018-12-01-first-post/</loc>
+    <lastmod>2020-02-05T18:26:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/categories/</loc>
+  </url>
+  
+</urlset>

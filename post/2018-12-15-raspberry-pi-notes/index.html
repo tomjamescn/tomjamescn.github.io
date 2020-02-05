@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  树莓派杂记 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="raspbian lite系统安装和配置 官方下载镜像zip文件 使用etcher将镜像写入sd卡 连接显示器和键盘，支持usb键盘 连接接电源启动系统 初始账号pi|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">树莓派杂记</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/raspberry-pi' class="muted-link">
+  <span class="Label Label--gray">raspberry pi</span>
+</a>
+
+<a href='/tags/rasbian' class="muted-link">
+  <span class="Label Label--gray">rasbian</span>
+</a>
+
+<a href='/tags/%E6%A0%91%E8%8E%93%E6%B4%BE' class="muted-link">
+  <span class="Label Label--gray">树莓派</span>
+</a>
+
+<a href='/tags/linux' class="muted-link">
+  <span class="Label Label--gray">linux</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2018-12-15.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <h2 id="raspbian-lite系统安装和配置">raspbian lite系统安装和配置</h2>
+<ol>
+<li><a href="https://www.raspberrypi.org/downloads/raspbian/">官方下载镜像zip文件</a></li>
+<li>使用<a href="https://www.balena.io/etcher/">etcher</a>将镜像写入sd卡</li>
+<li>连接显示器和键盘，支持usb键盘</li>
+<li>连接接电源启动系统</li>
+<li>初始账号pi 密码raspberry，具有sudo权限</li>
+<li>sudo raspi-config启动配置，设置主机名，配置locales为zh_CN.UTF-8，时区设置为Asia/Chongqing，开启ssh server，分配给GPU的内存减少到16MB</li>
+<li>[可选]可以断开显示器、键盘了，接入网络做服务器了，ip地址可以使用dhcp或者可以在内网静态分配一个固定ip</li>
+<li>使用sudo update-alternatives &ndash;config editor将默认编辑器改为/usr/bin/vim.tiny</li>
+<li>新增用户，使用sudo visudo将其加入sudo权限</li>
+<li>[可选]安装<a href="https://ohmyz.sh/">oh my zsh</a></li>
+<li>[可选]安装源设置为<a href="http://mirrors.ustc.edu.cn/help/raspbian.html">国内镜像</a>，别忘了执行sudo apt update更新源</li>
+<li>将export LC_ALL=zh_CN.UTF-8加入.bashrc（如果安装了zsh，加入.zshrc），让shell支持中文输入和显示</li>
+<li>[可选]如果要登录阶段加入二阶段验证，可以参考<a href="https://www.vultr.com/docs/how-to-setup-two-factor-authentication-2fa-for-ssh-on-debian-9-using-google-authenticator">这里</a>，注意，紧急token一定要保存好，防止手机丢失或损坏，<strong>一定要将ssh客户端机器的公钥在此步骤之前先用ssh-copy-id复制到rasbian中，否则，就悲剧了，登录不上去，只能重来 ：（</strong></li>
+</ol>
+<h2 id="其他">其他</h2>
+<p><a href="https://elinux.org/RPi_HardwareHistory">怎样查询硬件是哪个版本？</a></p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>树莓派杂记</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#raspbian-lite系统安装和配置">raspbian lite系统安装和配置</a></li>
+    <li><a href="#其他">其他</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

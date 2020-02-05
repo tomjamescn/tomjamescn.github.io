@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>知识管理 on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/</link>
+    <description>Recent content in 知识管理 on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Fri, 24 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>个人知识管理的实践 - 使用zotero来组织个人知识</title>
+      <link>https://tomjamescn.github.io/post/2019-05-24-best-practice-for-knowledge-management/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-05-24-best-practice-for-knowledge-management/</guid>
+      <description>怎么更有效的管理知识，是自己比较关心的问题。没办法，随着年龄增长，经验的积累，思维定式和偏见的逐渐养成，大脑接收新事物的能力从客观上来说肯定</description>
+    </item>
+    
+  </channel>
+</rss>

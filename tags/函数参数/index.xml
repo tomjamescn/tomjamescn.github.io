@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>函数参数 on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0/</link>
+    <description>Recent content in 函数参数 on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Thu, 15 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>golang最佳实践-functional options</title>
+      <link>https://tomjamescn.github.io/post/2019-08-15-golang-best-practise-functional-options/</link>
+      <pubDate>Thu, 15 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-08-15-golang-best-practise-functional-options/</guid>
+      <description>golang中的函数/方法是不支持默认值和重载的，自己最近半年的工作封装了不少基础库，经常为此苦恼，但是由于工作量较大的原因，并未深入研究这</description>
+    </item>
+    
+  </channel>
+</rss>

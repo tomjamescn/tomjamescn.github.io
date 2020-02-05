@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  《Mastering Vim》读书笔记 - 第二部分 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="本文作为第二部分没有什么图片了，使用的vim编辑的，用了tenfyzhong/tagbar-markdown插件后，连vnote好像就可以不|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">《Mastering Vim》读书笔记 - 第二部分</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/%E5%B7%A5%E5%85%B7' class="muted-link">
+  <span class="Label Label--gray">工具</span>
+</a>
+
+<a href='/tags/vim' class="muted-link">
+  <span class="Label Label--gray">vim</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-07-28.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>本文作为第二部分没有什么图片了，使用的vim编辑的，用了<code>tenfyzhong/tagbar-markdown</code>插件后，连vnote好像就可以不用了，vim威武。</p>
+</blockquote>
+<h2 id="build-test-and-execute">Build, Test, and Execute</h2>
+<p>本章主要讲了git的基础用法，git和vim怎么结合使用，看本章的主要收获有两个：一是介绍非常好用的git插件<code>tpope/vim-fugitive</code>，二是对vimdiff以及怎么使用vimdiff解决冲突有了更清晰的认识。</p>
+<p>对<code>tpope/vim-fugitive</code>的使用，请看文章后面专门讲插件使用的章节。这里主要讲怎么使用vim作为git的冲突解决工具和怎么解决冲突进行说明。</p>
+<p>可以使用<code>vimdiff</code>对比两个文件，比如<code>vimdiff a.py b.py</code>，当然，也可以多个文件对比<code>vimdiff a.py b.py c.py</code></p>
+<p>在<code>vimdiff</code>中，如果对比两个文件，有以下操作：</p>
+<ul>
+<li><code>]c</code> 可以移动到下一个有区别的行，<code>[c</code>可以移动到上一个有区别的行</li>
+<li><code>do</code>或者<code>:diffget</code>会将对比的window变化移动到active window。<code>:%diffget</code>是对整个文件操作。</li>
+<li><code>dp</code>或者<code>:diffput</code>会将active window中的变化拉取到对比的window。<code>:%diffput</code>是对整个文件操作。</li>
+</ul>
+<p>当对比多个文件时，<code>:diffput</code>和<code>:diffget</code>后面可以跟一个空格和文件名表示和active window对比的window。</p>
+<p>配置vimdiff作为git的merge工具：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ git config --global merge.tool vimdiff
+$ git config --global merge.conflictstyle diff3
+$ git config --global mergetool.prompt <span class="nb">false</span>
+</code></pre></div><p>当使用git合并代码出现冲突时，可以使用<code>git mergetool</code>命令来使用vimdiff解决冲突。
+此时，会显示4块内容，形如：</p>
+<pre><code>|A|B|C|
+|  D  |
+</code></pre><p>最左上角的window，即A表示LOCAL changes，就是本地提交的最新的代码与冲突代码最近的父代码的变化。B表示Base，就是与冲突代码最近的父代码。C表示REMOTE，就是要合并的远端的冲突代码。D表示MERGED，就是合并结果了。</p>
+<p>D中冲突的代码部分是以下格式：</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; [LOCAL commit/branch]
+[LOCAL change]
+||||||| merged common ancestors
+[BASE - closest common ancestor]
+=======
+[REMOTE change]
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; [REMOTE commit/branch]
+</code></pre><p>使用<code>:diffg R</code>来在冲突的地方使用REMOTE（即上图C）中的代码，<code>:diffg B</code>来在冲突的地方使用BASE中的代码，<code>:diffg L</code>在冲突的地方使用LOCAL的代码。</p>
+<p>本章接下来的内容讲到了tmux, screen和vim的terminal模式。tmux还是很有用的。特别是在mac os下使用iTerm，此软件将tmux集成的非常好，这个是另外的主题了，今后可以单独开文章总结一下。</p>
+<p>screen就没必要用了，有了tmux，就不用screen了。vim的terminal模式觉得并不方便，还不如使用tmux或者iTerm多开shell了。</p>
+<h2 id="refactoring-code-with-regex-and-macros">Refactoring Code with Regex and Macros</h2>
+<h3 id="search-or-replace-with-regular-expressions">Search or replace with regular expressions</h3>
+<p>如果只是搜索，在命令模式下使用<code>/xxx</code>就行了，回车后，<code>n</code>键是跳到下一个，<code>shift+n</code>是跳到上一个匹配的结果。</p>
+<h4 id="search-and-replace">Search and replace</h4>
+<p><code>:s/&lt;find-this&gt;/&lt;replace-with-this&gt;/&lt;flags&gt;</code> 是当前行搜索/替换的命令模式</p>
+<p>比如: <code>:s/cat/dog</code>会搜索当前光标所在行，并将找到的第一个<code>cat</code>替换为<code>dog</code></p>
+<p>常用的flags有</p>
+<ul>
+<li><code>g</code> 全局替换，即替换搜索到的所有结果</li>
+<li><code>i</code> 搜索时忽略大小写</li>
+<li><code>I</code> 搜索时不能忽略大小写</li>
+<li><code>c</code> 每次替换前进行确认</li>
+<li><code>e</code> 如果没有搜索到，不显示错误</li>
+</ul>
+<p>扩展用法是<code>:&lt;范围&gt;[;&lt;范围&gt;]s[新的分隔符, 可选]/&lt;find-this&gt;/&lt;replace-with-this&gt;/&lt;flags&gt;</code></p>
+<p>范围可以是以下形式:</p>
+<ul>
+<li><code>数字</code> 表明是第几行</li>
+<li><code>$</code> 文件的最后一行</li>
+<li><code>%</code> 整个文件</li>
+<li><code>/search-pattern/</code> 匹配某一行</li>
+<li><code>?backwards-search-pattern?</code> 和前一个一样，不过是向前搜索来匹配一行</li>
+</ul>
+<p>多个范围使用<code>;</code>来组合，比如<code>20;$</code>表示第20行和最后一行</p>
+<p><code>:12;/dog/s/animal/creature/g</code>将第12行和当前行后某行含有dog的行中的animal全部换成creature</p>
+<p>最常用的就是<code>:%s/dog/cat/g</code>，就是将文件当中所有dog换成cat</p>
+<p>如果搜索或者替换的字符串中含有<code>/</code>，即分隔符，可以使用新的分隔符来替换，比如下面两个是等价的：
+<code>:s+path/to/dir+path/to/other/dir+gc</code> 和 <code>:s/path\/to\/dir/path\/to\/other\/dir/gc</code></p>
+<h4 id="operations-across-files-using-arglist">Operations across files using arglist</h4>
+<p>使用<code>arglist</code>进行跨文件的搜索和替换，这种使用场景个人遇到的太少，所以就不写了。真多多文件的文本查找使用grep/ag/ack等等命令应该更简单和快速，替换的话用sed吧。所以个人觉得还是不用arglist好。。。</p>
+<h4 id="regex-basics">Regex basics</h4>
+<p>搜索和替换命令中可以使用正则表达式。</p>
+<p>vim的搜索和替换的正则表达式中的特殊字符需要使用<code>\</code>转义，比如<code>\(c\|p\)arrot</code>会匹配carrot和parrot。<code>\warrot\?</code>撇配carrot, parrot, farro等等，注意<code>\w</code>的含义是word字符。<code>t\?</code>表明t是可选的。<code>pa.\+ot</code>可以匹配parrot, patriot, pa123ot等等。<code>.\+</code>表明一个或多个字符。.+</p>
+<p>特殊字符：</p>
+<ul>
+<li>
+<p><code>.</code> 任何字符，除了行结尾</p>
+</li>
+<li>
+<p><code>^</code> 一行开头</p>
+</li>
+<li>
+<p><code>$</code> 结尾
+上面三个和大部分语言的正则表达式类似</p>
+</li>
+<li>
+<p><code>\_</code> 任何字符，包括行结尾</p>
+</li>
+<li>
+<p><code>\&lt;</code> word的开头</p>
+</li>
+<li>
+<p><code>\&gt;</code> word的结尾</p>
+</li>
+</ul>
+<p>使用<code>:help ordinary-atom</code>来看相关帮助</p>
+<p>常用的字符类别：
+可以使用<code>:help character-classes</code>来看相关帮助</p>
+<ul>
+<li><code>\s</code> 空白，空格或者tab</li>
+<li><code>\d</code> 数字</li>
+<li><code>\w</code> word字符</li>
+</ul>
+<p>分组:</p>
+<ul>
+<li><code>\|</code></li>
+<li><code>\(\)</code>
+分组是很好用的，例子:<code>:s/\(cat\) hunting \(mice\)/\2 hunting \1</code></li>
+</ul>
+<p>重复:</p>
+<ul>
+<li><code>*</code> 0或者多个，贪婪的（贪婪的意思是最大匹配）</li>
+<li><code>\+</code> 1个或者多个，贪婪的</li>
+<li><code>\{-}</code> 0或者多个，非贪婪的</li>
+<li><code>\?</code> 或者 <code>\=</code> 0个或者1个，贪婪的</li>
+<li><code>\{n,m}</code> n个到m个，贪婪的, m不写<code>\{n,}</code>就是n个到多个</li>
+<li><code>\{-n,m}</code> n个到m个，非贪婪的, m不写<code>\{-n,}</code>就是n个到多个</li>
+</ul>
+<p>可以使用<code>:help multi</code>来查看相关帮助</p>
+<p>再说下贪婪，对于<code>foo2bar2</code>来说,<code>\w\+2</code>会匹配<code>foo2bar2</code>，<code>\w\{-1,}2</code>会匹配<code>foo2</code></p>
+<blockquote>
+<p>搜索和替换还有Magic、No Magic和Very Magic之分（写到这里，表示已经崩溃了：））。默认是Magic模式。主要是对特殊字符来说的，不详细写了，感觉先用好默认的Magic模式吧。</p>
+</blockquote>
+<blockquote>
+<p>正则表达式还是很强大的，本人曾使用100个正则表达式将一个10年的php项目进行了简单的重构。。。没有出现大问题。。。这里不是想说自己正则牛逼（是被逼）只是想说明人们在写代码中，默认就会遵循某种模式，使用正则可以将这些模式提取出来。</p>
+</blockquote>
+<h3 id="recording-and-playing-macros">Recording and playing macros</h3>
+<p>TODO: 记录和宏，暂时没有用到这么高级的功能</p>
+<blockquote>
+<p>其实本章主要是将重构在代码操作层面的工作。还好vim-go提供了强大和精准的重构功能，让自己不用使用这种字符串替换的方式来进行重构，感谢！</p>
+</blockquote>
+<blockquote>
+<p>其实本章主要是将重构在代码操作层面的工作。还好vim-go提供了强大和精准的重构功能，让自己不用使用这种字符串替换的方式来进行重构，感谢！</p>
+</blockquote>
+<h2 id="making-vim-your-own">Making Vim Your Own</h2>
+<p>总结一下，本章主要是讲了几点：</p>
+<ul>
+<li>将.vimrc使用版本管理管理起来，俺的vimrc项目在这块应该做的比较好了：）傲娇一下。</li>
+<li>养成好的习惯。</li>
+</ul>
+<blockquote>
+<p>It&rsquo;s important to take time to go back, reflect, and make sure your .vimrc doesn&rsquo;t become a pile of unneeded aliases, functions, and plugins.</p>
+</blockquote>
+<blockquote>
+<p>Once in a while, take the time to go back into your .vimrc and clean up unnecessary functions and plugins, or reove key bindings you don&rsquo;t use any more.</p>
+</blockquote>
+<h2 id="transcending-the-mundane-with-vimscript">Transcending the Mundane with Vimscript</h2>
+<p>翻译过来是：使用vimscript，超越平凡</p>
+<p>本章主要是讲解了vimscript语法，vimscript和很多脚本语言一样，也是图灵完备（Turing-complete）的，能做很多事情。说到计算机语言，肯定就有变量，类型，控制流，函数，封装等等。。。</p>
+<p>本章还以一个自定义插件为例子，讲解了怎么使用vimscript开发插件，很有参考价值。主要是要理解插件的目录结构，</p>
+<p>到这里，终于可以大概看下vim-go的逻辑了：）</p>
+<p>这里就不详细写了，可以将原书本章当做参考书使用。</p>
+<p>需要记住的点：</p>
+<ul>
+<li>vimscript没有对象概念，但是可以通过类似于abc#xxx这样的函数名来模拟类似的抽象概念。</li>
+</ul>
+<p>本章到最后，还给出了接下来学习vimscript的资源<a href="http://learnvimscriptthehardway.stevelosh.com/">Learn Vimscript the Hard Way</a></p>
+<h2 id="neovim">Neovim</h2>
+<p>本人目前主要使用vim，这里就忽略了。</p>
+<h2 id="常用插件使用">常用插件使用</h2>
+<blockquote>
+<p>本章综合了书中介绍的插件和自己使用vim插件的经验，借此推广一下自己的vim配置开源项目<a href="https://github.com/tomjamescn/vimrc">tomjamescn/vimrc</a>，直接使用此项目，再结合本节说明即可</p>
+</blockquote>
+<blockquote>
+<p>这里列出的插件不分优先顺序，功能不同而已，插件名称都是abc/xyz模式。</p>
+</blockquote>
+<p>下面插件的源码都在github.com上，通过github.com/abc/xyz就可以访问</p>
+<h3 id="ctrlpvimctrlpvim">ctrlpvim/ctrlp.vim</h3>
+<blockquote>
+<p>此插件提供模糊搜索文件名功能</p>
+</blockquote>
+<p>ctrl+p可以打开当前目录下的文件名的模糊搜索功能，很方便，但是性能不是特别好，TODO:今后可以看看原因，目前暂时够用了。</p>
+<p>对于搜索到的文件，使用回车将在当前窗口中打开，如果想新开窗口，可以使用ctrl+t。</p>
+<h3 id="scrooloosenerdtree">scrooloose/nerdtree</h3>
+<blockquote>
+<p>此插件提供目录树功能</p>
+</blockquote>
+<p>下面的快捷键绑定下，可以使用F7来打开目录树，再按一次F7将关闭目录树</p>
+<pre><code class="language-vimscript" data-lang="vimscript">nmap &lt;F7&gt; :NERDTreeToggle&lt;CR&gt;
+</code></pre><h3 id="mileszsackvim">mileszs/ack.vim</h3>
+<blockquote>
+<p>此插件提供在vim内进行文件内容搜索的功能</p>
+</blockquote>
+<p>使用此插件前，需要安装<a href="https://beyondgrep.com/install/">ack</a>或者<a href="https://github.com/ggreer/the_silver_searcher">ag</a>
+下面的配置是说如果有ag的情况下，使用ag而不是使用ack。</p>
+<pre><code class="language-vimscript" data-lang="vimscript">if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+</code></pre><h3 id="majutsushitagbar">majutsushi/tagbar</h3>
+<blockquote>
+<p>此插件提供当前当前源码文件变量，函数和方法的说明</p>
+</blockquote>
+<p>使用此插件前，需要安装ctags。官网有链接。
+按F8打开或者收起边栏。</p>
+<pre><code class="language-vimscript" data-lang="vimscript">nmap &lt;F8&gt; :TagbarToggle&lt;CR&gt;
+</code></pre><h3 id="terrymavim-expand-region">terryma/vim-expand-region</h3>
+<blockquote>
+<p>此插件提供使用一个键来扩展选择的功能，很实用，看看官网的gif图就知道了</p>
+</blockquote>
+<p>在命令模式下，可以使用<code>+</code>来选择word，在visual模式下，使用<code>shift</code>+<code>+</code>来选择word</p>
+<h3 id="blingvim-airline">bling/vim-airline</h3>
+<p>vim定制主题框架，在<code>vim-airline/vim-airline-themes</code>中有很多可用主题
+我使用的是<code>let g:airline_theme='luna'</code>luna主题，感觉看着还行。</p>
+<h3 id="marallacompletorvim">maralla/completor.vim</h3>
+<blockquote>
+<p>此插件利用vim8的异步功能，提供异步提示的特性。</p>
+</blockquote>
+<p>vim8下自动提示的插件很多，使用此插件是因为此插件还提供了文件路径的自动提示功能，在输入路径时很好用，还有一点，这个项目的creator是国内上海的一位大神，支持国货：）</p>
+<p>此插件和vim-go配合的也比较好，目前没有发现什么问题。</p>
+<p>下面是我的快捷键绑定，出现提示后，按tab键就会切换到下一个候选，按shift和tab就会切换到上一个候选。</p>
+<pre><code class="language-vimscript" data-lang="vimscript">inoremap &lt;expr&gt; &lt;Tab&gt; pumvisible() ? &quot;\&lt;C-n&gt;&quot; : &quot;\&lt;Tab&gt;&quot;
+inoremap &lt;expr&gt; &lt;S-Tab&gt; pumvisible() ? &quot;\&lt;C-p&gt;&quot; : &quot;\&lt;S-Tab&gt;&quot;
+inoremap &lt;expr&gt; &lt;cr&gt; pumvisible() ? &quot;\&lt;C-y&gt;\&lt;cr&gt;&quot; : &quot;\&lt;cr&gt;&quot;
+</code></pre><h3 id="sjlgundovim">sjl/gundo.vim</h3>
+<p>自己对undo和redo的需求不是特别强烈，暂时没有使用这个插件</p>
+<h3 id="tpopevim-fugitive">tpope/vim-fugitive</h3>
+<blockquote>
+<p>提供了vim和git的集成，很好用。</p>
+</blockquote>
+<p><code>:Gstatus</code>
+<code>:Glog</code>
+<code>:Gblame</code></p>
+<h3 id="tenfyzhongtagbar-markdown">tenfyzhong/tagbar-markdown</h3>
+<blockquote>
+<p>支持在majutsushi/tagbar中显示markdown文件的层次标题</p>
+</blockquote>
+<p>写markdown时很好用</p>
+<h3 id="fatihvim-go">fatih/vim-go</h3>
+<blockquote>
+<p>vim的go ide环境，太好用了！</p>
+</blockquote>
+<p>建议看官方教程，我的vimrc项目对配置进行了封装，也可以看下。</p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>《Mastering Vim》读书笔记 - 第二部分</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#build-test-and-execute">Build, Test, and Execute</a></li>
+    <li><a href="#refactoring-code-with-regex-and-macros">Refactoring Code with Regex and Macros</a>
+      <ul>
+        <li><a href="#search-or-replace-with-regular-expressions">Search or replace with regular expressions</a></li>
+        <li><a href="#recording-and-playing-macros">Recording and playing macros</a></li>
+      </ul>
+    </li>
+    <li><a href="#making-vim-your-own">Making Vim Your Own</a></li>
+    <li><a href="#transcending-the-mundane-with-vimscript">Transcending the Mundane with Vimscript</a></li>
+    <li><a href="#neovim">Neovim</a></li>
+    <li><a href="#常用插件使用">常用插件使用</a>
+      <ul>
+        <li><a href="#ctrlpvimctrlpvim">ctrlpvim/ctrlp.vim</a></li>
+        <li><a href="#scrooloosenerdtree">scrooloose/nerdtree</a></li>
+        <li><a href="#mileszsackvim">mileszs/ack.vim</a></li>
+        <li><a href="#majutsushitagbar">majutsushi/tagbar</a></li>
+        <li><a href="#terrymavim-expand-region">terryma/vim-expand-region</a></li>
+        <li><a href="#blingvim-airline">bling/vim-airline</a></li>
+        <li><a href="#marallacompletorvim">maralla/completor.vim</a></li>
+        <li><a href="#sjlgundovim">sjl/gundo.vim</a></li>
+        <li><a href="#tpopevim-fugitive">tpope/vim-fugitive</a></li>
+        <li><a href="#tenfyzhongtagbar-markdown">tenfyzhong/tagbar-markdown</a></li>
+        <li><a href="#fatihvim-go">fatih/vim-go</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

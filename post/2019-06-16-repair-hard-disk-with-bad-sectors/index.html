@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  修复有坏道的磁盘 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="前几天将proxmox/zfs的有坏道的盘换下来后，一直想着怎么能修复一下废物利用。今天周末，刚好有时间查阅相关资料把磁盘修复了，记录下来方|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">修复有坏道的磁盘</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/%E7%A1%AC%E7%9B%98' class="muted-link">
+  <span class="Label Label--gray">硬盘</span>
+</a>
+
+<a href='/tags/disk' class="muted-link">
+  <span class="Label Label--gray">disk</span>
+</a>
+
+<a href='/tags/%E5%9D%8F%E9%81%93' class="muted-link">
+  <span class="Label Label--gray">坏道</span>
+</a>
+
+<a href='/tags/hdd' class="muted-link">
+  <span class="Label Label--gray">hdd</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-06-16.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>前几天将proxmox/zfs的有坏道的盘换下来后，一直想着怎么能修复一下废物利用。今天周末，刚好有时间查阅相关资料把磁盘修复了，记录下来方便有缘人。</p>
+</blockquote>
+<blockquote>
+<p>注意：此文章讲的怎么修复有坏道的磁盘（hdd），不包括ssd，ssd原理是不一样的。</p>
+</blockquote>
+<blockquote>
+<p>由于自己不是专门搞磁盘的，一些术语可能不准确，请见谅。</p>
+</blockquote>
+<h2 id="磁盘坏道修复原理">磁盘坏道修复原理</h2>
+<blockquote>
+<p>现代的磁盘(HDD)在出厂的时候，已经预留了更多的sector，这些sector在平时不会用，在出现bad sector的时候，HDD的驱动会自动将坏掉的sector隔离掉，并使用保留的sector来替换坏掉的sector。当然，预留的sector是有限的，如果按照本文的修复方法，还是有部分bad sector没有修复，说明bad sector太多了，磁盘最好别用了(这里有待商榷，下文会给出一些想法)。</p>
+</blockquote>
+<p>基于上面的原理，修复磁盘就比较简单了。只要把磁盘的每个sector都写一遍，HDD的驱动遇到坏掉的sector时，就会自动的替换bad sector了。</p>
+<h2 id="示例">示例</h2>
+<h3 id="修复前">修复前</h3>
+<p>使用<code>smartctl -i /dev/sda</code>可以看到bad sector的一些统计信息：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="m">197</span> Current_Pending_Sector  0x0012   <span class="m">100</span>   <span class="m">001</span>   <span class="m">000</span>    Old_age   Always       -       <span class="m">12</span>
+<span class="m">198</span> Offline_Uncorrectable   0x0010   <span class="m">100</span>   <span class="m">001</span>   <span class="m">000</span>    Old_age   Offline      -       <span class="m">12</span>
+</code></pre></div><h3 id="修复命令">修复命令</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo su -
+nohup dd <span class="nv">bs</span><span class="o">=</span>512k <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/sda <span class="p">&amp;</span>
+</code></pre></div><p>注意上面的bs的值，需要是sector size的倍数。sector size可以如下命令查看：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ smartctl -i /dev/sda
+
+...
+<span class="o">=</span><span class="o">=</span><span class="o">=</span> START OF INFORMATION <span class="nv">SECTION</span> <span class="o">=</span><span class="o">=</span><span class="o">=</span>
+...
+Sector Size:      <span class="m">512</span> bytes logical/physical
+...
+</code></pre></div><p>修复命令会运行很长时间，因为磁盘的每个sector都要被写一遍。耐心点吧。</p>
+<h3 id="修复后">修复后</h3>
+<p>使用<code>smartctl -i /dev/sda</code>可以看到:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="m">197</span> Current_Pending_Sector  0x0012   <span class="m">100</span>   <span class="m">001</span>   <span class="m">000</span>    Old_age   Always       -       <span class="m">0</span> 
+<span class="m">198</span> Offline_Uncorrectable   0x0010   <span class="m">100</span>   <span class="m">001</span>   <span class="m">000</span>    Old_age   Offline      -       <span class="m">0</span> 
+</code></pre></div><p>可以看到，错误数变为0了，修复成功</p>
+<h2 id="假如还是有坏道怎么办">假如还是有坏道怎么办</h2>
+<p>如果HDD预留的sector不够用，修复后，还有坏道。是否可以在新分区的时候，将坏道所在的sector分在新的单独的分区，并且后续别使用。</p>
+<p>因为自己还没有遇到这种更复杂的情况，还没有实践，这种解决方案仅供参考。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://superuser.com/questions/665214/how-to-quickly-format-a-hdd-with-bad-sectors-in-linux">how to quickly format a hdd with bad sectors in linux</a></p>
+<p><a href="https://linoxide.com/linux-how-to/how-to-fix-repair-bad-blocks-in-linux/">how to fix repair bad blocks in linux</a></p>
+<p><a href="http://www.amolak.net/fix-hard-disk-bad-sectors-in-linux/">fix hard disk bad sectors in linux</a></p>
+<p><a href="https://www.smartmontools.org/wiki/BadBlockHowto">bad block how to</a></p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>修复有坏道的磁盘</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#磁盘坏道修复原理">磁盘坏道修复原理</a></li>
+    <li><a href="#示例">示例</a>
+      <ul>
+        <li><a href="#修复前">修复前</a></li>
+        <li><a href="#修复命令">修复命令</a></li>
+        <li><a href="#修复后">修复后</a></li>
+      </ul>
+    </li>
+    <li><a href="#假如还是有坏道怎么办">假如还是有坏道怎么办</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

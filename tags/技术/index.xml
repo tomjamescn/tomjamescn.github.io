@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>技术 on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/%E6%8A%80%E6%9C%AF/</link>
+    <description>Recent content in 技术 on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Tue, 23 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>thoughtworks的技术雷达</title>
+      <link>https://tomjamescn.github.io/post/2019-07-23-thoughtworks-technology-radar/</link>
+      <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-07-23-thoughtworks-technology-radar/</guid>
+      <description>今天搜索了一些资料，无意中发现thoughtworks technology radar这个词，google一下，技术雷达竟然是一座金矿。。。特别记录在这里。 还在</description>
+    </item>
+    
+  </channel>
+</rss>

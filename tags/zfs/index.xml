@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>zfs on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/zfs/</link>
+    <description>Recent content in zfs on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Thu, 13 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/zfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>zfs失败磁盘切换过程</title>
+      <link>https://tomjamescn.github.io/post/2019-06-13-zfs-replace-bad-disk/</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-06-13-zfs-replace-bad-disk/</guid>
+      <description>搭建在家中的proxmox/zfs的磁盘报警了，本文是处理过程。还想补充一点，proxmox/zfs，真香:) 发现问题 收到告警邮件 SMART error (CurrentPendingSector) detected on</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  golang基础(2) - godoc的用法 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="安装完成go后，在$GOROOT/bin/下目前会有三个文件：go, godoc和gofmt。go就不用说了，gofmt大部分人都熟悉，因为它|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">golang基础(2) - godoc的用法</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-05. Published at: 2019-07-29.">
+        
+          Lastmod: 2020-02-05
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>安装完成go后，在$GOROOT/bin/下目前会有三个文件：go, godoc和gofmt。go就不用说了，gofmt大部分人都熟悉，因为它解决了代码风格的问题，代码风格是code review中的一个大问题，减少了revie时很多鸡毛蒜皮类的争论，节省了时间。但是godoc，可能很多人就不太熟悉了，本文主要是对godoc的使用做简单介绍。</p>
+<blockquote>
+<p>$GOROOT就是go的安装目录，linux下一般是<code>/usr/local/go</code>,  mac os下使用brew一般是<code>/usr/local/Cellar/go/版本/</code></p>
+</blockquote>
+<h2 id="基本用法">基本用法</h2>
+<p>启动服务</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">godoc -http :6060
+</code></pre></div><p>以上命令会在<a href="http://127.0.0.1:6060">本地</a>下生成当前系统安装的文档，类似于在本地启动了一个<a href="https://golang.org/">官方网站</a>，不过里面的内容是基于当前安装的版本的。</p>
+<p>除了有官方blog，官方包的文档以外，还有第三方库的文档，这里的第三方库指的是在$GOPATH/src下除了golang.org目录以外的所有库。</p>
+<p>可能有人会问，你这么做有什么意义了，要查文档，直接网络搜索即可，甚至使用Dash这样的神器，不是更方便吗？那我只能说Too young to naive了。如果是一个团队，写了很多公司私有的公共组件，那么此时一个公共的文档库就极为重要了。而godoc就提供了这个功能。如果不用godoc，就需要单独写文档，写文档的工作量，地球人都知道，那不是一般的大。。。而且写完后，一般都没人看。。。</p>
+<blockquote>
+<p><code>工程化</code>的理念真的是贯穿于整个golang的。</p>
+</blockquote>
+<p>godoc生成的文档有特定的格式，只要代码中的注释按照标准(标准很简单，下文有写)，那么最后生成的文档格式是很易读的。想想看，直接在代码中写注释，修改代码的时候就修改注释，而文档了，自动生成，始终和代码/注释保持一致。这个可是解决了软件工程领域的一个大问题啊：文档及时性。</p>
+<p>所以说，golang是一门现代化的语言，一点都不过。</p>
+<p>好像有点扯多了，请原谅我，每次在看golang设计精巧的地方，都不得不拍案而起，不是golang功能、性能等方面多么牛逼，而是，它真的能解决工程中的问题！</p>
+<h2 id="开启搜索功能">开启搜索功能</h2>
+<blockquote>
+<p>没有搜索功能的网站是不完整的</p>
+</blockquote>
+<p>生成索引文件:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">godoc -v -index -write_index -index_files /path/to/生成的索引文件
+</code></pre></div><p>启动带搜索功能的服务:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">godoc -http :6060 -index -index_files /path/to/生成的索引文件
+</code></pre></div><h2 id="golang注释标准">golang注释标准</h2>
+<p>golang官方没有一个特别标准的文档来说明注释标准，主要散落在3个地方：</p>
+<ul>
+<li><a href="https://golang.org/doc/effective_go.html#commentary">effective go的Commentary部分</a></li>
+<li><a href="https://github.com/golang/go/wiki/CodeReviewComments">Wiki - Code Review Comments</a></li>
+<li><a href="https://github.com/golang/go/wiki/Comments">Wiki - Comments</a></li>
+</ul>
+<p>个人觉得记住下面几句话, 大部分场景就够用了：</p>
+<ul>
+<li>每一个包需要有包级别的注释，类似于<code>Package 包名 ...</code>这种模式。如果包中有多个源文件，只需要任意一个源文件有包级别注释即可。</li>
+<li>结构体、函数和方法的注释类似于<code>结构体名/函数名/方法名 ...</code>这种模式</li>
+<li>不要尝试使用空格去格式化注释，对齐即可。godoc生成时会类似于gofmt对源代码做的一样，会自动转化格式。</li>
+<li>注释应该是完整的句子。</li>
+</ul>
+<p>内容真的不多，我就汇总摘抄到这里吧：
+Every package should have a package comment. It should immediately precede the package statement in one of the files in the package. (It only needs to appear in one file.) It should begin with a single sentence that begins &ldquo;Package packagename&rdquo; and give a concise summary of the package functionality. This introductory sentence will be used in godoc&rsquo;s list of all packages.</p>
+<p>Subsequent sentences and/or paragraphs can give more details. Sentences should be properly punctuated.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Package superman implements methods for saving the world.
+</span><span class="c1"></span><span class="c1">//
+</span><span class="c1"></span><span class="c1">// Experience has shown that a small number of procedures can prove
+</span><span class="c1"></span><span class="c1">// helpful when attempting to save the world.
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">superman</span>
+</code></pre></div><p>Nearly every top-level type, const, var and func should have a comment. A comment for bar should be in the form &ldquo;bar floats on high o&rsquo;er vales and hills.&quot;. The first letter of bar should not be capitalized unless it&rsquo;s capitalized in the code.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// enterOrbit causes Superman to fly into low Earth orbit, a position
+</span><span class="c1"></span><span class="c1">// that presents several possibilities for planet salvation.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">enterOrbit</span><span class="p">(</span><span class="p">)</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Error</span> <span class="p">{</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div><p>Comments documenting declarations should be full sentences, even if that seems a little redundant. This approach makes them format well when extracted into godoc documentation. Comments should begin with the name of the thing being described and end in a period:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Request represents a request to run a command.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Request</span> <span class="kd">struct</span> <span class="p">{</span> <span class="o">...</span>
+
+<span class="c1">// Encode writes the JSON encoding of req to w.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Encode</span><span class="p">(</span><span class="nx">w</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span>
+</code></pre></div><p>and so on</p>
+<p>All top-level, exported names should have doc comments, as should non-trivial unexported type or function declarations. See <a href="https://golang.org/doc/effective_go.html#commentary">https://golang.org/doc/effective_go.html#commentary</a> for more information about commentary conventions.</p>
+<p>Go provides C-style /* */ block comments and C++-style // line comments. Line comments are the norm; block comments appear mostly as package comments, but are useful within an expression or to disable large swaths of code.</p>
+<p>The program—and web server—godoc processes Go source files to extract documentation about the contents of the package. Comments that appear before top-level declarations, with no intervening newlines, are extracted along with the declaration to serve as explanatory text for the item. The nature and style of these comments determines the quality of the documentation godoc produces.</p>
+<p>Every package should have a package comment, a block comment preceding the package clause. For multi-file packages, the package comment only needs to be present in one file, and any one will do. The package comment should introduce the package and provide information relevant to the package as a whole. It will appear first on the godoc page and should set up the detailed documentation that follows.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/*
+</span><span class="cm">Package regexp implements a simple library for regular expressions.
+</span><span class="cm">
+</span><span class="cm">The syntax of the regular expressions accepted is:
+</span><span class="cm">
+</span><span class="cm">    regexp:
+</span><span class="cm">        concatenation { &#39;|&#39; concatenation }
+</span><span class="cm">    concatenation:
+</span><span class="cm">        { closure }
+</span><span class="cm">    closure:
+</span><span class="cm">        term [ &#39;*&#39; | &#39;+&#39; | &#39;?&#39; ]
+</span><span class="cm">    term:
+</span><span class="cm">        &#39;^&#39;
+</span><span class="cm">        &#39;$&#39;
+</span><span class="cm">        &#39;.&#39;
+</span><span class="cm">        character
+</span><span class="cm">        &#39;[&#39; [ &#39;^&#39; ] character-ranges &#39;]&#39;
+</span><span class="cm">        &#39;(&#39; regexp &#39;)&#39;
+</span><span class="cm">*/</span>
+<span class="kn">package</span> <span class="nx">regexp</span>
+</code></pre></div><p>If the package is simple, the package comment can be brief.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Package path implements utility routines for
+</span><span class="c1"></span><span class="c1">// manipulating slash-separated filename paths.
+</span></code></pre></div><p>Comments do not need extra formatting such as banners of stars. The generated output may not even be presented in a fixed-width font, so don&rsquo;t depend on spacing for alignment—godoc, like gofmt, takes care of that. The comments are uninterpreted plain text, so HTML and other annotations such as <em>this</em> will reproduce verbatim and should not be used. One adjustment godoc does do is to display indented text in a fixed-width font, suitable for program snippets. The package comment for the fmt package uses this to good effect.</p>
+<p>Depending on the context, godoc might not even reformat comments, so make sure they look good straight up: use correct spelling, punctuation, and sentence structure, fold long lines, and so on.</p>
+<p>Inside a package, any comment immediately preceding a top-level declaration serves as a doc comment for that declaration. Every exported (capitalized) name in a program should have a doc comment.</p>
+<p>Doc comments work best as complete sentences, which allow a wide variety of automated presentations. The first sentence should be a one-sentence summary that starts with the name being declared.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Compile parses a regular expression and returns, if successful,
+</span><span class="c1"></span><span class="c1">// a Regexp that can be used to match against text.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Compile</span><span class="p">(</span><span class="nx">str</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Regexp</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div><p>If every doc comment begins with the name of the item it describes, you can use the doc subcommand of the go tool and run the output through grep. Imagine you couldn&rsquo;t remember the name &ldquo;Compile&rdquo; but were looking for the parsing function for regular expressions, so you ran the command,</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ go doc -all regexp <span class="p">|</span> grep -i parse
+</code></pre></div><p>If all the doc comments in the package began, &ldquo;This function&hellip;&quot;, grep wouldn&rsquo;t help you remember the name. But because the package starts each doc comment with the name, you&rsquo;d see something like this, which recalls the word you&rsquo;re looking for.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ go doc -all regexp <span class="p">|</span> grep -i parse
+    Compile parses a regular expression and returns, <span class="k">if</span> successful, a Regexp
+    MustCompile is like Compile but panics <span class="k">if</span> the expression cannot be parsed.
+    parsed. It simplifies safe initialization of global variables holding
+$
+</code></pre></div><p>Go&rsquo;s declaration syntax allows grouping of declarations. A single doc comment can introduce a group of related constants or variables. Since the whole declaration is presented, such a comment can often be perfunctory.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Error codes returned by failures to parse an expression.
+</span><span class="c1"></span><span class="kd">var</span> <span class="p">(</span>
+    <span class="nx">ErrInternal</span>      <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;regexp: internal error&#34;</span><span class="p">)</span>
+    <span class="nx">ErrUnmatchedLpar</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;regexp: unmatched &#39;(&#39;&#34;</span><span class="p">)</span>
+    <span class="nx">ErrUnmatchedRpar</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;regexp: unmatched &#39;)&#39;&#34;</span><span class="p">)</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</code></pre></div><p>Grouping can also indicate relationships between items, such as the fact that a set of variables is protected by a mutex.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="p">(</span>
+    <span class="nx">countLock</span>   <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+    <span class="nx">inputCount</span>  <span class="kt">uint32</span>
+    <span class="nx">outputCount</span> <span class="kt">uint32</span>
+    <span class="nx">errorCount</span>  <span class="kt">uint32</span>
+<span class="p">)</span>
+</code></pre></div>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>golang基础(2) - godoc的用法</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本用法">基本用法</a></li>
+    <li><a href="#开启搜索功能">开启搜索功能</a></li>
+    <li><a href="#golang注释标准">golang注释标准</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
