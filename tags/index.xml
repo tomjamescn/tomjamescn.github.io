@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;tomjamescn 2020</copyright>
-    <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 22 Apr 2020 06:36:33 +0800</lastBuildDate>
     
 	<atom:link href="https://tomjamescn.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>golang</title>
+      <link>https://tomjamescn.github.io/tags/golang/</link>
+      <pubDate>Wed, 22 Apr 2020 06:36:33 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>brew</title>
@@ -90,15 +99,6 @@
       <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>https://tomjamescn.github.io/tags/false-sharing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://tomjamescn.github.io/tags/golang/</link>
-      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://tomjamescn.github.io/tags/golang/</guid>
       <description></description>
     </item>
     

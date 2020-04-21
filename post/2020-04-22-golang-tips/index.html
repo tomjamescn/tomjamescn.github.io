@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Golang Tips &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    <meta content="golang" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="对任何事物的认知都是螺旋上升的过程。 编辑器 vim-go和coc.nvim两个vim插件结合使用，体验非常棒。 coc.nvim是年初才发现的，|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Golang Tips</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-04-22. Published at: 2020-04-22.">
+        
+          Lastmod: 2020-04-22
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>对任何事物的认知都是螺旋上升的过程。</p>
+</blockquote>
+<h2 id="编辑器">编辑器</h2>
+<p><a href="https://github.com/fatih/vim-go">vim-go</a>和<a href="https://github.com/neoclide/coc.nvim">coc.nvim</a>两个vim插件结合使用，体验非常棒。</p>
+<p><a href="https://github.com/neoclide/coc.nvim">coc.nvim</a>是年初才发现的，它打通了vscode的插件，给vim带来了非常好的体验，不仅仅可用于golang，其他任何语言，只要是vscode支持的，基本都可以安装对应的coc-XXX插件，强烈推荐！</p>
+<p>自己的<a href="https://github.com/tomjamescn/vimrc">vimrc</a>项目也进行了一次大的更新，在易用性上已经和各类IDE差距不大了，在专注、简洁和速度等方面，个人觉得已经超过了IDE。</p>
+<h2 id="playground">playground</h2>
+<p>除了<a href="https://play.golang.org/">官方playground</a>，<a href="https://repl.it/">repl.it</a>是一个非常好的替代，repl.it不光支持golang，还支持非常多的其他语言，而且编辑器支持智能提示，还提供基于web的shell，强烈推荐!</p>
+<h2 id="go-mod">go mod</h2>
+<p>经过近2年的发展，golang的模块系统也逐渐成熟。国内也出现了<a href="https://goproxy.cn/">goproxy.cn</a>等代理，速度也是杠杠的。</p>
+<p>非常喜欢<code>go mod tidy</code>，太好用了，是不是？</p>
+<h2 id="package-organization">package organization</h2>
+<p>当写一个比较复杂的项目时，对包的组织非常关键。golang中是不存在子包概念的，意味着<code>aaa.com/x/y</code>和<code>aaa.com/x/y/z</code>是两个完全独立的包。</p>
+<p>包之间不能循环依赖。个人摸索的一个比较好的原则是：路径短的包依赖路径长的包。<code>aaa.com/x/y</code>可以依赖<code>aaa.com/x/y/z</code>。有这个原则后，碰到的很多代码组织问题就解决了。</p>
+<h2 id="complex-util-type-project-scaffolding">complex util-type project scaffolding</h2>
+<p>当编写比较复杂的工具类项目时，不要自己从头写了，使用<a href="https://github.com/spf13/cobra">cobra</a>提供的代码生成工具来初始化。它不光提供了此类项目代码组织的最佳实践，对于配置，也提供了基于<a href="https://github.com/spf13/viper">viper</a>的解决方案。个人觉得cobra是对<a href="https://12factor.net/zh_cn/">12-factor原则</a>的好的实践。</p>
+<h2 id="教训">教训</h2>
+<h3 id="自己写一整套web框架">自己写一整套web框架</h3>
+<p>自己练习是可以的，但是在正式项目中，还是保守点好，使用<a href="https://github.com/gin-gonic/gin">gin</a>是一个很不错的起点。</p>
+<h3 id="先实现有时间再优化">先实现，有时间再优化。</h3>
+<p>&hellip;</p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Golang Tips</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#编辑器">编辑器</a></li>
+    <li><a href="#playground">playground</a></li>
+    <li><a href="#go-mod">go mod</a></li>
+    <li><a href="#package-organization">package organization</a></li>
+    <li><a href="#complex-util-type-project-scaffolding">complex util-type project scaffolding</a></li>
+    <li><a href="#教训">教训</a>
+      <ul>
+        <li><a href="#自己写一整套web框架">自己写一整套web框架</a></li>
+        <li><a href="#先实现有时间再优化">先实现，有时间再优化。</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
