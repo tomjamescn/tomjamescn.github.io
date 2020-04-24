@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;tomjamescn 2020</copyright>
-    <lastBuildDate>Sun, 28 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2020 14:14:09 +0800</lastBuildDate>
     
 	<atom:link href="https://tomjamescn.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>常用快捷键和按键组合</title>
+      <link>https://tomjamescn.github.io/post/2020-04-24-useful-hotkey/</link>
+      <pubDate>Fri, 24 Apr 2020 14:14:09 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2020-04-24-useful-hotkey/</guid>
+      <description>天下武功，唯快不破 Karabiner-Elements (简称KEY) KEY是一个键盘映射程序，支持按照设备/应用来设置键盘按键映射，并且支持复杂的规则，比如单独按或者作为组合</description>
+    </item>
     
     <item>
       <title>《Mastering Vim》读书笔记 - 第二部分</title>
