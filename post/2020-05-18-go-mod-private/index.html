@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Go私有库访问设置 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="私有库的访问在某些场景下还是很有用的，比如公司内部的私有go包，自己个人git服务器上的私有go包，以及github上自己的private的|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Go私有库访问设置</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/golang' class="muted-link">
+  <span class="Label Label--gray-darker">golang</span>
+</a>
+
+
+
+<a href='/tags/golang' class="muted-link">
+  <span class="Label Label--gray">golang</span>
+</a>
+
+<a href='/tags/go-mod' class="muted-link">
+  <span class="Label Label--gray">go mod</span>
+</a>
+
+<a href='/tags/private' class="muted-link">
+  <span class="Label Label--gray">private</span>
+</a>
+
+<a href='/tags/%E7%A7%81%E6%9C%89%E5%BA%93' class="muted-link">
+  <span class="Label Label--gray">私有库</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-05-18. Published at: 2020-05-18.">
+        
+          Lastmod: 2020-05-18
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>私有库的访问在某些场景下还是很有用的，比如公司内部的私有go包，自己个人git服务器上的私有go包，以及github上自己的private的go包。</p>
+</blockquote>
+<h2 id="step-1-设置goprivate环境变量">STEP 1 设置<code>GOPRIVATE</code>环境变量</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># github</span>
+go env -w <span class="nv">GOPRIVATE</span><span class="o">=</span>github.com/tomjamescn
+
+<span class="c1"># gogs</span>
+go env -w <span class="nv">GOPRIVATE</span><span class="o">=</span>gogs.abc.com
+
+<span class="c1"># github and gogs</span>
+<span class="c1"># 多个私有库以逗号分隔</span>
+go env -w <span class="nv">GOPRIVATE</span><span class="o">=</span>github.com/tomjamescn,gogs.abc.com
+
+</code></pre></div><h2 id="step-2-设置git">STEP 2 设置git</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># github</span>
+<span class="c1"># access_token可以到https://github.com/settings/tokens中进行生成</span>
+git config --global url.<span class="s2">&#34;</span><span class="s2">https://</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">access_token</span><span class="si">}</span><span class="s2">@github.com</span><span class="s2">&#34;</span>.insteadOf /
+<span class="s2">&#34;https://github.com&#34;</span>
+
+<span class="c1"># gogs</span>
+<span class="c1"># token可以在 用户设置 =&gt; 授权应用 中进行生成</span>
+git config --global url.<span class="s2">&#34;</span><span class="s2">https://</span><span class="si">${</span><span class="nv">token</span><span class="si">}</span><span class="s2">@gogs.abc.com:60443</span><span class="s2">&#34;</span>.insteadOf <span class="s2">&#34;https://gogs.abc.com&#34;</span>
+</code></pre></div><p>不用的私有库需要单独设置git</p>
+<h2 id="说明">说明：</h2>
+<p>如果自己的私有库，比如gogs的端口不是443，go get时不用加入端口号，真正的端口号在STEP 2时git会自动替换。</p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Go私有库访问设置</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#step-1-设置goprivate环境变量">STEP 1 设置GOPRIVATE环境变量</a></li>
+    <li><a href="#step-2-设置git">STEP 2 设置git</a></li>
+    <li><a href="#说明">说明：</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

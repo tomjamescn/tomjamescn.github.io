@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;tomjamescn 2020</copyright>
-    <lastBuildDate>Fri, 24 Apr 2020 14:14:09 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 10:42:00 +0800</lastBuildDate>
     
 	<atom:link href="https://tomjamescn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go私有库访问设置</title>
+      <link>https://tomjamescn.github.io/post/2020-05-18-go-mod-private/</link>
+      <pubDate>Mon, 18 May 2020 10:42:00 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2020-05-18-go-mod-private/</guid>
+      <description>私有库的访问在某些场景下还是很有用的，比如公司内部的私有go包，自己个人git服务器上的私有go包，以及github上自己的private的</description>
+    </item>
     
     <item>
       <title>常用快捷键和按键组合</title>

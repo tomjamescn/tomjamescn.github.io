@@ -7,10 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;tomjamescn 2020</copyright>
-    <lastBuildDate>Fri, 24 Apr 2020 14:14:09 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 10:42:00 +0800</lastBuildDate>
     
 	<atom:link href="https://tomjamescn.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>go mod</title>
+      <link>https://tomjamescn.github.io/tags/go-mod/</link>
+      <pubDate>Mon, 18 May 2020 10:42:00 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/go-mod/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://tomjamescn.github.io/tags/golang/</link>
+      <pubDate>Mon, 18 May 2020 10:42:00 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>private</title>
+      <link>https://tomjamescn.github.io/tags/private/</link>
+      <pubDate>Mon, 18 May 2020 10:42:00 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/private/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>私有库</title>
+      <link>https://tomjamescn.github.io/tags/%E7%A7%81%E6%9C%89%E5%BA%93/</link>
+      <pubDate>Mon, 18 May 2020 10:42:00 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E7%A7%81%E6%9C%89%E5%BA%93/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>chrome</title>
@@ -40,7 +76,7 @@
     </item>
     
     <item>
-      <title>MacOS</title>
+      <title>macOS</title>
       <link>https://tomjamescn.github.io/tags/macos/</link>
       <pubDate>Fri, 24 Apr 2020 14:14:09 +0800</pubDate>
       
@@ -63,15 +99,6 @@
       <pubDate>Fri, 24 Apr 2020 14:14:09 +0800</pubDate>
       
       <guid>https://tomjamescn.github.io/tags/vim/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://tomjamescn.github.io/tags/golang/</link>
-      <pubDate>Wed, 22 Apr 2020 06:36:33 +0800</pubDate>
-      
-      <guid>https://tomjamescn.github.io/tags/golang/</guid>
       <description></description>
     </item>
     
