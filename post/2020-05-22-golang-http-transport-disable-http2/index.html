@@ -111,10 +111,7 @@
 http.DefaultClient.Transport <span class="o">=</span> <span class="p">&amp;</span>http.Transport<span class="o">{</span>
     TLSNextProto: make<span class="o">(</span>map<span class="o">[</span>string<span class="o">]</span>func<span class="o">(</span>authority string, c *tls.Conn<span class="o">)</span> http.RoundTripper<span class="o">)</span>,
 <span class="o">}</span>
-</code></pre></div><blockquote>
-<p>另外，发现在某些错误场景下，go的标准包不会调用ProxyFunc。很奇怪，值得再研究一下http包。</p>
-</blockquote>
-
+</code></pre></div>
   </section>
 
   <section>
