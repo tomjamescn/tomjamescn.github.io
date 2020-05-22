@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  http.Transport禁用Http2 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="在服务器端支持http2时，golang的http.Transport默认是启用的http2的(GO 1.6 and later)。在默认场景下，性能是非|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">http.Transport禁用Http2</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+
+
+<a href='/tags/http' class="muted-link">
+  <span class="Label Label--gray">http</span>
+</a>
+
+<a href='/tags/http2' class="muted-link">
+  <span class="Label Label--gray">http2</span>
+</a>
+
+<a href='/tags/golnag' class="muted-link">
+  <span class="Label Label--gray">golnag</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-05-22. Published at: 2020-05-22.">
+        
+          Lastmod: 2020-05-22
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>在服务器端支持http2时，golang的http.Transport默认是启用的http2的(GO 1.6 and later)。在默认场景下，性能是非常高的，这得益于http2相比http1.1的进化。但是在一些特殊场景下，这样会带来很多麻烦。</p>
+<p>最近写了一个自动切换proxy的ProxyFunc，发现并不是每次请求都会调用ProxyFunc。追查了一番源代码，发现只要禁用掉http2就可以让每次请求都走ProxyFunc函数。</p>
+<p>禁用方法有两个</p>
+<h3 id="使用godebug环境变量">使用GODEBUG环境变量</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">GODEBUG</span><span class="o">=</span><span class="nv">http2client</span><span class="o">=</span><span class="m">0</span>
+</code></pre></div><h3 id="transport的tlsnextproto非空">Transport的TLSNextProto非空</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">// Disable HTTP/2
+http.DefaultClient.Transport <span class="o">=</span> <span class="p">&amp;</span>http.Transport<span class="o">{</span>
+    TLSNextProto: make<span class="o">(</span>map<span class="o">[</span>string<span class="o">]</span>func<span class="o">(</span>authority string, c *tls.Conn<span class="o">)</span> http.RoundTripper<span class="o">)</span>,
+<span class="o">}</span>
+</code></pre></div><blockquote>
+<p>另外，发现在某些错误场景下，go的标准包不会调用ProxyFunc。很奇怪，值得再研究一下http包。</p>
+</blockquote>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>http.Transport禁用Http2</b><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#使用godebug环境变量">使用GODEBUG环境变量</a></li>
+        <li><a href="#transport的tlsnextproto非空">Transport的TLSNextProto非空</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

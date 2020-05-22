@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>http on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/http/</link>
+    <description>Recent content in http on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Fri, 22 May 2020 16:42:57 +0800</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>http.Transport禁用Http2</title>
+      <link>https://tomjamescn.github.io/post/2020-05-22-golang-http-transport-disable-http2/</link>
+      <pubDate>Fri, 22 May 2020 16:42:57 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2020-05-22-golang-http-transport-disable-http2/</guid>
+      <description>在服务器端支持http2时，golang的http.Transport默认是启用的http2的(GO 1.6 and later)。在默认场景下，性能是非</description>
+    </item>
+    
+  </channel>
+</rss>
