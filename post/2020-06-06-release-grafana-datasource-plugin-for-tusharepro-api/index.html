@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  发布基于tushare.pro的api的grafana datasource插件 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="很多炒股软件的图形化界面不易使用，特别是想交叉或者复杂分析时，力不从心。grafana是一个非常好的数据看板，而且还在快速发展中。所以有了将|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">发布基于tushare.pro的api的grafana datasource插件</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/grafana' class="muted-link">
+  <span class="Label Label--gray-darker">grafana</span>
+</a>
+
+<a href='/categories/%E7%82%92%E8%82%A1' class="muted-link">
+  <span class="Label Label--gray-darker">炒股</span>
+</a>
+
+
+
+<a href='/tags/grafana' class="muted-link">
+  <span class="Label Label--gray">grafana</span>
+</a>
+
+<a href='/tags/plugin' class="muted-link">
+  <span class="Label Label--gray">plugin</span>
+</a>
+
+<a href='/tags/datasource' class="muted-link">
+  <span class="Label Label--gray">datasource</span>
+</a>
+
+<a href='/tags/stock' class="muted-link">
+  <span class="Label Label--gray">stock</span>
+</a>
+
+<a href='/tags/%E7%82%92%E8%82%A1' class="muted-link">
+  <span class="Label Label--gray">炒股</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-06-06. Published at: 2020-06-06.">
+        
+          Lastmod: 2020-06-06
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>很多炒股软件的图形化界面不易使用，特别是想交叉或者复杂分析时，力不从心。grafana是一个非常好的数据看板，而且还在快速发展中。所以有了将tushare.pro的数据在grafana中看的想法。</p>
+<p>在grafana中，添加数据源需要开发datasource插件。感谢下<a href="https://github.com/ayoungprogrammer/grafana-finance">grafana-finance</a>，没有它提供的思路，作为一个后端开发的我很难短时间完成。</p>
+<p>由于我的tushare.pro的账号的积分不多，目前仅提供daily日线的数据源，今后可以加入更多数据类型的数据源。</p>
+<h3 id="依赖">依赖</h3>
+<p>grafana &gt;= 3.0.0即可，也支持最新的grafana 7.x</p>
+<h3 id="安装">安装</h3>
+<p>去release页面下载最新版本，解压到grafana的plugins目录，重启启动grafana即可。</p>
+<h3 id="配置">配置</h3>
+<p><img src="https://raw.githubusercontent.com/tomjamescn/grafana-tusharepro/master/src/img/add-datasource-1.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/tomjamescn/grafana-tusharepro/master/src/img/add-datasource-2.png" alt=""></p>
+<h4 id="关于cors跨域的说明">关于CORS跨域的说明</h4>
+<p>由于此datasource是grafana的普通datasouce，请求都是从浏览器直接发出的，所以需要后端数据api支持<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS跨域</a>，目前tushare.pro的api应该还不支持。目前为了使用此插件，需要使用跨域代理，可以使用<a href="https://github.com/Rob--W/cors-anywhere">cors-anywhere</a></p>
+<h3 id="使用">使用</h3>
+<p><img src="https://raw.githubusercontent.com/tomjamescn/grafana-tusharepro/master/src/img/query.png" alt=""></p>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>发布基于tushare.pro的api的grafana datasource插件</b><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#依赖">依赖</a></li>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#配置">配置</a></li>
+        <li><a href="#使用">使用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

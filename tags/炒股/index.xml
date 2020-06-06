@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>炒股 on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/%E7%82%92%E8%82%A1/</link>
+    <description>Recent content in 炒股 on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Sat, 06 Jun 2020 17:05:25 +0800</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/%E7%82%92%E8%82%A1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>发布基于tushare.pro的api的grafana datasource插件</title>
+      <link>https://tomjamescn.github.io/post/2020-06-06-release-grafana-datasource-plugin-for-tusharepro-api/</link>
+      <pubDate>Sat, 06 Jun 2020 17:05:25 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2020-06-06-release-grafana-datasource-plugin-for-tusharepro-api/</guid>
+      <description>很多炒股软件的图形化界面不易使用，特别是想交叉或者复杂分析时，力不从心。grafana是一个非常好的数据看板，而且还在快速发展中。所以有了将</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -7,10 +7,55 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;tomjamescn 2020</copyright>
-    <lastBuildDate>Fri, 22 May 2020 16:42:57 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2020 17:05:25 +0800</lastBuildDate>
     
 	<atom:link href="https://tomjamescn.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>datasource</title>
+      <link>https://tomjamescn.github.io/tags/datasource/</link>
+      <pubDate>Sat, 06 Jun 2020 17:05:25 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/datasource/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>grafana</title>
+      <link>https://tomjamescn.github.io/tags/grafana/</link>
+      <pubDate>Sat, 06 Jun 2020 17:05:25 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/grafana/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plugin</title>
+      <link>https://tomjamescn.github.io/tags/plugin/</link>
+      <pubDate>Sat, 06 Jun 2020 17:05:25 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/plugin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>stock</title>
+      <link>https://tomjamescn.github.io/tags/stock/</link>
+      <pubDate>Sat, 06 Jun 2020 17:05:25 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/stock/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>炒股</title>
+      <link>https://tomjamescn.github.io/tags/%E7%82%92%E8%82%A1/</link>
+      <pubDate>Sat, 06 Jun 2020 17:05:25 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E7%82%92%E8%82%A1/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>golnag</title>
