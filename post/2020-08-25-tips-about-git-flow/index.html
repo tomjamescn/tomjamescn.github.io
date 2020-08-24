@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Tips About Git Flow &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="Git Flow是基于Git的代码协作的一种最佳实践，大概10年前提出，现在已被很多软件团队和组织大规模采用。原作者Vincent Driessen|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Tips About Git Flow</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91' class="muted-link">
+  <span class="Label Label--gray-darker">软件开发</span>
+</a>
+
+
+
+<a href='/tags/git-flow' class="muted-link">
+  <span class="Label Label--gray">git flow</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-08-25. Published at: 2020-08-25.">
+        
+          Lastmod: 2020-08-25
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>Git Flow是基于Git的代码协作的一种最佳实践，大概10年前提出，现在已被很多软件团队和组织大规模采用。原作者<a href="https://nvie.com/">Vincent Driessen</a>在5月份更新了对Git Flow的最新思考和实践。值得细细品味。</p>
+</blockquote>
+<h2 id="git-flow简要介绍">Git Flow简要介绍</h2>
+<p>Git Flow是构建在Git之上的组织软件开发活动的模型，是基于Git的软件开发最佳实践。核心是为git的不同分支定义不同的角色。Git Flow中预设了主分支（包括master和develop分支）和辅助分支（包括feature、release和bugfix分支）。</p>
+<p>主分支用来进行软件开发和部署，是长期存在的分支。</p>
+<p>辅助分支用于特定软件特性开发、bug修复和发版，是临时存在的。</p>
+<p>可以参考<a href="https://nvie.com/posts/a-successful-git-branching-model/">原文</a>仔细理解。</p>
+<h2 id="git-flow与web开发">Git Flow与Web开发</h2>
+<p>按照作者最新的更新说明，其实Git Flow的提出主要是为了比较传统的软件（大概2010年左右吧），那时的软件以非Web应用为主，具体特点是要发多个版本，老版本还需要维护。但是现在的web应用越来越多了，Web应用是持续的发布的（小步快跑），并且弱化了版本的概念（线上只有一个版本），所以Web应用的开发场景是和Git Flow的提出有区别的。所以，作者还是建议对于Web应用，最好还是采用更简单的协作流程，比如GitHub Flow（Pull Request）。</p>
+<blockquote>
+<p>后记，为什么要写这么一篇随笔了？当对一个技术或者方法没有根本性的了解时，随着大环境对其的采纳，很容易陷入教条主义（原文作者在最新的更新中写道了这一点），以为这种技术或者方法是万能药。但是软件开发中没有银弹。一定要在充分理解的情况下掌握其应用场景。但是说起来容易，实践起来真的很难。Git Flow就曾经让我困惑，对其在Web领域的适用性有所怀疑，现在作者亲自这么说了，感觉有一种豁然开朗的感觉。</p>
+</blockquote>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Tips About Git Flow</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#git-flow简要介绍">Git Flow简要介绍</a></li>
+    <li><a href="#git-flow与web开发">Git Flow与Web开发</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

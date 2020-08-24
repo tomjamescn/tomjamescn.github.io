@@ -9,7 +9,37 @@
   
   <url>
     <loc>https://tomjamescn.github.io/categories/</loc>
-    <lastmod>2020-06-06T17:14:30+08:00</lastmod>
+    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/git-flow/</loc>
+    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/</loc>
+    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/</loc>
+    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2020-08-25-tips-about-git-flow/</loc>
+    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/</loc>
+    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
   </url>
   
   <url>
@@ -33,22 +63,7 @@
   </url>
   
   <url>
-    <loc>https://tomjamescn.github.io/post/</loc>
-    <lastmod>2020-06-06T17:14:30+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tomjamescn.github.io/tags/stock/</loc>
-    <lastmod>2020-06-06T17:14:30+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tomjamescn.github.io/tags/</loc>
-    <lastmod>2020-06-06T17:14:30+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tomjamescn.github.io/</loc>
     <lastmod>2020-06-06T17:14:30+08:00</lastmod>
   </url>
   
@@ -58,12 +73,12 @@
   </url>
   
   <url>
-    <loc>https://tomjamescn.github.io/tags/%E7%82%92%E8%82%A1/</loc>
+    <loc>https://tomjamescn.github.io/categories/%E7%82%92%E8%82%A1/</loc>
     <lastmod>2020-06-06T17:14:30+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tomjamescn.github.io/categories/%E7%82%92%E8%82%A1/</loc>
+    <loc>https://tomjamescn.github.io/tags/%E7%82%92%E8%82%A1/</loc>
     <lastmod>2020-06-06T17:14:30+08:00</lastmod>
   </url>
   
