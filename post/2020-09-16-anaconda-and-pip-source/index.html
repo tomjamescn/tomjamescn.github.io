@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  国内可用的anaconda和pip源 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="anaconda源 清华 channels: - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ - defaults ssl_verify: true 中科大 channels: - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ - defaults ssl_verify: true 上海交大 channels: - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/ - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/ - https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge/ - defaults ssl_verify: true 清华pip源 临时使用 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package 设为|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">国内可用的anaconda和pip源</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/python' class="muted-link">
+  <span class="Label Label--gray-darker">python</span>
+</a>
+
+
+
+<a href='/tags/%E6%BA%90' class="muted-link">
+  <span class="Label Label--gray">源</span>
+</a>
+
+<a href='/tags/anaconda' class="muted-link">
+  <span class="Label Label--gray">anaconda</span>
+</a>
+
+<a href='/tags/pip' class="muted-link">
+  <span class="Label Label--gray">pip</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-09-16. Published at: 2020-09-16.">
+        
+          Lastmod: 2020-09-16
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <h2 id="anaconda源">anaconda源</h2>
+<h3 id="清华">清华</h3>
+<pre><code>channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+  - defaults
+ssl_verify: true
+</code></pre><h3 id="中科大">中科大</h3>
+<pre><code>channels:
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+  - defaults
+ssl_verify: true
+</code></pre><h3 id="上海交大">上海交大</h3>
+<pre><code>channels:
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge/
+  - defaults
+ssl_verify: true
+</code></pre><h2 id="清华pip源">清华pip源</h2>
+<h3 id="临时使用">临时使用</h3>
+<pre><code>pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
+</code></pre><h3 id="设为默认">设为默认</h3>
+<blockquote>
+<p>pip版本&gt;=10.0.0才能用，升级pip使用命令<code>pip install pip -U</code> 或者 <code>pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U</code></p>
+</blockquote>
+<pre><code>pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>国内可用的anaconda和pip源</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#anaconda源">anaconda源</a>
+      <ul>
+        <li><a href="#清华">清华</a></li>
+        <li><a href="#中科大">中科大</a></li>
+        <li><a href="#上海交大">上海交大</a></li>
+      </ul>
+    </li>
+    <li><a href="#清华pip源">清华pip源</a>
+      <ul>
+        <li><a href="#临时使用">临时使用</a></li>
+        <li><a href="#设为默认">设为默认</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>anaconda on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/tags/anaconda/</link>
+    <description>Recent content in anaconda on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Wed, 16 Sep 2020 11:34:08 +0800</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/tags/anaconda/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>国内可用的anaconda和pip源</title>
+      <link>https://tomjamescn.github.io/post/2020-09-16-anaconda-and-pip-source/</link>
+      <pubDate>Wed, 16 Sep 2020 11:34:08 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2020-09-16-anaconda-and-pip-source/</guid>
+      <description>anaconda源 清华 channels: - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ - defaults ssl_verify: true 中科大 channels: - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/ - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/ - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/ - defaults ssl_verify: true 上海交大 channels: - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/ - https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/free/ - https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge/ - defaults ssl_verify: true 清华pip源 临时使用 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package 设为</description>
+    </item>
+    
+  </channel>
+</rss>

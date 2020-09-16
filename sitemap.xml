@@ -8,8 +8,48 @@
   </url>
   
   <url>
+    <loc>https://tomjamescn.github.io/tags/anaconda/</loc>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tomjamescn.github.io/categories/</loc>
-    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/pip/</loc>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/</loc>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/categories/python/</loc>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/</loc>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/</loc>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/post/2020-09-16-anaconda-and-pip-source/</loc>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tomjamescn.github.io/tags/%E6%BA%90/</loc>
+    <lastmod>2020-09-16T13:42:26+08:00</lastmod>
   </url>
   
   <url>
@@ -18,22 +58,7 @@
   </url>
   
   <url>
-    <loc>https://tomjamescn.github.io/post/</loc>
-    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tomjamescn.github.io/tags/</loc>
-    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://tomjamescn.github.io/post/2020-08-25-tips-about-git-flow/</loc>
-    <lastmod>2020-08-25T06:02:24+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tomjamescn.github.io/</loc>
     <lastmod>2020-08-25T06:02:24+08:00</lastmod>
   </url>
   
@@ -48,12 +73,12 @@
   </url>
   
   <url>
-    <loc>https://tomjamescn.github.io/tags/grafana/</loc>
+    <loc>https://tomjamescn.github.io/categories/grafana/</loc>
     <lastmod>2020-06-06T17:14:30+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tomjamescn.github.io/categories/grafana/</loc>
+    <loc>https://tomjamescn.github.io/tags/grafana/</loc>
     <lastmod>2020-06-06T17:14:30+08:00</lastmod>
   </url>
   

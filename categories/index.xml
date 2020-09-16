@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;tomjamescn 2020</copyright>
-    <lastBuildDate>Tue, 25 Aug 2020 05:37:41 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2020 11:34:08 +0800</lastBuildDate>
     
 	<atom:link href="https://tomjamescn.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>python</title>
+      <link>https://tomjamescn.github.io/categories/python/</link>
+      <pubDate>Wed, 16 Sep 2020 11:34:08 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/python/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>软件开发</title>

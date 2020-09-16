@@ -7,10 +7,37 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;tomjamescn 2020</copyright>
-    <lastBuildDate>Tue, 25 Aug 2020 05:37:41 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2020 11:34:08 +0800</lastBuildDate>
     
 	<atom:link href="https://tomjamescn.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>anaconda</title>
+      <link>https://tomjamescn.github.io/tags/anaconda/</link>
+      <pubDate>Wed, 16 Sep 2020 11:34:08 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/anaconda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pip</title>
+      <link>https://tomjamescn.github.io/tags/pip/</link>
+      <pubDate>Wed, 16 Sep 2020 11:34:08 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/pip/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>源</title>
+      <link>https://tomjamescn.github.io/tags/%E6%BA%90/</link>
+      <pubDate>Wed, 16 Sep 2020 11:34:08 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/tags/%E6%BA%90/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>git flow</title>
