@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>感悟 on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/categories/%E6%84%9F%E6%82%9F/</link>
+    <description>Recent content in 感悟 on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Mon, 03 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/categories/%E6%84%9F%E6%82%9F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>哪些能力/素质是人一生中最重要的？</title>
+      <link>https://tomjamescn.github.io/post/2018-12-03-which-is-most-important-in-ones-life/</link>
+      <pubDate>Mon, 03 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2018-12-03-which-is-most-important-in-ones-life/</guid>
+      <description>随着工作经验和社会经验的持续积累，做的事情越来越多（做成或者失败&amp;hellip;当然，失败居多），宝宝的逐渐长大，自己经常会思考：哪些能力/</description>
+    </item>
+    
+    <item>
+      <title>开篇</title>
+      <link>https://tomjamescn.github.io/post/2018-12-01-first-post/</link>
+      <pubDate>Sat, 01 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2018-12-01-first-post/</guid>
+      <description>用过很多博客系统了，读书期间的csdn、blogjava，工作后的wordpress，都不是特别满意，导致积累的点点滴滴成碎片散落在各个角落</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -21,5 +21,23 @@
       <description>学习和使用k8s已经近2年了，对理解的k8s核心概念做一个总结。 K8s是一个容器管理/编排系统，用于在集群中运行和管理容器化的应用。 K8s还</description>
     </item>
     
+    <item>
+      <title>升级k8s集群到v1.14.1</title>
+      <link>https://tomjamescn.github.io/post/2019-05-02-upgrade-k8s-cluster/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-05-02-upgrade-k8s-cluster/</guid>
+      <description>k8s v1.14.1都已经发布了，为了学习搭建的k8s集群(v1.13.3)需要升级到最新版。虽然有官方升级文档，但是自己原来是手动搭建的是基于</description>
+    </item>
+    
+    <item>
+      <title>搭建k8s集群</title>
+      <link>https://tomjamescn.github.io/post/2019-02-09-build-a-k8s-cluster/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-02-09-build-a-k8s-cluster/</guid>
+      <description>本文基于截止目前最新的稳定的CoreOS Container Linux和k8s搭建一个master节点和3个工作节点的k8s集群 版本 CoreOS Container Linux: Stable 1967.4.0 K8s: v1.13.3 集群拓扑 |&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;| |</description>
+    </item>
+    
   </channel>
 </rss>

@@ -66,5 +66,113 @@
       <description></description>
     </item>
     
+    <item>
+      <title>MacOS</title>
+      <link>https://tomjamescn.github.io/categories/macos/</link>
+      <pubDate>Fri, 24 Apr 2020 14:14:09 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/macos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CPU架构</title>
+      <link>https://tomjamescn.github.io/categories/cpu%E6%9E%B6%E6%9E%84/</link>
+      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/cpu%E6%9E%B6%E6%9E%84/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>心理</title>
+      <link>https://tomjamescn.github.io/categories/%E5%BF%83%E7%90%86/</link>
+      <pubDate>Tue, 13 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/%E5%BF%83%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>技术随笔</title>
+      <link>https://tomjamescn.github.io/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/</link>
+      <pubDate>Sun, 11 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/%E6%8A%80%E6%9C%AF%E9%9A%8F%E7%AC%94/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://tomjamescn.github.io/categories/docker/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zeppelin</title>
+      <link>https://tomjamescn.github.io/categories/zeppelin/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/zeppelin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vim</title>
+      <link>https://tomjamescn.github.io/categories/vim/</link>
+      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>硬件</title>
+      <link>https://tomjamescn.github.io/categories/%E7%A1%AC%E4%BB%B6/</link>
+      <pubDate>Sun, 16 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/%E7%A1%AC%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zfs</title>
+      <link>https://tomjamescn.github.io/categories/zfs/</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/zfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>管理</title>
+      <link>https://tomjamescn.github.io/categories/%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Fri, 24 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/%E7%AE%A1%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>树莓派</title>
+      <link>https://tomjamescn.github.io/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+      <pubDate>Sat, 15 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>感悟</title>
+      <link>https://tomjamescn.github.io/categories/%E6%84%9F%E6%82%9F/</link>
+      <pubDate>Mon, 03 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/categories/%E6%84%9F%E6%82%9F/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

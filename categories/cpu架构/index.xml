@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CPU架构 on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/categories/cpu%E6%9E%B6%E6%9E%84/</link>
+    <description>Recent content in CPU架构 on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Sat, 31 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/categories/cpu%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CPU缓存体系-Cache Line假共享</title>
+      <link>https://tomjamescn.github.io/post/2019-08-31-cache-line-false-sharing/</link>
+      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2019-08-31-cache-line-false-sharing/</guid>
+      <description>做了多年业务开发和网络开发，对框架、网络访问、业务功能等有了一定认识，但是在分层开发体系下，工作都是在上层工作，离计算机核心（CPU/缓存等</description>
+    </item>
+    
+  </channel>
+</rss>
