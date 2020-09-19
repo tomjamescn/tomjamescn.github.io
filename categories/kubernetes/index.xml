@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/categories/kubernetes/</link>
+    <description>Recent content in kubernetes on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Sat, 19 Sep 2020 08:51:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kubernetes概念</title>
+      <link>https://tomjamescn.github.io/post/2020-09-19-kubernetes-concepts/</link>
+      <pubDate>Sat, 19 Sep 2020 08:51:03 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2020-09-19-kubernetes-concepts/</guid>
+      <description>学习和使用k8s已经近2年了，对理解的k8s核心概念做一个总结。 K8s是一个容器管理/编排系统，用于在集群中运行和管理容器化的应用。 K8s还</description>
+    </item>
+    
+  </channel>
+</rss>

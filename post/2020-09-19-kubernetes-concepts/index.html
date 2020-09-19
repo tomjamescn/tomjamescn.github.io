@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Kubernetes概念 &ndash; tomjamescn&#39;s blog
+
+    </title>
+    
+    
+    <meta name="description" property="og:description" content="学习和使用k8s已经近2年了，对理解的k8s核心概念做一个总结。 K8s是一个容器管理/编排系统，用于在集群中运行和管理容器化的应用。 K8s还|Describe what your web page is about">
+    
+
+    <meta name="apple-mobile-web-app-title" content="tomjamescn&#39;s blog">
+    
+    
+    <link rel="icon" href="/favicon-64.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    
+    
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://tomjamescn.github.io">
+    tomjamescn&#39;s blog
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item " href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Kubernetes概念</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/kubernetes' class="muted-link">
+  <span class="Label Label--gray-darker">kubernetes</span>
+</a>
+
+
+
+<a href='/tags/concepts' class="muted-link">
+  <span class="Label Label--gray">concepts</span>
+</a>
+
+<a href='/tags/architecture' class="muted-link">
+  <span class="Label Label--gray">architecture</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-09-19. Published at: 2020-09-19.">
+        
+          Lastmod: 2020-09-19
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <blockquote>
+<p>学习和使用k8s已经近2年了，对理解的k8s核心概念做一个总结。</p>
+</blockquote>
+<p>K8s是一个容器管理/编排系统，用于在集群中运行和管理容器化的应用。</p>
+<p>K8s还可以:</p>
+<ul>
+<li>自动伸缩(Autoscaling)</li>
+<li>资源管理和调度</li>
+<li>各种高级的部署方式（蓝绿部署、金丝雀部署）</li>
+<li>批处理任务（cronjob）</li>
+<li>访问控制</li>
+<li>有状态服务（database, message queue）</li>
+<li>利用operator实现自动化的复杂任务（数据库错误恢复）</li>
+</ul>
+<h2 id="架构图">架构图</h2>
+<blockquote>
+<p>下面的两幅架构图非常经典，第一幅说明了k8s的整体架构，第二幅更加详细的说明了每层架构之间的接口标准</p>
+</blockquote>
+<p><img src="/img/k8s-arch.png" alt=""></p>
+<p><img src="/img/k8s-arch2.png" alt=""></p>
+<h3 id="container-runtime-interface">Container Runtime Interface</h3>
+<p>除了docker，还有containerd, CRI-O等技术可选</p>
+<h3 id="container-network-interface">Container Network Interface</h3>
+<p>有非常多的CNI实现，常见的Flannel，Calico等等</p>
+<h3 id="open-container-initiative">Open Container Initiative</h3>
+<p>The Open Container Initiative is an open governance structure for the express purpose of creating open industry standards around container formats and runtimes.</p>
+<h3 id="controller-manager">Controller Manager</h3>
+<p>用于确保资源对象的当前状态以匹配用户期望的状态，是当前状态不断的向期望状态和解来完成容器应用的管理。</p>
+<h3 id="scheduler">Scheduler</h3>
+<p>用于决定将Pod绑定到哪个Node上，时序图如下:</p>
+<p><img src="/img/k8s-scheduler-sequence-diagram.png" alt=""></p>
+<p>可以自定义Scheduler来实现自定义调度，官方资料非常齐全，可以参考：</p>
+<ul>
+<li><a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-scheduling/scheduler.md">Understanding the Kubernetes Scheduler</a></li>
+<li><a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md">scheduler extender</a> - 一种自定义scheduler的方式</li>
+</ul>
+
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Kubernetes概念</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#架构图">架构图</a>
+      <ul>
+        <li><a href="#container-runtime-interface">Container Runtime Interface</a></li>
+        <li><a href="#container-network-interface">Container Network Interface</a></li>
+        <li><a href="#open-container-initiative">Open Container Initiative</a></li>
+        <li><a href="#controller-manager">Controller Manager</a></li>
+        <li><a href="#scheduler">Scheduler</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©tomjamescn 2020 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
