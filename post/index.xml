@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on tomjamescn&#39;s blog</title>
+    <title>Blog on tomjamescn&#39;s blog</title>
     <link>https://tomjamescn.github.io/post/</link>
-    <description>Recent content in Posts on tomjamescn&#39;s blog</description>
+    <description>Recent content in Blog on tomjamescn&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;tomjamescn 2020</copyright>
-    <lastBuildDate>Sat, 19 Sep 2020 08:51:03 +0800</lastBuildDate>
     
 	<atom:link href="https://tomjamescn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
