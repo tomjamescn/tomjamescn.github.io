@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>proxmox on tomjamescn&#39;s blog</title>
+    <link>https://tomjamescn.github.io/categories/proxmox/</link>
+    <description>Recent content in proxmox on tomjamescn&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;tomjamescn 2020</copyright>
+    <lastBuildDate>Sat, 10 Oct 2020 10:14:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://tomjamescn.github.io/categories/proxmox/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>proxmox6.2中配置显卡直通</title>
+      <link>https://tomjamescn.github.io/post/2020-10-10-proxmox-6.2-gpu-passthrough/</link>
+      <pubDate>Sat, 10 Oct 2020 10:14:20 +0800</pubDate>
+      
+      <guid>https://tomjamescn.github.io/post/2020-10-10-proxmox-6.2-gpu-passthrough/</guid>
+      <description>显卡直通的配置教程网上非常零散，此文是自己的实践肝货。 GPU Passthrough Enable the IOMMU vim /etc/default/grub Intel CPU GRUB_CMDLINE_LINUX_DEFAULT=&amp;quot;quiet intel_iommu=on&amp;quot; update-grub Required Modules 这一步很重要，不同的pve版本，因为内核版本不同，所以这里</description>
+    </item>
+    
+  </channel>
+</rss>
